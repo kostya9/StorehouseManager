@@ -37,9 +37,16 @@ namespace StorehouseManager.Domain.Authentication
 
         public User GetUser(string userName, string password)
         {
+            if (!UserExists(userName))
+                return null;
             var hashed = GetHashedPassword(password);
             var user = GetUserByUserName(userName);
             return user.HashedPassword == hashed ? user : null;
+        }
+
+        private bool UserExists(string userName)
+        {
+            return _context.Users.Any(u => u.UserName == userName);
         }
 
         public ClaimsPrincipal GetPrincipal(User user)
