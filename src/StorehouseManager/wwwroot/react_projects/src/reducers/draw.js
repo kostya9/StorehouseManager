@@ -3,38 +3,61 @@ export const START_DRAWING = 'START_DRAWING'
 export const STOP_DRAWING = 'STOP_DRAWING'
 export const MOUSE_MOVE = 'MOUSE_MOVE'
 
+function getBoundSize(position, size, borderTopLeft, borderBottomRight) {
+  let width = size.width;
+  if(position.x + width > borderBottomRight.x) {
+    width = borderBottomRight.x - position.x
+  }
+  else if(position.x + width < borderTopLeft.x) {
+    width = borderTopLeft.x - position.x
+  }
+
+  let height = size.height;
+  if(position.y + height > borderBottomRight.y) {
+    height = borderBottomRight.y - position.y
+  }
+  else if(position.y + height < borderTopLeft.y) {
+    height = borderTopLeft.y - position.y
+  }
+
+  return {height, width}
+} 
+
 const draw = (state = {width: 300, height: 300, drawing: false}, action) => {
   if(Object.keys(state).length == 0)
     return draw(undefined, action)
   switch(action.type) {
     case MOUSE_MOVE:
+    {
       if(!state.drawing)
         return state;
 
       let width = action.newMousePosition.x - state.currentDrawFigure.position.x
-      const otherBorderX = width + state.currentDrawFigure.position.x;
-      if(otherBorderX > state.width)
-        width = state.width - state.currentDrawFigure.position.x
-      else if(otherBorderX < 0)
-        width = 0 - state.currentDrawFigure.position.x
-
       let height = action.newMousePosition.y - state.currentDrawFigure.position.y
-      const otherBorderY = height + state.currentDrawFigure.position.y;
-      if(otherBorderY > state.height)
-        height = state.height - state.currentDrawFigure.position.y
-      else if(otherBorderY < 0)
-        height = 0 - state.currentDrawFigure.position.y
+      
+      let size = getBoundSize(state.currentDrawFigure.position, 
+        {height, width},
+        {x: 0, y: 0}, {x: state.height, y: state.width});
+
       return {
         ...state,
         currentDrawFigure : {...state.currentDrawFigure,
-          width: width, height: height},
+          width: size.width, height: size.height},
       }
+    }
     case START_DRAWING:
+      let x = action.position.x
+      let y = action.position.y
+      
+      let size = getBoundSize({x, y}, 
+        {height: 0, width: 0}, 
+        {x: 0, y: 0}, {x: state.width, y: state.height});
+
       return {
         ...state,
         drawing: true,
         currentDrawFigure: {
-          position: {x: action.position.x, y: action.position.y},
+          position: {x: x, y: y},
           width: 0,
           height: 0
         }

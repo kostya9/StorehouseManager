@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import {SelectorContainer} from './components/Selector'
-import draw, {START_DRAWING, MOUSE_MOVE} from './reducers/draw'
+import reduce from './reducers/reducer'
 
-const store = createStore(draw);
+const store = createStore(reduce);
 
 document.addEventListener('DOMContentLoaded', function() {
   ReactDOM.render(
     <Provider store={store}>
       <SelectorContainer />
-    </Provider>,
+    </Provider>,  
     document.getElementById('mount')
   )
 })

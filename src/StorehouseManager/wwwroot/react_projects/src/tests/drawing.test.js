@@ -151,7 +151,7 @@ describe('mouse move', () => {
     expect(draw(beforeState, action)).toEqual(afterState)
   })
 
-  it('Doesn\'t go outside the bounds', () => {
+  it('Doesn\'t go outside the bounds right bot', () => {
     const beforeState = {drawing: true,
       currentDrawFigure: {
         position: {x: 1, y: 1},
@@ -164,7 +164,7 @@ describe('mouse move', () => {
 
     const action = {
       type: MOUSE_MOVE,
-      newMousePosition: {x: 100, y: 100}
+      newMousePosition: {x: 150, y: 150}
     }
 
     const afterState = {drawing: true,
@@ -179,4 +179,34 @@ describe('mouse move', () => {
 
       expect(draw(beforeState, action)).toEqual(afterState)
   })
+
+    it('Doesn\'t go outside the bounds left top', () => {
+    const beforeState = {drawing: true,
+      currentDrawFigure: {
+        position: {x: 1, y: 1},
+        width: 0,
+        height: 0
+      },
+      width: 100,
+      height: 100
+    }
+
+    const action = {
+      type: MOUSE_MOVE,
+      newMousePosition: {x: -100, y: -100}
+    }
+
+    const afterState = {drawing: true,
+      currentDrawFigure: {
+        position: {x: 1, y: 1},
+        width: -1,
+        height: -1
+      },
+      width: 100,
+      height: 100
+    }
+
+      expect(draw(beforeState, action)).toEqual(afterState)
+  })
 })
+

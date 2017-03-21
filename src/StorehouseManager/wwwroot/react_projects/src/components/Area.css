@@ -1,5 +1,5 @@
 .area {
   border: 1px black dotted;
-  position: relative;
+  position: absolute;
   margin: 0
 }

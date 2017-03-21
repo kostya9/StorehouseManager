@@ -23,7 +23,8 @@ class Area extends Component {
   render() {
     const positionProps = this.getPositionProperties();
     return (
-      <div className="area" style={{width: positionProps.width, height: positionProps.height, top: positionProps.y, left: positionProps.x}}></div>
+      <div className="area" style={{width: positionProps.width, height: positionProps.height, 
+          top: positionProps.y, left: positionProps.x}}></div>
     )
   }
 }

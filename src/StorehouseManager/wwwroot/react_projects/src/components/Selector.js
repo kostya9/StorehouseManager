@@ -5,6 +5,7 @@ import Area from './Area'
 import * as actionCreators from './../actionCreators';
 import {findDOMNode} from 'react-dom'
 
+let id = 0;
 class Selector extends Component {
 
     getMouseRelativePosition(e) {
@@ -35,10 +36,17 @@ class Selector extends Component {
             return;
 
         this.props.stopDrawing()
+        this.props.addArea(id++)
     }
 
     onMouseLeave() {
         this.onMouseUp()
+    }
+
+    createArea(area) {
+        return (<Area x={area.position.x}
+                            y={area.position.y}
+                            height={area.height} width={area.width} key={area.id} id={area.id}/>)
     }
 
     render() {
@@ -51,11 +59,10 @@ class Selector extends Component {
               style={{width: this.props.width + 200, height: this.props.height + 200, padding: 100}}>
             <div style={{width: this.props.width, height: this.props.height}} className="selector" ref="selector">
                 {this.props.currentDrawFigure
-                    ? <Area x={this.props.currentDrawFigure.position.x}
-                            y={this.props.currentDrawFigure.position.y}
-                            height={this.props.currentDrawFigure.height} width={this.props.currentDrawFigure.width}/>
+                    ? this.createArea(this.props.currentDrawFigure)
                     : ''
                 }
+                {this.props.areas.map(a => this.createArea(a))}
            </div>
           </div>
         )
@@ -63,7 +70,11 @@ class Selector extends Component {
 }
 
 function mapStateToProps(state) {
-    return {currentDrawFigure: state.currentDrawFigure, drawing: state.drawing, width: state.width, height: state.height}
+    return {currentDrawFigure: state.currentDrawFigure,
+        drawing: state.drawing, 
+        width: state.width, 
+        height: state.height, 
+        areas: state.areas}
 }
 
 export const SelectorContainer = connect(mapStateToProps, actionCreators)(Selector);
