@@ -37,12 +37,17 @@ class Selector extends Component {
         this.props.stopDrawing()
     }
 
+    onMouseLeave() {
+        this.onMouseUp()
+    }
+
     render() {
         return (
           <div className="selectorWrapper"
               onMouseDown={(e) => this.onMouseDown(e)}
               onMouseMove={(e) => this.onMouseMove(e)}
               onMouseUp={() => this.onMouseUp()}
+              onMouseLeave={() => this.onMouseLeave()}
               style={{width: this.props.width + 200, height: this.props.height + 200, padding: 100}}>
             <div style={{width: this.props.width, height: this.props.height}} className="selector" ref="selector">
                 {this.props.currentDrawFigure
