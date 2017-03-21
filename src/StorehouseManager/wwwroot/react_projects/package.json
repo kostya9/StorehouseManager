@@ -1,0 +1,37 @@
+{
+  "name": "selector",
+  "version": "1.0.0",
+  "description": "React project template\r by ksharovarsky",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "compile": "webpack",
+    "start": "webpack-dev-server --content-base www/ --config webpack.config.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "css-loader": "^0.27.3",
+    "express": "^4.15.2",
+    "jest": "^19.0.2",
+    "style-loader": "^0.14.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0"
+  }
+}
