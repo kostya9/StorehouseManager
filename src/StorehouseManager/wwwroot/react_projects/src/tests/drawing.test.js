@@ -30,6 +30,30 @@ describe('Start and stop drawing', () => {
     expect(draw(beforeState, action)).toEqual(afterState);
   })
 
+  it('Should start drawing on the bounds if the start position if out of bounds', () => {
+    const beforeState = {
+      drawing: false,
+      width: 300,
+      height: 300
+    }
+    const action = {
+      type: START_DRAWING,
+      position: {x: 400, y: 400}
+    }
+
+    const afterState = {
+      drawing: true,
+      currentDrawFigure: {
+        position: {x: 300, y: 300},
+        width: 0,
+        height: 0
+      },
+      width: 300,
+      height: 300
+    }
+    expect(draw(beforeState, action)).toEqual(afterState);
+  })
+
   it('Should start drawing and reset the previous drawing object', () => {
     const beforeState = {
       drawing: false,
@@ -209,4 +233,3 @@ describe('mouse move', () => {
       expect(draw(beforeState, action)).toEqual(afterState)
   })
 })
-

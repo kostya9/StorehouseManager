@@ -21,7 +21,7 @@ function getBoundSize(position, size, borderTopLeft, borderBottomRight) {
   }
 
   return {height, width}
-} 
+}
 
 const draw = (state = {width: 300, height: 300, drawing: false}, action) => {
   if(Object.keys(state).length == 0)
@@ -34,8 +34,8 @@ const draw = (state = {width: 300, height: 300, drawing: false}, action) => {
 
       let width = action.newMousePosition.x - state.currentDrawFigure.position.x
       let height = action.newMousePosition.y - state.currentDrawFigure.position.y
-      
-      let size = getBoundSize(state.currentDrawFigure.position, 
+
+      let size = getBoundSize(state.currentDrawFigure.position,
         {height, width},
         {x: 0, y: 0}, {x: state.height, y: state.width});
 
@@ -48,10 +48,24 @@ const draw = (state = {width: 300, height: 300, drawing: false}, action) => {
     case START_DRAWING:
       let x = action.position.x
       let y = action.position.y
-      
-      let size = getBoundSize({x, y}, 
-        {height: 0, width: 0}, 
-        {x: 0, y: 0}, {x: state.width, y: state.height});
+
+      x = x > state.width
+        ? state.width
+        : x < 0
+        ? 0
+        : x
+
+      y = y > state.height
+        ? state.height
+        : y < 0
+        ? 0
+        : y
+
+
+      if(x > state.width)
+        x = state.width;
+      else if(x < 0)
+        x = 0
 
       return {
         ...state,
