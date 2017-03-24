@@ -32,9 +32,6 @@ class Selector extends Component {
     }
 
     onMouseUp() {
-        if (!this.props.drawing)
-            return;
-
         this.props.stopDrawing()
         this.props.addArea(id++)
     }
@@ -71,9 +68,9 @@ class Selector extends Component {
 
 function mapStateToProps(state) {
     return {currentDrawFigure: state.currentDrawFigure,
-        drawing: state.drawing, 
-        width: state.width, 
-        height: state.height, 
+        drawing: state.drawing,
+        width: state.width,
+        height: state.height,
         areas: state.areas}
 }
 

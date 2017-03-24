@@ -1,7 +1,46 @@
+import Vector2D from './vector2d'
 
 export const START_DRAWING = 'START_DRAWING'
 export const STOP_DRAWING = 'STOP_DRAWING'
 export const MOUSE_MOVE = 'MOUSE_MOVE'
+
+function valueInRange(value, edgeFirst, edgeSecond) {
+  const rangeMin = Math.min(edgeFirst, edgeSecond)
+  const rangeMax = Math.max(edgeFirst, edgeSecond)
+  return (value >= rangeMin) && (value <= rangeMax)
+}
+
+function areAreasCollided(firstAreaStartingPosition, firstAreaEndingPosition,
+  secondAreaStartingPosition, secondAreaEndingPosition) {
+    const x_overlap_start = valueInRange(firstAreaStartingPosition.x, secondAreaStartingPosition.x, secondAreaEndingPosition.x)
+      || valueInRange(secondAreaStartingPosition.x, firstAreaStartingPosition.x, firstAreaEndingPosition.x)
+
+    const x_overlap_end = valueInRange(firstAreaEndingPosition.x, secondAreaStartingPosition.x, secondAreaEndingPosition.x)
+      || valueInRange(secondAreaEndingPosition.x, firstAreaStartingPosition.x, firstAreaEndingPosition.x)
+
+      const x_overlap = x_overlap_end || x_overlap_start;
+
+    const y_overlap_start = valueInRange(firstAreaStartingPosition.y, secondAreaStartingPosition.y, secondAreaEndingPosition.y)
+      || valueInRange(secondAreaStartingPosition.y, firstAreaStartingPosition.y, firstAreaEndingPosition.y)
+
+      const y_overlap_end = valueInRange(firstAreaEndingPosition.y, secondAreaStartingPosition.y, secondAreaEndingPosition.y)
+        || valueInRange(secondAreaEndingPosition.y, firstAreaStartingPosition.y, firstAreaEndingPosition.y)
+
+      const y_overlap = y_overlap_start || y_overlap_end;
+
+      return x_overlap && y_overlap;
+}
+
+function isCollision(state, newMousePosition) {
+  if(state.areas == undefined)
+    return false;
+  for (const area of state.areas) {
+    if(areAreasCollided(state.currentDrawFigure.position, newMousePosition,
+      area.position, {x: area.position.x + area.width, y: area.position.y + area.height}))
+      return true;
+  }
+  return false;
+}
 
 function getBoundSize(position, size, borderTopLeft, borderBottomRight) {
   let width = size.width;
@@ -23,9 +62,7 @@ function getBoundSize(position, size, borderTopLeft, borderBottomRight) {
   return {height, width}
 }
 
-const draw = (state = {width: 300, height: 300, drawing: false}, action) => {
-  if(Object.keys(state).length == 0)
-    return draw(undefined, action)
+const draw = (state, action) => {
   switch(action.type) {
     case MOUSE_MOVE:
     {
@@ -38,6 +75,9 @@ const draw = (state = {width: 300, height: 300, drawing: false}, action) => {
       let size = getBoundSize(state.currentDrawFigure.position,
         {height, width},
         {x: 0, y: 0}, {x: state.height, y: state.width});
+
+        if(isCollision(state, action.newMousePosition))
+          return {...state, drawing: false};
 
       return {
         ...state,
@@ -61,13 +101,7 @@ const draw = (state = {width: 300, height: 300, drawing: false}, action) => {
         ? 0
         : y
 
-
-      if(x > state.width)
-        x = state.width;
-      else if(x < 0)
-        x = 0
-
-      return {
+      var newState =  {
         ...state,
         drawing: true,
         currentDrawFigure: {
@@ -76,6 +110,11 @@ const draw = (state = {width: 300, height: 300, drawing: false}, action) => {
           height: 0
         }
       }
+
+        if(isCollision(newState, {x, y}))
+          return state;
+
+        return newState;
     case STOP_DRAWING:
       return {
         ...state,

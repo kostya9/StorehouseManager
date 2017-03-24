@@ -2,17 +2,12 @@ import draw, {START_DRAWING, STOP_DRAWING, MOUSE_MOVE} from './../reducers/draw'
 
 
 describe('Start and stop drawing', () => {
-  it('Should return not drawing and height, width on initial state', () => {
-    const beforeState = {}
-    const afterState = {drawing: false, width: 300, height: 300}
-    const action = {
-      type: 'TEST_ACTION'
-    }
-    expect(draw(beforeState, action)).toEqual(afterState);
-  });
-
   it('Should start drawing and create a new drawing object', () => {
-    const beforeState = {}
+    const beforeState = {
+          drawing: false,
+          areas: [],
+          width: 300,
+          height: 300}
     const afterState = {
       drawing: true,
       currentDrawFigure: {
@@ -21,7 +16,8 @@ describe('Start and stop drawing', () => {
         height: 0
       },
       width: 300,
-      height: 300
+      height: 300,
+      areas: []
     }
     const action = {
       type: START_DRAWING,
@@ -232,4 +228,88 @@ describe('mouse move', () => {
 
       expect(draw(beforeState, action)).toEqual(afterState)
   })
+
+  it('Does not draw if there will be an obstacle on the right', () => {
+    const beforeState = { drawing: true,
+    currentDrawFigure: {
+      position: {x: 1, y: 1},
+      width: 0,
+      height: 0
+    },
+    width: 100,
+    height: 100,
+    areas: [{
+        id: 0,
+        position: {x: 3, y: 3},
+        width: 100,
+        height: 100
+      }]
+  }
+
+  const action = {
+    type: MOUSE_MOVE,
+    newMousePosition: {x: 10, y: 10}
+  }
+
+  const afterState = {drawing: false,
+    currentDrawFigure: {
+      position: {x: 1, y: 1},
+      width: 0,
+      height: 0
+    },
+    width: 100,
+    height: 100,
+    areas: [{
+        id: 0,
+        position: {x: 3, y: 3},
+        width: 100,
+        height: 100
+      }]
+  }
+
+  expect(draw(beforeState, action)).toEqual(afterState)
+})
+it('Does not draw if there will be an obstacle on the left', () => {
+  const beforeState = { drawing: true,
+  currentDrawFigure: {
+    position: {x: 10, y: 10},
+    width: 0,
+    height: 0
+  },
+  width: 100,
+  height: 100,
+  areas: [{
+      id: 0,
+      position: {x: 3, y: 3},
+      width: 100,
+      height: 100
+    }]
+}
+
+const action = {
+  type: MOUSE_MOVE,
+  newMousePosition: {x: 1, y: 10}
+}
+
+const afterState = {drawing: false,
+  currentDrawFigure: {
+    position: {x: 10, y: 10},
+    width: 0,
+    height: 0
+  },
+  width: 100,
+  height: 100,
+  areas: [{
+      id: 0,
+      position: {x: 3, y: 3},
+      width: 100,
+      height: 100
+    }]
+}
+
+expect(draw(beforeState, action)).toEqual(afterState)
+})
+
+// TODO: think about sticking to the nearest
+
 })
