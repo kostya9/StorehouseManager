@@ -1,32 +1,18 @@
 import React, {Component} from 'react'
+
 import css from './Area.css'
 
-class Area extends Component {
-  getPositionProperties() {
-      const width = Math.abs(this.props.width);
-      const height = Math.abs(this.props.height);
-      let y = this.props.y;
-      let x = this.props.x;
-      if(this.props.height < 0) {
-        y -= height;
-      }
-
-      if(this.props.width < 0) {
-        x -= width;
-      }
-
-      return {
-        width, height, x, y
-      }
-  }
-
+export default class Area extends Component {
   render() {
-    const positionProps = this.getPositionProperties();
     return (
-      <div className="area" style={{width: positionProps.width, height: positionProps.height, 
-          top: positionProps.y, left: positionProps.x}}></div>
-    )
+    <div className="area" onClick={() => this.props.selectArea(this.props.id)}>
+      {
+        this.props.selected ? <span className="value area-info-badge">+</span> : ''
+      }
+      <span className="key area-info-badge">Id</span>
+      <span className="value area-info-badge">{this.props.id}</span>
+      <span className="key area-info-badge">Name</span>
+      <span className="value area-info-badge">{this.props.id}</span>
+  </div>)
   }
 }
-
-export default Area;

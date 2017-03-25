@@ -1,5 +1,12 @@
 import {START_DRAWING,STOP_DRAWING, MOUSE_MOVE} from './reducers/draw'
-import {ADD_AREA} from './reducers/areas'
+import {ADD_AREA, SELECT_AREA} from './reducers/areas'
+
+export function selectArea(id) {
+  return {
+    type: SELECT_AREA,
+    id: id
+  }
+}
 
 export function startDrawing(position) {
   return {

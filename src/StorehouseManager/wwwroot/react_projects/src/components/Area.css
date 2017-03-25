@@ -1,5 +1,35 @@
+
+.area .area-info-badge:first-child {
+  border-radius: 5px 0px 0px 5px;
+}
+
+.area .area-info-badge:last-child {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.area .key, .area .value {
+  padding: 5px;
+}
+
+.area .key {
+  background-color: grey;
+}
+
+.area .value {
+  background-color: green;
+}
+
 .area {
-  border: 1px black dotted;
-  position: absolute;
-  margin: 0
+  margin: 10px;
+  display: inline-block;
+}
+
+.area .area-info-badge {
+  display: inline-block;
+    color: white;
+    position: relative;
+}
+
+li {
+  list-style-type: none;
 }

@@ -1,17 +1,21 @@
 import React, {Component} from 'react'
 import css from './Selector.css'
 import {connect} from 'react-redux'
-import Area from './Area'
 import * as actionCreators from './../actionCreators';
 import {findDOMNode} from 'react-dom'
+
+import Area from './DrawArea'
+import AreaList from './AreaList'
 
 let id = 0;
 class Selector extends Component {
 
     getMouseRelativePosition(e) {
       const rect = findDOMNode(this.refs.selector).getBoundingClientRect()
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const mouseX = e.clientX || e.touches[0].clientX || e.changedTouches[0].clientX
+      const mouseY = e.clientY || e.touches[0].clientY || e.changedTouches[0].clientY
+      const x = mouseX- rect.left;
+      const y = mouseY - rect.top;
       return {x, y}
     }
     onMouseDown(e) {
@@ -37,17 +41,20 @@ class Selector extends Component {
     }
 
     onMouseLeave() {
-        this.onMouseUp()
+      if(!this.props.drawing)
+          return;
+      this.onMouseUp()
     }
 
     createArea(area) {
         return (<Area x={area.position.x}
                             y={area.position.y}
-                            height={area.height} width={area.width} key={area.id} id={area.id}/>)
+                            height={area.height} width={area.width} key={area.id} id={area.id} selectedId={this.props.selectedId}/>)
     }
 
     render() {
         return (
+          <div>
           <div className="selectorWrapper"
               onMouseDown={(e) => this.onMouseDown(e)}
               onMouseMove={(e) => this.onMouseMove(e)}
@@ -62,6 +69,8 @@ class Selector extends Component {
                 {this.props.areas.map(a => this.createArea(a))}
            </div>
           </div>
+          <AreaList areas={this.props.areas} selectArea={this.props.selectArea} selectedId={this.props.selectedId}/>
+        </div>
         )
     }
 }
@@ -71,7 +80,8 @@ function mapStateToProps(state) {
         drawing: state.drawing,
         width: state.width,
         height: state.height,
-        areas: state.areas}
+        areas: state.areas,
+        selectedId: state.selectedId}
 }
 
 export const SelectorContainer = connect(mapStateToProps, actionCreators)(Selector);

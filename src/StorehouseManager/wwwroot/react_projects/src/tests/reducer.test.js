@@ -9,7 +9,8 @@ describe('Return correct initial state', () => {
       width: 300,
       height: 300,
       areas: [],
-      drawing: false
+      drawing: false,
+      selectedId: -1
     }
     expect(reduce(beforeState, action)).toEqual(afterState)
   })
