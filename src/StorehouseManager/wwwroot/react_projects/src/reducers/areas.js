@@ -9,6 +9,8 @@ export default function areas(state, action) {
     switch(action.type) {
         case ADD_AREA:
             const {currentDrawFigure, ...newState} = state;
+            if(currentDrawFigure == undefined)
+              return state;
             currentDrawFigure.id = action.id
             return {...newState, areas: [...newState.areas, currentDrawFigure]}
         case REMOVE_AREA:
