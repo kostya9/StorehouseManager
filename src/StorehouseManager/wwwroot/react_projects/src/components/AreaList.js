@@ -9,7 +9,7 @@ export default class AreaList extends Component{
       {this.props.areas.map((area) =>
         {
           return (
-          <li key={area.id}><Area selectArea={this.props.selectArea} id={area.id} selected={area.id == this.props.selectedId}/></li>
+          <li key={area.id}><Area selectArea={this.props.selectArea} id={area.id} name={area.name} selected={area.id == this.props.selectedId}/></li>
         )})}
     </ul>)
   }

@@ -1,87 +1,56 @@
 import React, {Component} from 'react'
-import css from './Selector.css'
 import {connect} from 'react-redux'
 import * as actionCreators from './../actionCreators';
-import {findDOMNode} from 'react-dom'
 
-import Area from './DrawArea'
+import css from './Selector.css'
+
+import AreaDetails from './AreaDetails'
 import AreaList from './AreaList'
+import Drawer from './Drawer'
 
-let id = 0;
 class Selector extends Component {
 
-    getMouseRelativePosition(e) {
-      const rect = findDOMNode(this.refs.selector).getBoundingClientRect()
-      const mouseX = e.clientX || e.touches[0].clientX || e.changedTouches[0].clientX
-      const mouseY = e.clientY || e.touches[0].clientY || e.changedTouches[0].clientY
-      const x = mouseX- rect.left;
-      const y = mouseY - rect.top;
-      return {x, y}
-    }
-    onMouseDown(e) {
-        e.preventDefault()
-        if (this.props.drawing)
-            return;
-        const pos = this.getMouseRelativePosition(e)
-        this.props.startDrawing(pos)
-    }
+    getSelectedName() {
+      const id = this.props.selectedId;
+        if (id == -1)
+            return '';
 
-    onMouseMove(e) {
-        e.preventDefault()
-        if (!this.props.drawing)
-            return;
-
-        const pos = this.getMouseRelativePosition(e)
-        this.props.mouseMove(pos)
-    }
-
-    onMouseUp() {
-        this.props.stopDrawing()
-        this.props.addArea(id++)
-    }
-
-    onMouseLeave() {
-      if(!this.props.drawing)
-          return;
-      this.onMouseUp()
-    }
-
-    createArea(area) {
-        return (<Area x={area.position.x}
-                            y={area.position.y}
-                            height={area.height} width={area.width} key={area.id} id={area.id} selectedId={this.props.selectedId}/>)
+        const area = this.props.areas.find((area) => area.id == id);
+        return area.name;
     }
 
     render() {
         return (
-          <div>
-          <div className="selectorWrapper"
-              onMouseDown={(e) => this.onMouseDown(e)}
-              onMouseMove={(e) => this.onMouseMove(e)}
-              onMouseUp={() => this.onMouseUp()}
-              onMouseLeave={() => this.onMouseLeave()}
-              style={{width: this.props.width + 200, height: this.props.height + 200, padding: 100}}>
-            <div style={{width: this.props.width, height: this.props.height}} className="selector" ref="selector">
-                {this.props.currentDrawFigure
-                    ? this.createArea(this.props.currentDrawFigure)
-                    : ''
-                }
-                {this.props.areas.map(a => this.createArea(a))}
-           </div>
-          </div>
-          <AreaList areas={this.props.areas} selectArea={this.props.selectArea} selectedId={this.props.selectedId}/>
-        </div>
+            <div>
+                <div className="row col-xs-12 drawAndSelected">
+                    <div className="col-md-6 col-sm-8">
+                        <Drawer drawing={this.props.drawing} areas={this.props.areas} selectedId={this.props.selectedId}
+                          currentDrawFigure={this.props.currentDrawFigure} height={this.props.height} width={this.props.width}
+                          startDrawing={this.props.startDrawing} addArea={this.props.addArea} stopDrawing={this.props.stopDrawing} mouseMove={this.props.mouseMove}
+                          selectArea={this.props.selectArea}/>
+                    </div>
+                    <div className="col-md-6 selectedDetails col-sm-8">
+                        {this.props.selectedId != -1
+                            ? <AreaDetails id={this.props.selectedId} name={this.getSelectedName()} setName={this.props.setName} removeArea={this.props.removeArea}/>
+                            : ''}
+                    </div>
+                </div>
+                <AreaList areas={this.props.areas} selectArea={this.props.selectArea} selectedId={this.props.selectedId}/>
+            </div>
         )
     }
 }
 
 function mapStateToProps(state) {
-    return {currentDrawFigure: state.currentDrawFigure,
+    return {
+        currentDrawFigure: state.currentDrawFigure,
         drawing: state.drawing,
         width: state.width,
         height: state.height,
         areas: state.areas,
-        selectedId: state.selectedId}
+        selectedId: state.selectedId,
+        form: state.form
+    }
 }
 
 export const SelectorContainer = connect(mapStateToProps, actionCreators)(Selector);

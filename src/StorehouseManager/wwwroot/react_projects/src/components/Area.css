@@ -16,7 +16,11 @@
 }
 
 .area .value {
-  background-color: green;
+  background-color: #337ab7;
+}
+
+.area .selected {
+  background-color: #669966
 }
 
 .area {

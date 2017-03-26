@@ -7,12 +7,12 @@ export default class Area extends Component {
     return (
     <div className="area" onClick={() => this.props.selectArea(this.props.id)}>
       {
-        this.props.selected ? <span className="value area-info-badge">+</span> : ''
+        this.props.selected ? <span className="selected key area-info-badge">+</span> : ''
       }
       <span className="key area-info-badge">Id</span>
       <span className="value area-info-badge">{this.props.id}</span>
       <span className="key area-info-badge">Name</span>
-      <span className="value area-info-badge">{this.props.id}</span>
+      <span className="value area-info-badge">{this.props.name}</span>
   </div>)
   }
 }

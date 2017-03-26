@@ -4,8 +4,8 @@ import css from './DrawArea.css'
 class DrawArea extends Component {
   getBorderColor(id) {
     if(id == this.props.selectedId)
-      return 'green';
-    return 'black';
+      return '#669966';
+    return 'gray';
   }
 
   getBorderStyle(id) {
@@ -31,11 +31,15 @@ class DrawArea extends Component {
       }
   }
 
+  onClick() {
+    this.props.selectArea(this.props.id)
+  }
+
   render() {
     const positionProps = this.getPositionProperties();
     return (
       <div className="drawArea" style={{width: positionProps.width, height: positionProps.height,
-          top: positionProps.y, left: positionProps.x, borderColor: this.getBorderColor(this.props.id), borderStyle: this.getBorderStyle(this.props.id)}}></div>
+          top: positionProps.y, left: positionProps.x, borderColor: this.getBorderColor(this.props.id), borderStyle: this.getBorderStyle(this.props.id)}} onClick={() => this.onClick()}></div>
     )
   }
 }
