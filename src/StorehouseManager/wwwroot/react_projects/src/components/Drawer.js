@@ -5,13 +5,6 @@ import css from './Drawer.css'
 import Area from './DrawArea'
 export default class Drawer extends Component {
 
-  getNextId() {
-    if(this.props.areas.length == 0)
-      return 0;
-    const ids = this.props.areas.map((area) => area.id);
-    return Math.max(...ids) + 1;
-  }
-
   getMouseRelativePosition(e) {
     const rect = findDOMNode(this.refs.drawer).getBoundingClientRect()
     const mouseX = e.clientX || e.touches[0].clientX || e.changedTouches[0].clientX
@@ -30,28 +23,36 @@ export default class Drawer extends Component {
 
   onMouseMove(e) {
       e.preventDefault()
-      if (this.props.currentDrawFigure == undefined)
-          return;
+      if (!this.props.drawing)
+      {
+        return;
+      }
 
       const pos = this.getMouseRelativePosition(e)
       this.props.mouseMove(pos)
   }
 
   onMouseUp() {
+    if(this.props.currentDrawFigure == undefined)
+        return;
+    const rectangle = this.props.currentDrawFigure
+    if(Math.abs(rectangle.height) < 10 || Math.abs(rectangle.width) < 10)
+    {
       this.props.stopDrawing()
-      this.props.addArea(this.getNextId())
+      return;
+    }
+
+    this.props.startAddArea(rectangle)
   }
 
   onMouseLeave() {
-    if(this.props.currentDrawFigure == undefined)
-        return;
     this.onMouseUp()
   }
 
   createArea(area) {
       return (<Area x={area.position.x}
                           y={area.position.y}
-                          height={area.height} width={area.width} key={area.id} id={area.id} selectedId={this.props.selectedId} selectArea={this.props.selectArea}/>)
+                          height={area.height} width={area.width} key={area.id} id={area.id} selectedId={this.props.selectedId} selectArea={this.props.selectArea} type={area.type}/>)
   }
 
   render() {

@@ -1,3 +1,4 @@
 .areaList {
   list-style-type: none;
+  position: relative;
 }

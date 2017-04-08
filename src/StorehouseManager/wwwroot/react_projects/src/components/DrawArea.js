@@ -1,11 +1,17 @@
 import React, {Component} from 'react'
 import css from './DrawArea.css'
 
+import {AREA_ENTER, AREA_EXIT, AREA_SECTION} from './../domain/area'
+
 class DrawArea extends Component {
   getBorderColor(id) {
-    if(id == this.props.selectedId)
-      return '#669966';
-    return 'gray';
+    if(this.props.type == AREA_EXIT)
+      return 'red'
+    if(this.props.type == AREA_ENTER)
+      return 'blue'
+    if(this.props.type == AREA_SECTION)
+      return '#3D9970';
+    return 'gray'
   }
 
   getBorderStyle(id) {

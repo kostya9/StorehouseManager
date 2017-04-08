@@ -12,11 +12,11 @@
 }
 
 .area .key {
-  background-color: grey;
+  background-color: #337ab7;
 }
 
 .area .value {
-  background-color: #337ab7;
+  background-color: grey;
 }
 
 .area .selected {
@@ -30,8 +30,8 @@
 
 .area .area-info-badge {
   display: inline-block;
-    color: white;
-    position: relative;
+  color: white;
+  position: relative;
 }
 
 li {

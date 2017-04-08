@@ -42,8 +42,12 @@ namespace StorehouseManager.Controllers
             {
                 ModelState.AddModelError(string.Empty,
                     "The username or password are incorrect, or username already exists");
+                return View();
             }
-            return Register();
+
+            return RedirectToAction("Login");
+
+
         }
 
         [HttpPost]
@@ -56,7 +60,7 @@ namespace StorehouseManager.Controllers
                 return Login();
             }
             await SignInAsync(user);
-            return RedirectToAction("Index", "StorehousOwner");
+            return RedirectToAction("Index", "StorehouseOwner");
 
         }
 

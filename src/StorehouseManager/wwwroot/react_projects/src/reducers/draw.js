@@ -8,20 +8,19 @@ export const START_DRAWING = 'START_DRAWING'
 export const STOP_DRAWING = 'STOP_DRAWING'
 export const MOUSE_MOVE = 'MOUSE_MOVE'
 
-const draw = (state, action) => {
+const draw = (state = {drawing: false, width: 400, height: 400}, action, areasList) => {
     switch (action.type) {
         case MOUSE_MOVE:
             {
                 if (!state.drawing)
                     return state;
 
-                if (CollisionDetector.isCollision(state, action.newMousePosition))
+                if (CollisionDetector.isCollision(state, action.newMousePosition, areasList))
                     return { ...state, drawing: false};
 
                 let additionalWidth = action.newMousePosition.x - state.currentDrawFigure.position.x - state.currentDrawFigure.width
                 let additionalHeight = action.newMousePosition.y - state.currentDrawFigure.position.y - state.currentDrawFigure.height
                 let newDrawFigure = cloneDeep(state.currentDrawFigure)
-
                 newDrawFigure.extend(additionalWidth, additionalHeight)
 
                 return { ...state, currentDrawFigure: newDrawFigure }
@@ -33,12 +32,14 @@ const draw = (state, action) => {
             const newBoundRectangle = new BoundRectangle(rectangle, 0, 0, state.width, state.height)
             var newState = {...state, drawing: true, currentDrawFigure: newBoundRectangle }
 
-            if (CollisionDetector.isCollision(newState, {x, y}))
-                return state;
+            if (CollisionDetector.isCollision(newState, {x, y}, areasList))
+              return state;
+
 
             return newState;
         case STOP_DRAWING:
-            return { ...state, drawing: false }
+            let {currentDrawFigure, ...newState} = state;
+            return { ...newState, drawing: false }
         default:
             return state
     }

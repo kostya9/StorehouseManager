@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 namespace StorehouseManager.Controllers
 {
     [Authorize]
-    public class StorehousOwnerController : Controller
+    public class StorehouseOwnerController : Controller
     {
         public IActionResult Index()
         {

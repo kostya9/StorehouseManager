@@ -53,7 +53,7 @@ namespace StorehouseManager.Domain.Authentication
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.FirstName + " " + user.SecondName)
             };
             var identity = new ClaimsIdentity(claims, UserManager.AuthenticationScheme);

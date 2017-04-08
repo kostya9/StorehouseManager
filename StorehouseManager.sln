@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EB3EF9D9-526C-458C-81F3-746636A099F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E6B8F25-5D2E-4FA3-9A6B-5EB6037F550F}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "StorehouseManager", "src\StorehouseManager\StorehouseManager.xproj", "{5F7644CF-83D6-467A-B05D-085195BC2422}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StorehouseManager", "src\StorehouseManager\StorehouseManager.csproj", "{5F7644CF-83D6-467A-B05D-085195BC2422}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "StorehouseManager.Domain", "src\StorehouseManager.Domain\StorehouseManager.Domain.xproj", "{61D09D97-7294-4367-933C-AC82BFE19A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StorehouseManager.Domain", "src\StorehouseManager.Domain\StorehouseManager.Domain.csproj", "{61D09D97-7294-4367-933C-AC82BFE19A23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

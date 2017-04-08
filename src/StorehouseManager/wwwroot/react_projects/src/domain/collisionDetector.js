@@ -21,10 +21,10 @@ function areAreasCollided(firstAreaStartingPosition, firstAreaEndingPosition, se
 }
 
 export default class CollisionDetector {
-  static isCollision(state, newMousePosition) {
-      if (state.areas == undefined)
+  static isCollision(state, newMousePosition, areas) {
+      if (areas == undefined)
           return false;
-      for (const area of state.areas) {
+      for (const area of areas) {
           if (areAreasCollided(state.currentDrawFigure.position, newMousePosition, area.position, {
               x: area.position.x + area.width,
               y: area.position.y + area.height
