@@ -38,6 +38,16 @@ namespace StorehouseManager.Domain.Areas
         {
             _context.Remove(FindById(id, userId));
             _context.SaveChanges();
-        } 
+        }
+
+        public Area Update(Area area, int userId)
+        {
+            var repositoryArea = FindById(area.Id, userId);
+            repositoryArea.Name = area.Name;
+            repositoryArea.Type = area.Type;
+            _context.Areas.Update(repositoryArea);
+            _context.SaveChanges();
+            return repositoryArea;
+        }
     }
 }

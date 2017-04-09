@@ -1,14 +1,7 @@
 import {START_DRAWING,STOP_DRAWING, MOUSE_MOVE} from './reducers/draw'
 import {ADD_AREA, SELECT_AREA, SET_NAME, REMOVE_AREA, CANCEL_ADD_AREA, START_ADD_AREA} from './reducers/areas'
 
-export {addArea, removeArea} from './actions/areas';
-
-export function setName(name) {
-  return {
-    type: SET_NAME,
-    name: name
-  }
-}
+export {addArea, removeArea, updateArea} from './actions/areas';
 
 export function selectArea(id) {
   return {

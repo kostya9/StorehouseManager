@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import css from './DrawArea.css'
 
-import {AREA_ENTER, AREA_EXIT, AREA_SECTION} from './../domain/area'
+import {AREA_ENTER, AREA_EXIT, AREA_SECTION} from '../../domain/area'
 
 class DrawArea extends Component {
   getBorderColor(id) {

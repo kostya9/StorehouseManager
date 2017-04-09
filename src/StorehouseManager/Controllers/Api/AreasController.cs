@@ -48,6 +48,13 @@ namespace StorehouseManager.Controllers.Api
             _areaRepository.Remove(id, userId);
         }
 
+        [HttpPut("{id}")]
+        public Area UpdateArea(int id, [FromBody]Area area)
+        {
+            area.Id = id;
+            return _areaRepository.Update(area, GetCurrentUserId());
+        }
+
         public int GetCurrentUserId()
         {
             var userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;

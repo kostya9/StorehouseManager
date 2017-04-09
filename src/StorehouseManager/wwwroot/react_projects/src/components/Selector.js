@@ -4,23 +4,23 @@ import * as actionCreators from './../actionCreators';
 
 import css from './Selector.css'
 
-import AreaDetails from './AreaDetails'
-import AreaList from './AreaList'
-import Drawer from './Drawer'
-import AddArea from './AddArea'
+import AreaDetails from './Areas/AreaDetails'
+import AreaList from './Areas/AreaList'
+import Drawer from './Draw/Drawer'
+import AddArea from './Areas/AddArea'
 
 class Selector extends Component {
 
-    getSelectedName() {
+    getSelectedArea() {
       const id = this.props.selectedId;
-        if (id == -1)
-            return '';
+        if (id === -1)
+            return null;
 
-        const area = this.props.areas.find((area) => area.id == id);
-        return area.name;
+        return this.props.areas.find((area) => area.id == id);
     }
 
     render() {
+        const selectedArea = this.getSelectedArea();
         return (
             <div>
                 <div className="row col-xs-12 drawAndSelected">
@@ -32,10 +32,12 @@ class Selector extends Component {
                     </div>
                     <div className="col-sm-3">
                         {this.props.selectedId != -1
-                            ? <AreaDetails id={this.props.selectedId} name={this.getSelectedName()} setName={this.props.setName} removeArea={this.props.removeArea}/>
+                            ? <AreaDetails id={this.props.selectedId} name={selectedArea.name} type={selectedArea.type} updateArea={this.props.updateArea}
+                                           removeArea={this.props.removeArea} areaTypesAvailability={this.props.areaTypesAvailability}/>
                             : ''}
                     </div>
-                    <AddArea stopDrawing={this.props.stopDrawing} addingAreaRectangle={this.props.addingAreaRectangle} cancel={this.props.cancelAddArea} add={this.props.addArea} areaTypesAvailability={this.props.areaTypesAvailability}/>
+                    <AddArea stopDrawing={this.props.stopDrawing} addingAreaRectangle={this.props.addingAreaRectangle} cancel={this.props.cancelAddArea}
+                             add={this.props.addArea} areaTypesAvailability={this.props.areaTypesAvailability}/>
                 </div>
                 <AreaList areas={this.props.areas} selectArea={this.props.selectArea} selectedId={this.props.selectedId}/>
             </div>

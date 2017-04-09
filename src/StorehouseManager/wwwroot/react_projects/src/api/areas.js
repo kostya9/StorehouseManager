@@ -68,6 +68,18 @@ function createDeleteFetchOptions()
     }
 }
 
+function createPutFetchOptions(body)
+{
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return {
+        ...sameOriginOption,
+        method: "PUT",
+        body: body,
+        headers: headers
+    };
+}
+
 export default class AreasApi {
     static getAreas() {
         return fetch(address + '/api/areas', sameOriginOption)
@@ -92,5 +104,16 @@ export default class AreasApi {
 
     static removeArea(id) {
         return fetch(address + '/api/areas/' + id, createDeleteFetchOptions())
+    }
+
+    static updateArea(id, name, type) {
+        return fetch(address + '/api/areas/' + id,
+            createPutFetchOptions(JSON.stringify({name: name, type: toServerType(type)})))
+            .then((response) => {
+                return response.json();
+            })
+            .then((area) => {
+                return fromServerArea(area);
+            });
     }
 }

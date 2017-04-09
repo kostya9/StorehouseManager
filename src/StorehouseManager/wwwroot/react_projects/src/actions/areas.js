@@ -1,5 +1,5 @@
 import AreasApi from "../api/areas";
-import {LOAD_AREAS, ADD_AREA, REMOVE_AREA} from "../reducers/areas";
+import {LOAD_AREAS, ADD_AREA, REMOVE_AREA, UPDATE_AREA} from "../reducers/areas";
 import Area from "../domain/area";
 
 function loadAreasSuccess(areas) {
@@ -12,6 +12,13 @@ function addAreaSuccess(area) {
 
 function removeAreaFromState() {
     return {type: REMOVE_AREA}
+}
+
+function updateAreaSuccess(area) {
+    return {
+        type: UPDATE_AREA,
+        area: area
+    }
 }
 
 export function cancelAddArea() {
@@ -46,6 +53,15 @@ export function addArea(rectangle, type, name) {
         return AreasApi.addArea(addingArea)
             .then((area) => {
                 dispatch(addAreaSuccess(area))
+            })
+    }
+}
+
+export function updateArea(id, name, type) {
+    return (dispatch) => {
+        return AreasApi.updateArea(id, name, type)
+            .then((area) => {
+                dispatch(updateAreaSuccess(area))
             })
     }
 }

@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 
 import {Modal, FormControl, FormGroup, ControlLabel, Button, Form} from 'react-bootstrap'
 
-import Area, {AREA_ENTER, AREA_EXIT, AREA_SECTION} from '../domain/area'
-
+import Area, {AREA_ENTER, AREA_EXIT, AREA_SECTION} from '../../domain/area'
+import AreaTypeSelect from './AreaTypeSelect'
 
 
 export default class AddArea extends Component {
@@ -45,11 +45,7 @@ export default class AddArea extends Component {
         <Form onSubmit={(e) => this.addArea(e)}>
           <FormGroup>
           <ControlLabel>Area Type</ControlLabel>
-          <FormControl componentClass="select" onChange={(e) => this.handleTypeChange(e)} value={this.state.type}>
-            <option value={AREA_SECTION}>{Area.fromTypeToName(AREA_SECTION)}</option>
-            {this.props.areaTypesAvailability.enter ? <option value={AREA_ENTER}>{Area.fromTypeToName(AREA_ENTER)}</option> : ''}
-            {this.props.areaTypesAvailability.exit ? <option value={AREA_EXIT}>{Area.fromTypeToName(AREA_EXIT)}</option> : ''}
-          </FormControl>
+          <AreaTypeSelect onChange={(e) => this.handleTypeChange(e)} value={this.state.type} areaTypesAvailability={this.props.areaTypesAvailability}/>
         </FormGroup>
         <FormGroup>
           <ControlLabel>Name</ControlLabel>

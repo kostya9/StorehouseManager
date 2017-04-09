@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 import Area from './Area'
-import AreaDomain from './../domain/area'
+import AreaDomain from '../../domain/area'
 
 export default class AreaList extends Component{
 

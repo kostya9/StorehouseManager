@@ -6,8 +6,8 @@ export const ADD_AREA = 'ADD_AREA'
 export const REMOVE_AREA = 'REMOVE_AREA'
 export const SELECT_AREA = 'SELECT_AREA'
 export const SELECT_RESET = 'SELECT_RESET'
-export const SET_NAME = 'SET_NAME'
 export const LOAD_AREAS = 'LOAD_AREAS'
+export const UPDATE_AREA = 'UPDATE_AREA'
 
 import Area, {AREA_ENTER, AREA_EXIT, AREA_SECTION} from './../domain/area'
 
@@ -36,17 +36,22 @@ export default function areas(state = {areasList: [], selectedId: -1, areaTypesA
         }
         case SELECT_RESET:
             return {...state, selectedId: -1}
-        case SET_NAME:
+        case UPDATE_AREA:
         {
             if(state.selectedId === -1)
               return;
-            const areaIndex = state.areasList.findIndex((area) => area.id == state.selectedId);
+            const areaIndex = state.areasList.findIndex((area) => area.id === state.selectedId);
             const area = state.areasList[areaIndex];
-            const newArea = cloneDeep(area);
-            newArea.name = action.name;
-            var newAreas = [...state.areasList];
+            const newArea = action.area;
+            const newAreas = [...state.areasList];
             newAreas.splice(areaIndex, 1, newArea);
-            return {...state, areasList: newAreas}
+
+            const areaTypesAvailability = {section: true, enter: true, exit: true}
+            if(newAreas.find((a) => a.type === AREA_ENTER) !== undefined)
+                areaTypesAvailability.enter = false;
+            if(newAreas.find((a) => a.type === AREA_EXIT) !== undefined)
+                areaTypesAvailability.exit = false;
+            return {...state, areasList: newAreas, areaTypesAvailability: areaTypesAvailability}
         }
         case START_ADD_AREA: {
 
@@ -62,7 +67,13 @@ export default function areas(state = {areasList: [], selectedId: -1, areaTypesA
           return newState;
         }
         case LOAD_AREAS: {
-            return {...state, areasList: action.areas};
+            const newAreas = action.areas;
+            const areaTypesAvailability = {section: true, enter: true, exit: true}
+            if(newAreas.find((a) => a.type === AREA_ENTER) !== undefined)
+                areaTypesAvailability.enter = false;
+            if(newAreas.find((a) => a.type === AREA_EXIT) !== undefined)
+                areaTypesAvailability.exit = false;
+            return {...state, areasList: newAreas, areaTypesAvailability: areaTypesAvailability};
         }
         default:
             return state
