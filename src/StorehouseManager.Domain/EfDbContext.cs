@@ -11,6 +11,7 @@ namespace StorehouseManager.Domain
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Area> Areas { get; set; }
+        public DbSet<Area> Rectangles { get; set; }
 
         public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
         {
@@ -22,17 +23,8 @@ namespace StorehouseManager.Domain
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().HasIndex(user => user.UserName).IsUnique();
 
-            modelBuilder.Entity<Area>().Property<int>("rectangleId").IsRequired();
-            modelBuilder.Entity<Rectangle>().Property<int>("areaId").IsRequired();
-            modelBuilder.Entity<Rectangle>().Property<int>("rectangleId").IsRequired();
-
-            modelBuilder.Entity<Area>()
-                .HasOne(area => area.Rectangle)
-                .WithOne()
-                .IsRequired()
-                // use shadow property, which only exists in the database, but not on the Address model
-                .HasForeignKey(typeof(Rectangle), "areaId")
-                .HasPrincipalKey(typeof(Area), "rectangleId");
+            modelBuilder.Entity<Area>().HasOne(a => a.Rectangle).WithOne(r => r.Area)
+                .HasForeignKey<Rectangle>(r => r.AreaId);
         }
     }
 }

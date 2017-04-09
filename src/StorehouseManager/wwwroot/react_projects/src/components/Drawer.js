@@ -3,6 +3,7 @@ import {findDOMNode} from 'react-dom'
 
 import css from './Drawer.css'
 import Area from './DrawArea'
+
 export default class Drawer extends Component {
 
   getMouseRelativePosition(e) {

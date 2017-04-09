@@ -35,7 +35,7 @@ class Selector extends Component {
                             ? <AreaDetails id={this.props.selectedId} name={this.getSelectedName()} setName={this.props.setName} removeArea={this.props.removeArea}/>
                             : ''}
                     </div>
-                    <AddArea stopDrawing={this.props.stopDrawing} addingArea={this.props.addingArea} cancel={this.props.cancelAddArea} add={this.props.addArea} areaTypesAvailability={this.props.areaTypesAvailability}/>
+                    <AddArea stopDrawing={this.props.stopDrawing} addingAreaRectangle={this.props.addingAreaRectangle} cancel={this.props.cancelAddArea} add={this.props.addArea} areaTypesAvailability={this.props.areaTypesAvailability}/>
                 </div>
                 <AreaList areas={this.props.areas} selectArea={this.props.selectArea} selectedId={this.props.selectedId}/>
             </div>
@@ -52,7 +52,7 @@ function mapStateToProps(state) {
         areas: state.areas.areasList,
         selectedId: state.areas.selectedId,
         form: state.form,
-        addingArea: state.areas.addingArea,
+        addingAreaRectangle: state.areas.addingAreaRectangle,
         areaTypesAvailability: state.areas.areaTypesAvailability
     }
 }

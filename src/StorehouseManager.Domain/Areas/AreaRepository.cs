@@ -19,11 +19,11 @@ namespace StorehouseManager.Domain.Areas
             Areas = _context.Areas.Include(area => area.Rectangle).AsQueryable();
         }
 
-        public int Add(Rectangle rectangle, AreaType type, int userId)
+        public int Add(Rectangle rectangle, AreaType type, string name, int userId)
         {
-            var area = new Area {Rectangle = rectangle, Type = type};
+            var area = new Area {Rectangle = rectangle, Type = type, Name = name, UserId = userId};
             _context.Areas.Add(area);
-
+            _context.SaveChanges();
             return area.Id;
         }
 
@@ -34,6 +34,10 @@ namespace StorehouseManager.Domain.Areas
 
         public Area FindById(int id, int userId) => FindAll(userId).First(s => s.Id == id);
 
-        public void Remove(int id, int userId) => _context.Remove(FindById(id, userId));
+        public void Remove(int id, int userId)
+        {
+            _context.Remove(FindById(id, userId));
+            _context.SaveChanges();
+        } 
     }
 }

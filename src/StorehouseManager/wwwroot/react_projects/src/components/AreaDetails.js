@@ -23,7 +23,7 @@ export default class AreaDetails extends Component {
 
   onButtonClickRemove(e) {
     e.preventDefault();
-    this.props.removeArea();
+    this.props.removeArea(this.props.id);
   }
 
   render() {

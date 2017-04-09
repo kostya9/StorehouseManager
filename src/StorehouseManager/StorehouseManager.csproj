@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\react_projects\**" />
+    <Content Remove="wwwroot\react_projects\**" />
+    <EmbeddedResource Remove="wwwroot\react_projects\**" />
+    <None Remove="wwwroot\react_projects\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>

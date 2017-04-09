@@ -7,15 +7,15 @@ export const REMOVE_AREA = 'REMOVE_AREA'
 export const SELECT_AREA = 'SELECT_AREA'
 export const SELECT_RESET = 'SELECT_RESET'
 export const SET_NAME = 'SET_NAME'
+export const LOAD_AREAS = 'LOAD_AREAS'
 
 import Area, {AREA_ENTER, AREA_EXIT, AREA_SECTION} from './../domain/area'
 
 export default function areas(state = {areasList: [], selectedId: -1, areaTypesAvailability: {section: true, enter: true, exit: true}}, action) {
     switch(action.type) {
         case ADD_AREA:
-            const rectangle = state.addingArea.rectangle;
-            const id = state.addingArea.id;
-            const type = action.areaType;
+            const area = action.area;
+            const type = area.type;
             const areaTypesAvailability = {...state.areaTypesAvailability}
             switch(type) {
               case AREA_ENTER: {
@@ -26,13 +26,9 @@ export default function areas(state = {areasList: [], selectedId: -1, areaTypesA
               } break;
             }
 
-            const area = new Area(rectangle, id, type, action.name)
             return {...state, areasList: [...state.areasList, area], areaTypesAvailability: areaTypesAvailability}
         case REMOVE_AREA:
-            const index = state.areasList.findIndex(area => area.id == state.selectedId)
-            const newAreas = [...state.areasList];
-            newAreas.splice(index, 1)
-            return {...state, areasList: newAreas, selectedId: -1}
+            return {...state, selectedId: -1}
         case SELECT_AREA:
         {
             const id = action.id;
@@ -42,7 +38,7 @@ export default function areas(state = {areasList: [], selectedId: -1, areaTypesA
             return {...state, selectedId: -1}
         case SET_NAME:
         {
-            if(state.selectedId == -1)
+            if(state.selectedId === -1)
               return;
             const areaIndex = state.areasList.findIndex((area) => area.id == state.selectedId);
             const area = state.areasList[areaIndex];
@@ -55,26 +51,18 @@ export default function areas(state = {areasList: [], selectedId: -1, areaTypesA
         case START_ADD_AREA: {
 
           const rectangle = action.rectangle;
-          let id = 0
-          if(state.areasList.length != 0)
-          {
-            const ids = state.areasList.map((area) => area.id);
-            id = Math.max(...ids) + 1;
-          }
 
-          if(rectangle == undefined || id == undefined)
+          if(rectangle == undefined)
             return state;
 
-          const addingArea = {
-            rectangle: rectangle,
-            id: id
-          }
-          const newState = {...state, addingArea: addingArea};
-          return newState;
+          return {...state, addingAreaRectangle: rectangle};
         }
         case CANCEL_ADD_AREA: {
-          let {addingArea, ...newState} = state;
+          let {addingAreaRectangle, ...newState} = state;
           return newState;
+        }
+        case LOAD_AREAS: {
+            return {...state, areasList: action.areas};
         }
         default:
             return state

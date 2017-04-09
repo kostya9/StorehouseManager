@@ -9,8 +9,8 @@ using StorehouseManager.Domain.Areas;
 namespace StorehouseManager.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20170402105316_AddAreas")]
-    partial class AddAreas
+    [Migration("20170409171018_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,21 +23,25 @@ namespace StorehouseManager.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Name");
+
+                    b.Property<int>("RectangleId");
+
                     b.Property<int>("Type");
 
                     b.Property<int>("UserId");
 
-                    b.Property<int>("rectangleId");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Areas");
+                    b.ToTable("Area");
                 });
 
             modelBuilder.Entity("StorehouseManager.Domain.Areas.Rectangle", b =>
                 {
-                    b.Property<int>("rectangleId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AreaId");
 
                     b.Property<double>("Height");
 
@@ -47,11 +51,9 @@ namespace StorehouseManager.Migrations
 
                     b.Property<double>("Y");
 
-                    b.Property<int>("areaId");
+                    b.HasKey("Id");
 
-                    b.HasKey("rectangleId");
-
-                    b.HasIndex("areaId")
+                    b.HasIndex("AreaId")
                         .IsUnique();
 
                     b.ToTable("Rectangle");
@@ -82,10 +84,9 @@ namespace StorehouseManager.Migrations
 
             modelBuilder.Entity("StorehouseManager.Domain.Areas.Rectangle", b =>
                 {
-                    b.HasOne("StorehouseManager.Domain.Areas.Area")
+                    b.HasOne("StorehouseManager.Domain.Areas.Area", "Area")
                         .WithOne("Rectangle")
-                        .HasForeignKey("StorehouseManager.Domain.Areas.Rectangle", "areaId")
-                        .HasPrincipalKey("StorehouseManager.Domain.Areas.Area", "rectangleId")
+                        .HasForeignKey("StorehouseManager.Domain.Areas.Rectangle", "AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }

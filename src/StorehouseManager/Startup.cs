@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using StorehouseManager;
 using StorehouseManager.Domain;
 using StorehouseManager.Domain.Authentication;
@@ -33,7 +35,9 @@ namespace StorehouseManager
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }); ;
             services.AddDbContext<EfDbContext>(options => options.UseSqlServer(Configuration["ConnectionString"], 
                 opts => opts.MigrationsAssembly("StorehouseManager")));
             services.AddScoped<UserManager>();
@@ -42,7 +46,6 @@ namespace StorehouseManager
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

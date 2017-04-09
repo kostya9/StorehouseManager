@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorehouseManager.Domain;
 using StorehouseManager.Domain.Areas;
+using StorehouseManager.Helpers;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace StorehouseManager.Controllers.Api
 {
+    [Route("/api/[controller]")]
     [Authorize]
     public class AreasController : Controller
     {
@@ -22,19 +24,35 @@ namespace StorehouseManager.Controllers.Api
             _areaRepository = new AreaRepository(context);
         }
 
-        // GET: /<controller>/
+        [HttpGet]
         public IEnumerable<Area> Areas()
         {
-            var userIdClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
-            var userId = userIdClaim.Value;
-            return _areaRepository.FindAll(int.Parse(userId));
+            var userId = GetCurrentUserId();
+            return _areaRepository.FindAll(userId);
         }
 
         [HttpPost]
-        public void AddArea(Area area)
+        public Area AddArea([FromBody]Area area)
         {
-            var userId = HttpContext.User.FindFirst(claim => claim.ValueType == ClaimTypes.NameIdentifier).Value;
-            _areaRepository.Add(area.Rectangle, area.Type, int.Parse(userId));
+            if (area.Rectangle == null)
+                throw new ArgumentException();
+            var userId = GetCurrentUserId();
+            var id = _areaRepository.Add(area.Rectangle, area.Type, area.Name, userId);
+            return _areaRepository.FindById(id, userId);
+        }
+
+        [HttpDelete("{id}")]
+        public void RemoveArea(int id)
+        {
+            var userId = GetCurrentUserId();
+            _areaRepository.Remove(id, userId);
+        }
+
+        public int GetCurrentUserId()
+        {
+            var userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = int.Parse(userIdString);
+            return userId;
         }
     }
 }
