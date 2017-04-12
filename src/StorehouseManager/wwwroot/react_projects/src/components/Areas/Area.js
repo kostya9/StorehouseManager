@@ -12,7 +12,7 @@ export default class Area extends Component {
       <span className="key area-info-badge">Id</span>
       <span className="value area-info-badge">{this.props.id}</span>
       <span className="key area-info-badge">Name</span>
-      <span className="value area-info-badge">{this.props.name}</span>
+      <span className="value area-info-badge area-name">{this.props.name}</span>
       <span className="key area-info-badge">Type</span>
       <span className="value area-info-badge">{this.props.type}</span>
   </div>)

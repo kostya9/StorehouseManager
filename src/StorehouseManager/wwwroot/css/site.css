@@ -17,7 +17,10 @@ body {
     background-repeat: no-repeat;
     background-size: 400px;
     background-position: center;
-    height: 100%;
+}
+
+.content {
+    height: 85%;
 }
 
 .landing-info {
@@ -32,13 +35,14 @@ body {
     border-radius: 10px;
     margin-top: 50px;
     padding: 20px;
-    background-color: #EEEEEE
+    background-color: #EEEEEE;
 }
 
 footer {
-    bottom: 0px;
-    position: absolute;
-    width: 100%;
+    clear: both;
+    position: relative;
+    height: 3em;
+    margin-top: -3em;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */

@@ -13,11 +13,23 @@
 
 .area .key {
   background-color: #337ab7;
+  width: 90px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .area .value {
   background-color: grey;
+  width: 70px;
+  word-wrap: break-word;
+  display: table-cell;
+  vertical-align: middle;
 }
+
+.area-name {
+  width: 100px !important;
+}
+
 
 .area .selected {
   background-color: #669966

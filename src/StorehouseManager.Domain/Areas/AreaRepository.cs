@@ -21,6 +21,12 @@ namespace StorehouseManager.Domain.Areas
 
         public int Add(Rectangle rectangle, AreaType type, string name, int userId)
         {
+            if (Area.ShouldBeUnique(type))
+            {
+                var sameTypeArea = Areas.FirstOrDefault(a => a.Type == type);
+                if(sameTypeArea != null)
+                    throw new ArgumentException("This area type should be unique");
+            }
             var area = new Area {Rectangle = rectangle, Type = type, Name = name, UserId = userId};
             _context.Areas.Add(area);
             _context.SaveChanges();

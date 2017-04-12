@@ -3,9 +3,12 @@
   margin: 0;
   padding: 0px;
   position: relative;
+  display: block;
+  text-align: left;
 }
 
 .drawerWrapper {
   border: 1px lightblue solid;
   margin: 0px;
+  display: inline-block;
 }

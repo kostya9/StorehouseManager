@@ -14,5 +14,12 @@ namespace StorehouseManager.Domain.Areas
 
         public Rectangle Rectangle { get; set; }
         public int RectangleId { get; set; }
+
+        public static bool ShouldBeUnique(AreaType type)
+        {
+            if (type == AreaType.AreaSection)
+                return false;
+            return true;
+        }
     }
 }

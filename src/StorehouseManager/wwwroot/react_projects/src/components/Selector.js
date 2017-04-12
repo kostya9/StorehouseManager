@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import * as actionCreators from './../actionCreators';
 
 import css from './Selector.css'
 
@@ -16,26 +14,42 @@ class Selector extends Component {
         if (id === -1)
             return null;
 
-        return this.props.areas.find((area) => area.id == id);
+        return this.props.areas.find((area) => area.id === id);
+    }
+
+    getDrawerCssClasses() {
+        const classes = "text-center";
+        if(this.props.selectedId === -1)
+            return classes + " col-xs-12";
+        else
+            return classes + " col-lg-7 col-md-8";
+
+    }
+
+    getAreaDetails() {
+        if(this.props.selectedId === -1)
+            return "";
+
+        const selectedArea = this.getSelectedArea();
+
+        return (<div className="col-sm-5">
+            <AreaDetails id={this.props.selectedId} name={selectedArea.name} type={selectedArea.type} updateArea={this.props.updateArea}
+                         removeArea={this.props.removeArea} areaTypesAvailability={this.props.areaTypesAvailability} reset={() => this.props.selectArea(-1)}/>
+        </div>);
     }
 
     render() {
-        const selectedArea = this.getSelectedArea();
+
         return (
             <div>
                 <div className="row col-xs-12 drawAndSelected">
-                    <div className="col-sm-9">
+                    <div className={this.getDrawerCssClasses()}>
                         <Drawer drawing={this.props.drawing} areas={this.props.areas} selectedId={this.props.selectedId}
                           currentDrawFigure={this.props.currentDrawFigure} height={this.props.height} width={this.props.width}
                           startDrawing={this.props.startDrawing} addArea={this.props.addArea} stopDrawing={this.props.stopDrawing} mouseMove={this.props.mouseMove}
                           selectArea={this.props.selectArea} startAddArea={this.props.startAddArea}/>
                     </div>
-                    <div className="col-sm-3">
-                        {this.props.selectedId != -1
-                            ? <AreaDetails id={this.props.selectedId} name={selectedArea.name} type={selectedArea.type} updateArea={this.props.updateArea}
-                                           removeArea={this.props.removeArea} areaTypesAvailability={this.props.areaTypesAvailability}/>
-                            : ''}
-                    </div>
+                    {this.getAreaDetails()}
                     <AddArea stopDrawing={this.props.stopDrawing} addingAreaRectangle={this.props.addingAreaRectangle} cancel={this.props.cancelAddArea}
                              add={this.props.addArea} areaTypesAvailability={this.props.areaTypesAvailability}/>
                 </div>
@@ -44,21 +58,5 @@ class Selector extends Component {
         )
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        currentDrawFigure: state.draw.currentDrawFigure,
-        drawing: state.draw.drawing,
-        width: state.draw.width,
-        height: state.draw.height,
-        areas: state.areas.areasList,
-        selectedId: state.areas.selectedId,
-        form: state.form,
-        addingAreaRectangle: state.areas.addingAreaRectangle,
-        areaTypesAvailability: state.areas.areaTypesAvailability
-    }
-}
-
-export const SelectorContainer = connect(mapStateToProps, actionCreators)(Selector);
 
 export default Selector;

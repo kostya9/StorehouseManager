@@ -31,11 +31,12 @@
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "react": "^15.4.2",
+    "react-bootstrap": "latest",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
+    "react-router": "^4.1.0",
     "redux": "^3.6.0",
     "redux-form": "^6.6.0",
-    "redux-thunk": "^2.2.0",
-    "react-bootstrap": "latest"
+    "redux-thunk": "^2.2.0"
   }
 }

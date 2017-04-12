@@ -50,10 +50,18 @@ export default class AreaDetails extends Component {
       </div>
       <div className="form-group row">
         <label htmlFor="type" className="col-xs-2 col-form-label">Type</label>
-        <AreaTypeSelect onChange={(e) => this.onTypeChange(e)} value={this.state.type} areaTypesAvailability={this.props.areaTypesAvailability}/>
+        <div className="col-xs-10">
+          <AreaTypeSelect onChange={(e) => this.onTypeChange(e)} value={this.state.type} areaTypesAvailability={this.props.areaTypesAvailability}/>
+        </div>
       </div>
       <button type="submit" className="btn btn-primary" onClick={(e) => this.onButtonClick(e)}>Update</button>
       <button className="btn btn-danger" onClick={(e) => this.onButtonClickRemove(e)}>Remove</button>
+      <button className="btn btn-default" onClick={(e) => this.onReset(e)}>Reset</button>
     </form>)
   }
+
+    onReset(e) {
+        e.preventDefault();
+        this.props.reset();
+    }
 }

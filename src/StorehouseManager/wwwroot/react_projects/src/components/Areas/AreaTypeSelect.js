@@ -8,11 +8,11 @@ import Area from "../../domain/area";
 
 export default class AreaTypeSelect extends Component {
     isEnterAvailable() {
-        return this.props.areaTypesAvailability.enter || this.props.value == AREA_ENTER;
+        return this.props.areaTypesAvailability.enter || this.props.value === AREA_ENTER;
     }
 
     isExitAvailable() {
-        return this.props.areaTypesAvailability.exit || this.props.value == AREA_EXIT;
+        return this.props.areaTypesAvailability.exit || this.props.value === AREA_EXIT;
     }
 
     render() {
