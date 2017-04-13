@@ -11,7 +11,7 @@ namespace StorehouseManager.Domain.Authentication
     {
         private readonly EfDbContext _context;
 
-        public static string AuthenticationScheme => "WebFileManager.Cookies";
+        public static string AuthenticationScheme => "StorehouseManager.Cookies";
 
         public UserManager(EfDbContext context)
         {
