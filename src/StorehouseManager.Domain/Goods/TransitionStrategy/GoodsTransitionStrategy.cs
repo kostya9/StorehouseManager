@@ -1,31 +1,52 @@
 ﻿using System;
+using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
 
 namespace StorehouseManager.Domain.Goods.TransitionStrategy
 {
     public abstract class GoodsTransitionStrategy
     {
+        private readonly GoodsTransitionRepository _repository;
         public GoodsItem Item { get; private set; }
 
-        protected GoodsTransitionStrategy(GoodsItem item)
+        public GoodsTransitionStrategy(GoodsItem item, GoodsTransitionRepository repository)
         {
+            _repository = repository;
             Item = item;
         }
 
-        public abstract void Arrive();
-        public abstract void Accept();
-        public abstract void Store(int areaId);
-        public abstract void WaitForUnload();
-        public abstract void Unload();
-
-        public static GoodsTransitionStrategy FromGoods(GoodsItem item)
+        private void Log(GoodsItemStatus to)
         {
-            switch (item.Status)
-            {
-                case GoodsItemStatus.Registered:
-                    return new RegisteredTransitionStrategy(item);
-                default:
-                    throw new NotImplementedException();
-            }
+            _repository.Add(Item.Status, to, Item.Id);
+        }
+
+        private void LogChangeStoreLocation(int areaId)
+        {
+            _repository.Add(Item.Status, GoodsItemStatus.Storing, Item.Id);
+        }
+
+        public virtual void Arrive()
+        {
+           Log(GoodsItemStatus.Arrived);
+        }
+
+        public virtual void Accept()
+        {
+            Log(GoodsItemStatus.Accepted);
+        }
+
+        public virtual void Store(int areaId)
+        {
+            Log(GoodsItemStatus.Storing);
+        }
+
+        public virtual void WaitForUnload()
+        {
+            Log(GoodsItemStatus.WaitingForUnloading);    
+        }
+
+        public virtual void Unload()
+        {
+            Log(GoodsItemStatus.Unloaded);
         }
     }
 }

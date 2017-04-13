@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Authentication;
 using StorehouseManager.Domain.Goods;
+using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
 
 namespace StorehouseManager.Domain
 {
@@ -15,6 +16,7 @@ namespace StorehouseManager.Domain
         public DbSet<Area> Areas { get; set; }
         public DbSet<Area> Rectangles { get; set; }
         public DbSet<GoodsItem> GoodsItems { get; set; }
+        public DbSet<GoodsTransition> GoodsTransitions { get; set; }
 
         public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
         {
@@ -33,6 +35,9 @@ namespace StorehouseManager.Domain
                 .HasForeignKey(gi => gi.AreaId);
 
             modelBuilder.Entity<GoodsItem>().Ignore(gi => gi.Transition);
+
+            modelBuilder.Entity<GoodsTransition>().HasOne(gt => gt.GoodsItem).WithMany(gi => gi.Transitions)
+                .HasForeignKey(gt => gt.GoodsItemId);
         }
     }
 }

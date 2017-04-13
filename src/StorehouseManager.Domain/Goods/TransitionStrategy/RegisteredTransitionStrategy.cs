@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
 
 namespace StorehouseManager.Domain.Goods.TransitionStrategy
 {
     class RegisteredTransitionStrategy : GoodsTransitionStrategy
     {
-        public RegisteredTransitionStrategy(GoodsItem item) : base(item)
+        public RegisteredTransitionStrategy(GoodsItem item, GoodsTransitionRepository repository) : base(item, repository)
         {
         }
 
         public override void Arrive()
         {
-            throw new NotImplementedException();
+            Item.Status = GoodsItemStatus.Arrived;
         }
 
         public override void Accept()

@@ -6,6 +6,7 @@ namespace StorehouseManager.Domain.Goods
 {
     public enum GoodsItemStatus
     {
-        Registered, Arrived, Accepted, Storing, WaitingForUnloading, Unloaded
+        Registered, Arrived, Accepted, Storing, WaitingForUnloading, Unloaded,
+        Rejected = -1
     }
 }

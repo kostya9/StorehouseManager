@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using StorehouseManager.Domain.Areas;
+using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
 using StorehouseManager.Domain.Goods.TransitionStrategy;
 
 namespace StorehouseManager.Domain.Goods
@@ -11,13 +13,22 @@ namespace StorehouseManager.Domain.Goods
     {
         private readonly EfDbContext _context;
 
-        public GoodsRepository(EfDbContext context)
+        public GoodsRepository(EfDbContext context, AreaRepository areaRepository, GoodsTransitionRepository transitionRepository)
         {
             _context = context;
-            GoodsItems = context.GoodsItems.AsQueryable();
+            _transitionStrategyFactory = new GoodsTransitionStrategyFactory(areaRepository, transitionRepository);
+
+            GoodsItems = context.GoodsItems.AsQueryable()
+                .Select(gi => InsertTransitionStrategy(gi));
         }
 
+        private readonly GoodsTransitionStrategyFactory _transitionStrategyFactory;
 
+        private GoodsItem InsertTransitionStrategy(GoodsItem item)
+        {
+            item.Transition = _transitionStrategyFactory.FromGoods(item);
+            return item;
+        }
 
         public IQueryable<GoodsItem> GoodsItems { get; }
 
