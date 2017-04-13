@@ -13,7 +13,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using StorehouseManager;
 using StorehouseManager.Domain;
+using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Authentication;
+using StorehouseManager.Domain.Goods;
+using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
 
 namespace StorehouseManager
 {
@@ -41,7 +44,12 @@ namespace StorehouseManager
             services.AddDbContext<EfDbContext>(options => options.UseSqlServer(Configuration["ConnectionString"], 
                 opts => opts.MigrationsAssembly("StorehouseManager")));
             services.AddScoped<UserManager>();
+
+            services.AddScoped<GoodsRepository>();
+            services.AddScoped<GoodsTransitionRepository>();
+            services.AddScoped<AreaRepository>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

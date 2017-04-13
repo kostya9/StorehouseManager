@@ -16,7 +16,7 @@ namespace StorehouseManager.Domain.Goods
 
         public GoodsItemStatus Status { get; set; }
 
-        public int AreaId { get; set; }
+        public int? AreaId { get; set; }
         public Area Area { get; private set; }
 
         public GoodsTransitionStrategy Transition { get; set; }
@@ -29,6 +29,11 @@ namespace StorehouseManager.Domain.Goods
             Name = name;
             UserId = userId;
             Status = GoodsItemStatus.Registered;
+        }
+
+        private GoodsItem()
+        {
+            
         }
     }
 }

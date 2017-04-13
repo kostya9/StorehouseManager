@@ -27,7 +27,7 @@ namespace StorehouseManager.Controllers.Api
         [HttpGet]
         public IEnumerable<Area> Areas()
         {
-            var userId = GetCurrentUserId();
+            var userId = this.GetCurrentUserId();
             return _areaRepository.FindAll(userId);
         }
 
@@ -36,7 +36,7 @@ namespace StorehouseManager.Controllers.Api
         {
             if (area.Rectangle == null)
                 throw new ArgumentException();
-            var userId = GetCurrentUserId();
+            var userId = this.GetCurrentUserId();
             var id = _areaRepository.Add(area.Rectangle, area.Type, area.Name, userId);
             return _areaRepository.FindById(id, userId);
         }
@@ -44,21 +44,14 @@ namespace StorehouseManager.Controllers.Api
         [HttpDelete("{id}")]
         public void RemoveArea(int id)
         {
-            var userId = GetCurrentUserId();
+            var userId = this.GetCurrentUserId();
             _areaRepository.Remove(id, userId);
         }
 
         [HttpPut("{id}")]
         public Area UpdateArea(int id, [FromBody]Area area)
         {
-            return _areaRepository.Update(id, area.Name, area.Type, GetCurrentUserId());
-        }
-
-        public int GetCurrentUserId()
-        {
-            var userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var userId = int.Parse(userIdString);
-            return userId;
+            return _areaRepository.Update(id, area.Name, area.Type, this.GetCurrentUserId());
         }
     }
 }

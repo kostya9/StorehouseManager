@@ -9,7 +9,7 @@ using StorehouseManager.Domain.Goods.TransitionStrategy;
 
 namespace StorehouseManager.Domain.Goods
 {
-    class GoodsRepository
+    public class GoodsRepository
     {
         private readonly EfDbContext _context;
 
