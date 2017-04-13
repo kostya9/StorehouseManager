@@ -51,8 +51,7 @@ namespace StorehouseManager.Controllers.Api
         [HttpPut("{id}")]
         public Area UpdateArea(int id, [FromBody]Area area)
         {
-            area.Id = id;
-            return _areaRepository.Update(area, GetCurrentUserId());
+            return _areaRepository.Update(id, area.Name, area.Type, GetCurrentUserId());
         }
 
         public int GetCurrentUserId()

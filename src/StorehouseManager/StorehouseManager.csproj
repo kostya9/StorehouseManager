@@ -11,10 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\react_projects\**" />
-    <Content Remove="wwwroot\react_projects\**" />
-    <EmbeddedResource Remove="wwwroot\react_projects\**" />
-    <None Remove="wwwroot\react_projects\**" />
+    <Compile Remove="wwwroot\react_projects\node_modules\**" />
+    <Content Remove="wwwroot\react_projects\node_modules\**" />
+    <EmbeddedResource Remove="wwwroot\react_projects\node_modules\**" />
+    <None Remove="wwwroot\react_projects\node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>

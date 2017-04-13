@@ -9,9 +9,10 @@ using StorehouseManager.Domain.Areas;
 namespace StorehouseManager.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170413134159_GoodsItemWithArea")]
+    partial class GoodsItemWithArea
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

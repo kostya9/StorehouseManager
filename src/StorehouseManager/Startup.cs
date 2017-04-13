@@ -64,7 +64,7 @@ namespace StorehouseManager
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationScheme = UserManager.AuthenticationScheme,
-                LoginPath = "/Account/Index",
+                LoginPath = "/Account/Login",
                 AccessDeniedPath = "/",
                 AutomaticChallenge = true,
                 AutomaticAuthenticate = true

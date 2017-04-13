@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Authentication;
+using StorehouseManager.Domain.Goods;
 
 namespace StorehouseManager.Domain
 {
@@ -12,6 +14,7 @@ namespace StorehouseManager.Domain
         public DbSet<User> Users { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Area> Rectangles { get; set; }
+        public DbSet<GoodsItem> GoodsItems { get; set; }
 
         public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
         {
@@ -25,6 +28,11 @@ namespace StorehouseManager.Domain
 
             modelBuilder.Entity<Area>().HasOne(a => a.Rectangle).WithOne(r => r.Area)
                 .HasForeignKey<Rectangle>(r => r.AreaId);
+
+            modelBuilder.Entity<GoodsItem>().HasOne(gi => gi.Area).WithMany(a => a.Items)
+                .HasForeignKey(gi => gi.AreaId);
+
+            modelBuilder.Entity<GoodsItem>().Ignore(gi => gi.Transition);
         }
     }
 }

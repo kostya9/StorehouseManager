@@ -6,13 +6,13 @@ namespace StorehouseManager.Domain.Areas
 {
     public class Rectangle
     {
-        public int Id { get; set; }
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Height { get; set; }
-        public double Width { get; set; }
+        public int Id { get; private set; }
+        public double X { get; private set; }
+        public double Y { get; private set; }
+        public double Height { get; private set; }
+        public double Width { get; private set; }
 
-        public int AreaId { get; set; }
-        public Area Area { get; set; }
+        public int AreaId { get; private set; }
+        public Area Area { get; private set; }
     }
 }

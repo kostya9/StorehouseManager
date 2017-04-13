@@ -9,6 +9,5 @@ namespace StorehouseManager.Domain.Authentication
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string HashedPassword { get; set; }
-        public bool IsStorehouseOwner { get; set; }
     }
 }

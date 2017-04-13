@@ -9,9 +9,10 @@ using StorehouseManager.Domain.Areas;
 namespace StorehouseManager.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170413132224_RemoveRedundantRectangleId")]
+    partial class RemoveRedundantRectangleId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -65,6 +66,8 @@ namespace StorehouseManager.Migrations
 
                     b.Property<string>("HashedPassword");
 
+                    b.Property<bool>("IsStorehouseOwner");
+
                     b.Property<string>("SecondName");
 
                     b.Property<string>("UserName");
@@ -77,37 +80,11 @@ namespace StorehouseManager.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("StorehouseManager.Domain.Goods.GoodsItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AreaId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AreaId");
-
-                    b.ToTable("GoodsItems");
-                });
-
             modelBuilder.Entity("StorehouseManager.Domain.Areas.Rectangle", b =>
                 {
                     b.HasOne("StorehouseManager.Domain.Areas.Area", "Area")
                         .WithOne("Rectangle")
                         .HasForeignKey("StorehouseManager.Domain.Areas.Rectangle", "AreaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("StorehouseManager.Domain.Goods.GoodsItem", b =>
-                {
-                    b.HasOne("StorehouseManager.Domain.Areas.Area", "Area")
-                        .WithMany("Items")
-                        .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }
