@@ -1,5 +1,5 @@
 ﻿using System;
-using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
+using StorehouseManager.Domain.Goods.TransitionLogs;
 
 namespace StorehouseManager.Domain.Goods.TransitionStrategy
 {

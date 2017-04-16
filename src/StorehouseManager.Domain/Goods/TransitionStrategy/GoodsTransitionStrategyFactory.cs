@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using StorehouseManager.Domain.Areas;
-using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
+using StorehouseManager.Domain.Goods.TransitionLogs;
 
 namespace StorehouseManager.Domain.Goods.TransitionStrategy
 {

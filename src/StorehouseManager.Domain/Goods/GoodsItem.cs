@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using StorehouseManager.Domain.Areas;
-using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
+using StorehouseManager.Domain.Goods.TransitionLogs;
 using StorehouseManager.Domain.Goods.TransitionStrategy;
 
 namespace StorehouseManager.Domain.Goods

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Authentication;
 using StorehouseManager.Domain.Goods;
-using StorehouseManager.Domain.Goods.GoodsTransitionLogs;
+using StorehouseManager.Domain.Goods.TransitionLogs;
 
 namespace StorehouseManager.Domain
 {

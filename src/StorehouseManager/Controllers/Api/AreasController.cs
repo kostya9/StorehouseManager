@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using StorehouseManager.Domain;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Helpers;
+using StorehouseManager.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,7 +33,7 @@ namespace StorehouseManager.Controllers.Api
         }
 
         [HttpPost]
-        public Area AddArea([FromBody]Area area)
+        public Area AddArea([FromBody]AreaModel area)
         {
             if (area.Rectangle == null)
                 throw new ArgumentException();
@@ -49,7 +50,7 @@ namespace StorehouseManager.Controllers.Api
         }
 
         [HttpPut("{id}")]
-        public Area UpdateArea(int id, [FromBody]Area area)
+        public Area UpdateArea(int id, [FromBody]AreaModel area)
         {
             return _areaRepository.Update(id, area.Name, area.Type, this.GetCurrentUserId());
         }

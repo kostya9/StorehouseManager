@@ -1,9 +1,6 @@
 .areaList {
   list-style-type: none;
   position: relative;
-}
-
-ul {
   display:  inline-block;
   width: 100%;
 }

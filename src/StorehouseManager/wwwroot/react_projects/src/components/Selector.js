@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {connect} from "react-redux";
+import * as actionCreators from './../actionCreators';
 
 import css from './Selector.css'
 
@@ -59,4 +61,20 @@ class Selector extends Component {
     }
 }
 
-export default Selector;
+function mapStateToProps(state) {
+    return {
+        currentDrawFigure: state.draw.currentDrawFigure,
+        drawing: state.draw.drawing,
+        width: state.draw.width,
+        height: state.draw.height,
+        areas: state.areas.areasList,
+        selectedId: state.areas.selectedId,
+        form: state.form,
+        addingAreaRectangle: state.areas.addingAreaRectangle,
+        areaTypesAvailability: state.areas.areaTypesAvailability
+    }
+}
+
+const SelectorContainer = connect(mapStateToProps, actionCreators)(Selector);
+
+export default SelectorContainer;

@@ -14,7 +14,7 @@ namespace StorehouseManager.Domain.Areas
         public AreaType Type { get; set; }
 
         public Rectangle Rectangle { get; private set; }
-        public ICollection<GoodsItem> Items { get; set; }
+        public ICollection<GoodsItem> Items { get; private set; }
 
         public Area(int userId, string name, AreaType type, Rectangle rectangle)
         {

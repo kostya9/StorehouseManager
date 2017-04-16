@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Remotion.Linq.Clauses;
 
-namespace StorehouseManager.Domain.Goods.GoodsTransitionLogs
+namespace StorehouseManager.Domain.Goods.TransitionLogs
 {
     public class GoodsTransitionRepository
     {

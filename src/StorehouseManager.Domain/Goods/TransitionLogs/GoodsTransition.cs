@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StorehouseManager.Domain.Goods.GoodsTransitionLogs
+namespace StorehouseManager.Domain.Goods.TransitionLogs
 {
     public class GoodsTransition
     {

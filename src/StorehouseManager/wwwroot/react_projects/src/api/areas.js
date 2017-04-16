@@ -5,6 +5,8 @@ import {address} from './apiConstants'
 import Area, {AREA_SECTION, AREA_ENTER, AREA_EXIT} from "../domain/area";
 import Rectangle from "../domain/rectangle";
 
+import {createPutFetchOptions, createDeleteFetchOptions, sameOriginOption, createPostFetchOptions} from './apiFunctions';
+
 function fromServerType(type) {
     switch(type) {
         case 0:
@@ -47,38 +49,6 @@ function toServerArea(area) {
     }
 }
 
-const sameOriginOption = { credentials: "same-origin" };
-
-function createPostFetchOptions(body) {
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    return {
-        ...sameOriginOption,
-        method: "POST",
-        body: body,
-        headers: headers
-    };
-}
-
-function createDeleteFetchOptions()
-{
-    return {
-        ...sameOriginOption,
-        method: "DELETE"
-    }
-}
-
-function createPutFetchOptions(body)
-{
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    return {
-        ...sameOriginOption,
-        method: "PUT",
-        body: body,
-        headers: headers
-    };
-}
 
 export default class AreasApi {
     static getAreas() {
