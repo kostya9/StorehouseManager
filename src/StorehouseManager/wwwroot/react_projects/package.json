@@ -6,6 +6,7 @@
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "compile": "webpack",
+    "prod" : "webpack -p",
     "start": "webpack-dev-server --content-base www/ --config webpack.config.js --watch"
   },
   "keywords": [],

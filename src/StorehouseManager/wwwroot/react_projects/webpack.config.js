@@ -36,3 +36,16 @@ module.exports = {
     ]
   }
 }
+
+if (process.env.NODE_ENV === 'production') {
+    config.plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                screw_ie8: true
+            }
+        })
+    )
+    babelSettings.plugins.push("transform-react-inline-elements");
+    babelSettings.plugins.push("transform-react-constant-elements");
+
+}
