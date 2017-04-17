@@ -24,7 +24,7 @@ namespace StorehouseManager.Domain.Goods.TransitionStrategy
                 case GoodsItemStatus.Registered:
                     return new RegisteredTransitionStrategy(item, _transitionRepository);
                 default:
-                    throw new NotImplementedException();
+                    return new RegisteredTransitionStrategy(item, _transitionRepository);
             }
         }
     }

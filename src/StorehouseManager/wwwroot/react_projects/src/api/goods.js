@@ -13,4 +13,25 @@ export default class GoodsApi {
                 return response.json();
             })
     }
+
+    static fetchGoodsItemsArrived() {
+        return fetch(address + '/api/goodsitems/arrived', sameOriginOption)
+            .then((response) => {
+                return response.json();
+            })
+    }
+
+    static fetchGoodsItemsRegistered() {
+        return fetch(address + '/api/goodsitems/registered', sameOriginOption)
+            .then((response) => {
+                return response.json();
+            })
+    }
+
+    static fetchGoodsItemsRejected() {
+        return fetch(address + '/api/goodsitems/rejected', sameOriginOption)
+            .then((response) => {
+                return response.json();
+            })
+    }
 }

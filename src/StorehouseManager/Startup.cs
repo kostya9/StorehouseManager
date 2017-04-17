@@ -47,6 +47,8 @@ namespace StorehouseManager
 
             services.AddScoped<GoodsRepository>();
             services.AddScoped<GoodsTransitionRepository>();
+            services.AddScoped<GoodsItemFilter>();
+
             services.AddScoped<AreaRepository>();
         }
 

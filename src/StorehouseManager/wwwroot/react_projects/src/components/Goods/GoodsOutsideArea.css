@@ -1,0 +1,9 @@
+.outsideArea {
+    text-align: center;
+}
+
+.outsideArea > .goodsTableContainer {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 100px;
+}

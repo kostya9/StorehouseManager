@@ -1,0 +1,12 @@
+.goods-table-header, .goods-table-item .header-text > p{
+    font-size: 18px;
+}
+
+.goods-table-item .header-text {
+    text-align: center;
+    width: 100%;
+}
+
+.goods-table-item .header-text > p {
+    width: 100%;
+}

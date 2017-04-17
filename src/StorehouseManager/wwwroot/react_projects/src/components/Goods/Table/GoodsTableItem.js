@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 
 import css from './GoodsTableItem.css'
-import crate from './../../img/crate.png'
+import crate from '../../../img/crate.png'
 
 export default class GoodsTableItem extends Component {
     padNumber(number) {
@@ -24,8 +24,11 @@ export default class GoodsTableItem extends Component {
                 <div className="name">
                     <p>{this.props.name}</p>
                 </div>
+                <div className="name">
+                    <p>{this.props.shipper}</p>
+                </div>
                 <div className="time">
-                    <p><span>{time.getFullYear()}.{this.padNumber(time.getMonth())}.{this.padNumber(time.getDate())}</span>
+                    <p><span>{time.getFullYear()}.{this.padNumber(time.getMonth() + 1)}.{this.padNumber(time.getDate())}</span>
                     <span>{this.padNumber(time.getHours())}:{this.padNumber(time.getMinutes())}</span></p>
                 </div>
             </div>

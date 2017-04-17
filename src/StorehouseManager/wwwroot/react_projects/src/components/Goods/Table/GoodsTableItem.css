@@ -1,7 +1,11 @@
 .goods-table-item {
-    width: 100%;
     min-height: 50px;
     z-index: 10;
+    margin-top: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 290px;
+    background-color: rgb(230, 230, 230);
 }
 .goods-table-item div > p {
     line-height: 15px;
@@ -19,14 +23,28 @@
       width: 30px;
   }
 
-.goods-table-item .right {
+.goods-table-item .right > p {
     text-align: right;
+    display: block;
+    width: 100%;
 }
 
 .goods-table-item .name {
-    width: 100px;
+     width: 100px;
+ }
+
+.goods-table-item .name > p {
+    overflow-wrap: break-word;
     word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+    text-align: left;
 }
+
 
 .goods-table-item .time {
     width: 80px;

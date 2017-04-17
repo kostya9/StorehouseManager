@@ -12,18 +12,43 @@ namespace StorehouseManager.Controllers.Api
     [Authorize]
     public class GoodsItemsController : Controller
     {
-        private readonly GoodsRepository _repository;
+        private readonly GoodsItemFilter _filter;
 
-        public GoodsItemsController(GoodsRepository repository)
+        public GoodsItemsController(GoodsItemFilter filter)
         {
-            _repository = repository;
+            _filter = filter;
         }
 
 
-        public IEnumerable<object> Items()
+        public IEnumerable<GoodsItem> Items()
         {
             int userId = this.GetCurrentUserId();
-            return _repository.FindAll(userId);
-        } 
+
+            return _filter.All(userId);
+        }
+
+        [Route("[action]")]
+        public IEnumerable<GoodsItem> Registered()
+        {
+            int userId = this.GetCurrentUserId();
+
+            return _filter.Registered(userId);
+        }
+
+        [Route("[action]")]
+        public IEnumerable<GoodsItem> Arrived()
+        {
+            int userId = this.GetCurrentUserId();
+
+            return _filter.Arrived(userId);
+        }
+
+        [Route("[action]")]
+        public IEnumerable<GoodsItem> Rejected()
+        {
+            int userId = this.GetCurrentUserId();
+
+            return _filter.Rejected(userId);
+        }
     }
 }

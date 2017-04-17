@@ -1,0 +1,8 @@
+.goods-table {
+    position: relative;
+    display: inline-block;
+}
+
+.goods-table > *:first-child{
+    margin-bottom: 3px;
+}

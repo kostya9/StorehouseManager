@@ -18,12 +18,21 @@
     padding-right: 12px;
 }
 
-.sidebar-nav {
+.sidebar-nav:first-child {
     overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.sidebar-nav .navbar {
+    min-height: 40px;
 }
 
 .sidebar-nav .navbar .container {
     width: 100%;
     padding: 0px;
     text-align: center;
+}
+
+.register-btn {
+    margin: 10px;
 }

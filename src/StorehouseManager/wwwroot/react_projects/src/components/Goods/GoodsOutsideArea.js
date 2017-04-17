@@ -6,13 +6,16 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actionCreators from './../../actionCreators';
 
-import GoodsTable from "./GoodsTable";
+import css from './GoodsOutsideArea.css'
+
+import GoodsTable from "./Table/GoodsTable";
 
 class GoodsOutsideArea extends Component {
     render() {
         return (
-            <div>
-                <GoodsTable goodsItems={this.props.goodsItems}/>
+            <div className="outsideArea">
+                <div className="goodsTableContainer"><GoodsTable goodsItems={this.props.registered} name="Registered"/></div>
+                <div className="goodsTableContainer"><GoodsTable goodsItems={this.props.arrived} name="Arrived"/></div>
             </div>
         )
     }
@@ -20,7 +23,9 @@ class GoodsOutsideArea extends Component {
 
 function mapStateToProps(state) {
     return {
-        goodsItems: state.goods.goodsItems
+        goodsItems: state.goods.goodsItems,
+        registered: state.goods.registered,
+        arrived: state.goods.arrived
     }
 }
 

@@ -12,6 +12,8 @@ namespace StorehouseManager.Domain.Goods
     {
         public int Id { get; private set; }
         public string Name { get; set; }
+        public string Shipper { get; private set; }
+
         public int UserId { get; private set; }
 
         public GoodsItemStatus Status { get; set; }

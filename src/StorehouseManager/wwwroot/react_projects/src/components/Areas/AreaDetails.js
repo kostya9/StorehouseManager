@@ -55,8 +55,8 @@ export default class AreaDetails extends Component {
         </div>
       </div>
       <button type="submit" className="btn btn-primary" onClick={(e) => this.onButtonClick(e)}>Update</button>
-      <button className="btn btn-danger" onClick={(e) => this.onButtonClickRemove(e)}>Remove</button>
-      <button className="btn btn-default" onClick={(e) => this.onReset(e)}>Reset</button>
+      <button className="btn btn-danger area-details-btn" onClick={(e) => this.onButtonClickRemove(e)}>Remove</button>
+      <button className="btn btn-default area-details-btn" onClick={(e) => this.onReset(e)}>Reset</button>
     </form>)
   }
 
