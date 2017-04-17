@@ -19,6 +19,8 @@ namespace StorehouseManager.Domain.Goods
         public int? AreaId { get; set; }
         public Area Area { get; private set; }
 
+        public DateTime LastTransition { get; set; }
+
         public GoodsTransitionStrategy Transition { get; set; }
         public ICollection<GoodsTransition> Transitions { get; set; }
 

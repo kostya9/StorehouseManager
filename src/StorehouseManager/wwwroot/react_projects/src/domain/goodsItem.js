@@ -3,10 +3,10 @@
  */
 
 export default class GoodsItem {
-    constructor(id, name, timeStatusChange, status) {
+    constructor(id, name, lastTransition, status) {
         this.id = id;
         this.name = name;
-        this.timeStatusChange = timeStatusChange;
+        this.lastTransition = lastTransition;
         this.status = status;
     }
 }

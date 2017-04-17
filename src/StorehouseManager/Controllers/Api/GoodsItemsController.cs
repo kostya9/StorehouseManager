@@ -20,7 +20,7 @@ namespace StorehouseManager.Controllers.Api
         }
 
 
-        public IEnumerable<GoodsItem> Items()
+        public IEnumerable<object> Items()
         {
             int userId = this.GetCurrentUserId();
             return _repository.FindAll(userId);

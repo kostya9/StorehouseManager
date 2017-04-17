@@ -17,6 +17,7 @@ namespace StorehouseManager.Domain.Goods.TransitionStrategy
         private void Log(GoodsItemStatus to)
         {
             _repository.Add(Item.Status, to, Item.Id);
+            Item.LastTransition = DateTime.Now;
         }
 
         private void LogChangeStoreLocation(int areaId)

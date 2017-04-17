@@ -1,0 +1,46 @@
+.goods-table-item {
+    width: 100%;
+    min-height: 50px;
+    z-index: 10;
+}
+.goods-table-item div > p {
+    line-height: 15px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.goods-table-item div {
+    float: left;
+    position: relative;
+    min-height: 50px;
+}
+
+.goods-table-item .left, .goods-table-item .right {
+      width: 30px;
+  }
+
+.goods-table-item .right {
+    text-align: right;
+}
+
+.goods-table-item .name {
+    width: 100px;
+    word-wrap: break-word;
+}
+
+.goods-table-item .time {
+    width: 80px;
+}
+
+.icon {
+    width: 25px;
+}
+
+.icon-container {
+    width: 30px;
+}
+
+.time span {
+    margin-left: 2px;
+    display: inline-block;
+}
