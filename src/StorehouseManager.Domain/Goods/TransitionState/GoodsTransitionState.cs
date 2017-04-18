@@ -3,6 +3,7 @@ using StorehouseManager.Domain.Goods.TransitionLogs;
 
 namespace StorehouseManager.Domain.Goods.TransitionState
 {
+    // PATTERN : State
     public abstract class GoodsTransitionState
     {
         private readonly GoodsTransitionRepository _repository;

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using StorehouseManager.Domain.Goods.TransitionLogs;
 
-namespace StorehouseManager.Domain.Goods.TransitionState
+namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 {
-    class WaitingForUnloadTransitionState : GoodsTransitionState
+    class UnloadedTransitionState : GoodsTransitionState
     {
-        public WaitingForUnloadTransitionState(GoodsItem item, GoodsTransitionRepository repository) : base(item, repository)
+        public UnloadedTransitionState(GoodsItem item, GoodsTransitionRepository repository) : base(item, repository)
         {
         }
 
@@ -28,12 +26,12 @@ namespace StorehouseManager.Domain.Goods.TransitionState
 
         public override void WaitForUnload()
         {
-            throw new InvalidOperationException("GoodsItem is already waiting for unload");
+            throw new InvalidOperationException("GoodsItem is already waited for unload");
         }
 
         public override void Unload()
         {
-            base.Unload();
+            throw new InvalidOperationException("GoodsItem is already unloaded");
         }
 
         public override void Reject(string reasoning)

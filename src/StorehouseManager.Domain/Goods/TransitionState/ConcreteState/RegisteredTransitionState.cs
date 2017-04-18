@@ -1,7 +1,7 @@
 ﻿using System;
 using StorehouseManager.Domain.Goods.TransitionLogs;
 
-namespace StorehouseManager.Domain.Goods.TransitionState
+namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 {
     class RegisteredTransitionState : GoodsTransitionState
     {

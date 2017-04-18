@@ -1,5 +1,6 @@
 ﻿using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Goods.TransitionLogs;
+using StorehouseManager.Domain.Goods.TransitionState.ConcreteState;
 
 namespace StorehouseManager.Domain.Goods.TransitionState
 {
