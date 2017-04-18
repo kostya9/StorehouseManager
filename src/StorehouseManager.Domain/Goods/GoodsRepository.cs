@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Goods.TransitionLogs;
-using StorehouseManager.Domain.Goods.TransitionStrategy;
+using StorehouseManager.Domain.Goods.TransitionState;
 
 namespace StorehouseManager.Domain.Goods
 {
@@ -16,17 +16,17 @@ namespace StorehouseManager.Domain.Goods
         public GoodsRepository(EfDbContext context, AreaRepository areaRepository, GoodsTransitionRepository transitionRepository)
         {
             _context = context;
-            _transitionStrategyFactory = new GoodsTransitionStrategyFactory(areaRepository, transitionRepository);
+            _transitionStateFactory = new GoodsTransitionStateFactory(areaRepository, transitionRepository);
 
             GoodsItems = context.GoodsItems.AsQueryable()
                 .Select(gi => InsertTransitionStrategy(gi));
         }
 
-        private readonly GoodsTransitionStrategyFactory _transitionStrategyFactory;
+        private readonly GoodsTransitionStateFactory _transitionStateFactory;
 
         private GoodsItem InsertTransitionStrategy(GoodsItem item)
         {
-            item.Transition = _transitionStrategyFactory.FromGoods(item);
+            item.TransitionState = _transitionStateFactory.FromGoods(item);
             return item;
         }
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Goods.TransitionLogs;
-using StorehouseManager.Domain.Goods.TransitionStrategy;
+using StorehouseManager.Domain.Goods.TransitionState;
 
 namespace StorehouseManager.Domain.Goods
 {
@@ -23,7 +23,7 @@ namespace StorehouseManager.Domain.Goods
 
         public DateTime LastTransition { get; set; }
 
-        public GoodsTransitionStrategy Transition { get; set; }
+        public GoodsTransitionState Transition { get; set; }
         public ICollection<GoodsTransition> Transitions { get; set; }
 
         public GoodsItem(string name, int userId)
