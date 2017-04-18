@@ -16,7 +16,7 @@ namespace StorehouseManager.Domain.Goods
         public GoodsRepository(EfDbContext context, AreaRepository areaRepository, GoodsTransitionRepository transitionRepository)
         {
             _context = context;
-            _transitionStateFactory = new GoodsTransitionStateFactory(areaRepository, transitionRepository);
+            _transitionStateFactory = new GoodsTransitionStateFactory(transitionRepository);
 
             GoodsItems = context.GoodsItems.AsQueryable()
                 .Select(gi => InsertTransitionStrategy(gi));

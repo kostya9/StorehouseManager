@@ -23,7 +23,7 @@ namespace StorehouseManager.Domain.Areas
         {
             if (Area.ShouldBeUnique(type))
             {
-                var sameTypeArea = Areas.FirstOrDefault(a => a.Type == type);
+                var sameTypeArea = FindAll(userId).FirstOrDefault(a => a.Type == type);
                 if(sameTypeArea != null)
                     throw new ArgumentException("This area type should be unique");
             }

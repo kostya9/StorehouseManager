@@ -29,14 +29,14 @@ namespace StorehouseManager.Domain.Goods.TransitionState
 
         private void LogChangeStoreLocation(int areaId)
         {
-            _repository.Add(Item.Status, GoodsItemStatus.Storing, Item.Id);
+            _repository.Add(Item.Status, GoodsItemStatus.Storing, Item.Id, $"{Item.AreaId} -> {areaId}");
         }
 
         private void ChangeState(GoodsItemStatus state)
         {
             Item.Status = state;
             GoodsTransitionStateFactory factory = new GoodsTransitionStateFactory(_repository);
-            Item.Transition = factory.FromGoods(Item);
+            Item.TransitionState = factory.FromGoods(Item);
         }
 
         public virtual void Arrive()

@@ -23,7 +23,7 @@ namespace StorehouseManager.Domain.Goods
 
         public DateTime LastTransition { get; set; }
 
-        public GoodsTransitionState Transition { get; set; }
+        public GoodsTransitionState TransitionState { get; set; }
         public ICollection<GoodsTransition> Transitions { get; set; }
 
         public GoodsItem(string name, int userId)
