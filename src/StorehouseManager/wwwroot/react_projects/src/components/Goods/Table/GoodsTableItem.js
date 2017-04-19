@@ -6,17 +6,39 @@ import React, {Component} from 'react';
 
 import css from './GoodsTableItem.css'
 import crate from '../../../img/crate.png'
+import ConfirmButton from "../../Shared/ConfirmButton";
 
 export default class GoodsTableItem extends Component {
+    componentWillMount() {
+        this.setState({})
+    }
+
     padNumber(number) {
         const pad = number < 10 ? '0' : '';
         return pad + number;
     }
 
+    leftClick() {
+        this.setState({confirmLeft: true})
+    }
+
+    leftClickCancel() {
+        this.setState({confirmLeft: false})
+    }
+
+    rightClick() {
+        this.setState({confirmRight: true});
+    }
+
+    rightClickCancel() {
+        this.setState({confirmRight: false});
+    }
+
     render() {
         const time = new Date(this.props.time);
         return (<div className="goods-table-item">
-            <div className="left"><p>&larr;</p></div>
+            {this.state.confirmLeft && <ConfirmButton text={"Are you sure you want to remove " + this.props.name + "?"} cancel={() => this.leftClickCancel()} confirm={() => this.props.leftFunc()}/>}
+            {this.props.leftFunc && <div className="left" onClick={() => this.leftClick()}><p>&larr;</p></div> }
             <div>
                 <div className="icon-container">
                     <p><img className="icon" src={crate}/></p>
@@ -32,7 +54,8 @@ export default class GoodsTableItem extends Component {
                     <span>{this.padNumber(time.getHours())}:{this.padNumber(time.getMinutes())}</span></p>
                 </div>
             </div>
-        <div className="right"><p>&rarr;</p></div>
+            {this.state.confirmRight && <ConfirmButton cancel={() => this.rightClickCancel()} confirm={() => this.props.rightFunc()}/>}
+            {this.props.rightFunc && <div className="right" onClick={() => this.props.rightClick}><p>&rarr;</p></div> }
         </div>);
     }
 }

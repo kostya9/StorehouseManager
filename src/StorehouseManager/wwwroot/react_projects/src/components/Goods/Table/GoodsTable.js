@@ -9,16 +9,19 @@ import GoodsTableHeader from './GoodsTableHeader'
 import css from './GoodsTable.css'
 
 export default class GoodsTable extends Component {
-    createGoodsTableItem(goodsItem) {
-        return (<GoodsTableItem name={goodsItem.name} time={goodsItem.lastTransition} left={null} right={null} key={goodsItem.id} id={goodsItem.id} shipper={goodsItem.shipper}/>)
+    createGoodsTablesItem(goodsItem, rightFunc, leftFunc) {
+        return (<GoodsTableItem name={goodsItem.name} time={goodsItem.lastTransition} key={goodsItem.id} id={goodsItem.id} shipper={goodsItem.shipper}
+            leftFunc={leftFunc && (() => leftFunc(goodsItem.id))} rightFunc={rightFunc && (() => rightFunc(goodsItem.id))}
+        />)
     }
 
     render() {
-        return (<div className="">
-
-            <div className="goods-table text-center">
-                <GoodsTableHeader name={this.props.name}/>
-                {this.props.goodsItems.map(this.createGoodsTableItem)}</div>
+        return(<div className="goods-table text-center">
+                <GoodsTableHeader
+                    name={this.props.name}
+                    leftText={this.props.leftText}
+                    rightText={this.props.rightText}/>
+                {this.props.goodsItems.map(gi => this.createGoodsTablesItem(gi, this.props.rightFunc, this.props.leftFunc))}
         </div>);
     }
 }

@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorehouseManager.Domain.Goods;
 
-namespace StorehouseManager.Controllers.Api
+namespace StorehouseManager.Controllers.Api.GoodsItems
 {
-    [Route("/api/[controller]")]
+    [Route("/api/goodsitems/[controller]")]
     [Authorize]
-    public class GoodsItemsController : Controller
+    public class FilterController : Controller
     {
         private readonly GoodsItemFilter _filter;
 
-        public GoodsItemsController(GoodsItemFilter filter)
+        public FilterController(GoodsItemFilter filter)
         {
             _filter = filter;
         }
@@ -42,6 +42,39 @@ namespace StorehouseManager.Controllers.Api
 
             return _filter.Arrived(userId);
         }
+
+        [Route("[action]")]
+        public IEnumerable<GoodsItem> Accepted()
+        {
+            int userId = this.GetCurrentUserId();
+
+            return _filter.Accepted(userId);
+        }
+
+        [Route("[action]")]
+        public IEnumerable<GoodsItem> Storing()
+        {
+            int userId = this.GetCurrentUserId();
+
+            return _filter.Storing(userId);
+        }
+
+        [Route("[action]")]
+        public IEnumerable<GoodsItem> WaitingForUnload()
+        {
+            int userId = this.GetCurrentUserId();
+
+            return _filter.WaitingForUnload(userId);
+        }
+
+        [Route("[action]")]
+        public IEnumerable<GoodsItem> Unloaded()
+        {
+            int userId = this.GetCurrentUserId();
+
+            return _filter.Unloaded(userId);
+        }
+
 
         [Route("[action]")]
         public IEnumerable<GoodsItem> Rejected()

@@ -12,7 +12,7 @@ namespace StorehouseManager.Domain.Goods
     {
         public int Id { get; private set; }
         public string Name { get; set; }
-        public string Shipper { get; private set; }
+        public string Shipper { get; set; }
 
         public int UserId { get; private set; }
 
@@ -26,18 +26,21 @@ namespace StorehouseManager.Domain.Goods
         public GoodsTransitionState TransitionState { get; set; }
         public ICollection<GoodsTransition> Transitions { get; set; }
 
-        public GoodsItem(string name, int userId)
+        public GoodsItem(string name, string shipper, int userId)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException(nameof(name));
+            if(string.IsNullOrWhiteSpace(shipper))
+                throw new ArgumentNullException(nameof(shipper));
             Name = name;
             UserId = userId;
+            Shipper = shipper;
             Status = GoodsItemStatus.Registered;
+            LastTransition = DateTime.Now;
         }
 
-        private GoodsItem()
+        protected GoodsItem()
         {
-            
         }
     }
 }

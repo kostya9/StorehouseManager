@@ -10,3 +10,7 @@
 .goods-table-item .header-text > p {
     width: 100%;
 }
+
+.goods-table-header > .right, .goods-table-header > .left {
+    cursor: default;
+}

@@ -50,6 +50,8 @@ namespace StorehouseManager
             services.AddScoped<GoodsItemFilter>();
 
             services.AddScoped<AreaRepository>();
+
+            services.AddScoped<GoodsItemService>();
         }
 
 

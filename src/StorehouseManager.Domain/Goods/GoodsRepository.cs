@@ -6,6 +6,7 @@ using System.Text;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Goods.TransitionLogs;
 using StorehouseManager.Domain.Goods.TransitionState;
+using StorehouseManager.Domain.Goods.TransitionState.StateFactory;
 
 namespace StorehouseManager.Domain.Goods
 {
@@ -16,17 +17,17 @@ namespace StorehouseManager.Domain.Goods
         public GoodsRepository(EfDbContext context, AreaRepository areaRepository, GoodsTransitionRepository transitionRepository)
         {
             _context = context;
-            _transitionStateFactory = new GoodsTransitionStateFactory(transitionRepository);
+            _stateFactory = new GoodsRepositoryStateFactory(transitionRepository);
 
-            GoodsItems = context.GoodsItems.AsQueryable()
+            GoodsItems = context.GoodsItems.OrderByDescending(gi => gi.LastTransition).AsQueryable()
                 .Select(gi => InsertTransitionStrategy(gi));
         }
 
-        private readonly GoodsTransitionStateFactory _transitionStateFactory;
+        private readonly GoodsStateFactory _stateFactory;
 
         private GoodsItem InsertTransitionStrategy(GoodsItem item)
         {
-            item.TransitionState = _transitionStateFactory.FromGoods(item);
+            item.TransitionState = _stateFactory.FromGoods(item);
             return item;
         }
 
@@ -42,11 +43,22 @@ namespace StorehouseManager.Domain.Goods
             return GoodsItems.Where(gi => gi.UserId == userId);
         }
 
-        public GoodsItem Update(int id, int userId, string name)
+        public GoodsItem Update(GoodsItem item)
         {
-            var item = FindById(id, userId);
-            item.Name = name;
+            var dalItem = FindById(item.Id, item.UserId);
+            dalItem.Name = item.Name;
+            dalItem.AreaId = item.AreaId;
+            dalItem.Status = item.Status;
+            dalItem.Shipper = item.Shipper;
+            dalItem.LastTransition = item.LastTransition;
             _context.GoodsItems.Update(item);
+            _context.SaveChanges();
+            return item;
+        }
+
+        public GoodsItem Add(GoodsItem item)
+        {
+            _context.Add(item);
             _context.SaveChanges();
             return item;
         }

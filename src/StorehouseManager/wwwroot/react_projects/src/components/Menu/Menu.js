@@ -18,7 +18,7 @@ export default class Menu extends Component {
                     </IndexLinkContainer>
         </Nav> </Navbar> </div>
             <h2>Goods</h2>
-            <Button className="register-btn">Register</Button>
+            <Button className="register-btn" onClick={this.props.startRegisterGoods}>Register</Button>
         <div className="sidebar-nav"><Navbar><Nav>
             <LinkContainer to="/not-storing">
                 <NavItem>Not Storing</NavItem>

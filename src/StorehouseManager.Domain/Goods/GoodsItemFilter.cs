@@ -38,5 +38,25 @@ namespace StorehouseManager.Domain.Goods
         {
             return ByStatus(userId, GoodsItemStatus.Rejected);
         }
+
+        public IEnumerable<GoodsItem> Accepted(int userId)
+        {
+            return ByStatus(userId, GoodsItemStatus.Accepted);
+        }
+
+        public IEnumerable<GoodsItem> Storing(int userId)
+        {
+            return ByStatus(userId, GoodsItemStatus.Storing);
+        }
+
+        public IEnumerable<GoodsItem> WaitingForUnload(int userId)
+        {
+            return ByStatus(userId, GoodsItemStatus.WaitingForUnloading);
+        }
+
+        public IEnumerable<GoodsItem> Unloaded(int userId)
+        {
+            return ByStatus(userId, GoodsItemStatus.Unloaded);
+        }
     }
 }

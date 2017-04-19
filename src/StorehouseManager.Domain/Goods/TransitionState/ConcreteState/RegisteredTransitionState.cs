@@ -5,7 +5,7 @@ namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 {
     class RegisteredTransitionState : GoodsTransitionState
     {
-        public RegisteredTransitionState(GoodsItem item, GoodsTransitionRepository repository) : base(item, repository)
+        public RegisteredTransitionState(GoodsItem item, TransitionLog log) : base(item, log)
         {
         }
 
@@ -37,6 +37,11 @@ namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
         public override void Reject(string reasoning)
         {
             throw new InvalidOperationException("GoodsItem is not arrived");
+        }
+
+        public override void Remove()
+        {
+            base.Remove();
         }
     }
 }

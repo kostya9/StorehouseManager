@@ -14,7 +14,7 @@ class GoodsOutsideArea extends Component {
     render() {
         return (
             <div className="outsideArea">
-                <div className="goodsTableContainer"><GoodsTable goodsItems={this.props.registered} name="Registered"/></div>
+                <div className="goodsTableContainer"><GoodsTable goodsItems={this.props.registered} name="Registered" leftText="Remove" leftFunc={this.props.removeGoodsItem}/></div>
                 <div className="goodsTableContainer"><GoodsTable goodsItems={this.props.arrived} name="Arrived"/></div>
             </div>
         )

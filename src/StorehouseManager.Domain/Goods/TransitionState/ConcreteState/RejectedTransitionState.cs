@@ -7,7 +7,7 @@ namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 {
     class RejectedTransitionState : GoodsTransitionState
     {
-        public RejectedTransitionState(GoodsItem item, GoodsTransitionRepository repository) : base(item, repository)
+        public RejectedTransitionState(GoodsItem item, TransitionLog log) : base(item, log)
         {
         }
 
@@ -39,6 +39,11 @@ namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
         public override void Reject(string reasoning)
         {
             throw new InvalidOperationException("Cannot reject already rejected");
+        }
+
+        public override void Remove()
+        {
+            throw new InvalidOperationException("Cannot remove already arrived.");
         }
     }
 }

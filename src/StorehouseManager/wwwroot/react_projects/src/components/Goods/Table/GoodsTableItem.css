@@ -20,7 +20,8 @@
 }
 
 .goods-table-item .left, .goods-table-item .right {
-      width: 30px;
+    width: 50px;
+    cursor: pointer;
   }
 
 .goods-table-item .right > p {

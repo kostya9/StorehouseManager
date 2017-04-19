@@ -2,7 +2,9 @@ import {START_DRAWING,STOP_DRAWING, MOUSE_MOVE} from './reducers/draw'
 import {ADD_AREA, SELECT_AREA, SET_NAME, REMOVE_AREA, CANCEL_ADD_AREA, START_ADD_AREA} from './reducers/areas'
 
 export {addArea, removeArea, updateArea} from './actions/areas';
-export {loadGoodsItems, loadGoodsItemsRegistered, loadGoodsItemsArrived} from './actions/goods';
+export {loadGoodsItems, loadGoodsItemsRegistered, loadGoodsItemsArrived,
+  registerGoodsItem, startRegisterGoods, cancelRegisterGoods,
+  removeGoodsItem} from './actions/goods';
 
 export function selectArea(id) {
   return {

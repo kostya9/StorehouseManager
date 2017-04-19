@@ -16,7 +16,7 @@ export default class GoodsTableHeader extends Component {
                 <div className="header-text"><p>{this.props.name}</p></div>
             </div>
                 <div className="goods-table-item goods-table-header">
-                <div className="left"><p>Prev</p></div>
+                    {this.props.leftText && <div className="left"><p>{this.props.leftText}</p></div>}
                 <div>
                     <div className="icon-container">
                         <p></p>
@@ -31,7 +31,7 @@ export default class GoodsTableHeader extends Component {
                         <p>Time of transition</p>
                     </div>
                 </div>
-                <div className="right"><p>Next</p></div>
+                    {this.props.rightText && <div className="right"><p>{this.props.rightText}</p></div>}
                 </div></div>);
     }
 }

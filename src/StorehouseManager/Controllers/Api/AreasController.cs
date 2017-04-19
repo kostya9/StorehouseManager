@@ -26,10 +26,16 @@ namespace StorehouseManager.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<Area> Areas()
+        public IEnumerable<AreaModel> Areas()
         {
             var userId = this.GetCurrentUserId();
-            return _areaRepository.FindAll(userId);
+            return _areaRepository.FindAll(userId).Select(a => new AreaModel
+            {
+                Id = a.Id,
+                Name = a.Name,
+                Rectangle = a.Rectangle,
+                Type = a.Type
+            });
         }
 
         [HttpPost]
