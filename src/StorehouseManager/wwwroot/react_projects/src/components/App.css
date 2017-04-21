@@ -1,3 +1,7 @@
+html {
+    min-width: 800px;
+}
+
 .vertical-line {
     border-left: 2px solid rgb(231, 231, 231);
     height: 100%;
@@ -18,4 +22,15 @@
 .add-modal hr {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.app-component {
+    min-width: 650px;
+}
+
+.app-menu {
+    min-width: 131px;
+}
+.app {
+    min-width: 800px;
 }

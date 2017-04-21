@@ -36,7 +36,7 @@ namespace StorehouseManager.Domain.Goods
             UserId = userId;
             Shipper = shipper;
             Status = GoodsItemStatus.Registered;
-            LastTransition = DateTime.Now;
+            LastTransition = DateTime.UtcNow;
         }
 
         protected GoodsItem()

@@ -225,7 +225,7 @@ export function rejectGoodsItem(id, reasoning) {
     return (dispatch) => {
         return GoodsApi.rejectGoodsItem(id, reasoning)
             .then(() => {
-                dispatch(loadGoodsItemsAccepted());
+                dispatch(loadGoodsItemsArrived());
                 dispatch(loadGoodsItemsRejected());
             })
     }

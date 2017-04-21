@@ -14,6 +14,8 @@ import AreaDetailsContainer from './components/Areas/AreaDetails'
 
 import App from "./components/App";
 
+export const base = '/StorehouseOwner';
+
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={SelectorContainer} />

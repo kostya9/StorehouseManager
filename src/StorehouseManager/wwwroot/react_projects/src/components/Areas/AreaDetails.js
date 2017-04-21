@@ -6,6 +6,8 @@ import AreaTypeSelect from './AreaTypeSelect'
 import * as actionCreators from './../../actionCreators';
 
 import {connect} from "react-redux";
+import { browserHistory } from 'react-router';
+import {base} from "../../routes";
 
 class AreaDetails extends Component {
 
@@ -40,11 +42,13 @@ class AreaDetails extends Component {
   onButtonClick(e) {
     e.preventDefault();
     this.props.updateArea(this.props.id, this.state.showName, this.state.type, this.state.temperature, this.state.humidity);
+      this.props.router.push('/');
   }
 
   onButtonClickRemove(e) {
     e.preventDefault();
     this.props.removeArea(this.props.id);
+    this.props.router.push('/');
   }
 
   reset() {
@@ -100,6 +104,7 @@ class AreaDetails extends Component {
     onReset(e) {
         e.preventDefault();
         this.reset();
+        this.props.router.push('/');
     }
 }
 

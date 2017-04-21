@@ -15,11 +15,11 @@ import * as actionCreators from './../actionCreators';
 class App extends Component {
     render() {
         return (
-            <div>
-                <div className="col-xs-2">
+            <div className="app">
+                <div className="col-xs-2 app-menu">
                     <Menu startRegisterGoods={this.props.startRegisterGoods}/>
                 </div>
-                <div className="col-xs-10 vertical-line">
+                <div className="col-xs-10 vertical-line app-component">
                     {this.props.children}
                 </div>
                 <RegisterGoods newItem={this.props.newItem} cancel={this.props.cancelRegisterGoods} register={this.props.registerGoodsItem}/>

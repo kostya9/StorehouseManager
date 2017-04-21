@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 import {loadAreas} from "./actions/areas";
 import {loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsRejected, loadGoodsItemsAccepted} from "./actions/goods";
 
-import routes from './routes'
+import routes, {base} from './routes'
 import {Router, useRouterHistory, browserHistory } from 'react-router'
 import { createHistory } from 'history'
 
@@ -20,8 +20,6 @@ store.dispatch(loadGoodsItemsRegistered());
 store.dispatch(loadGoodsItemsArrived());
 store.dispatch(loadGoodsItemsAccepted());
 store.dispatch(loadGoodsItemsRejected());
-
-const base = '/StorehouseOwner';
 
 const history = useRouterHistory(createHistory)({ basename: base });
 

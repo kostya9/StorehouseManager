@@ -19,7 +19,7 @@ namespace StorehouseManager.Domain.Goods.TransitionState
         private void ChangeState(GoodsItemStatus state)
         {
             Item.Status = state;
-            Item.LastTransition = DateTime.Now;
+            Item.LastTransition = DateTime.UtcNow;
             GoodsStateFactory factory = new GoodsLogStateFactory(_log);
             Item.TransitionState = factory.FromGoods(Item);
         }

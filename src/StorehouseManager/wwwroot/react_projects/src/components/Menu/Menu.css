@@ -36,3 +36,7 @@
 .register-btn {
     margin: 10px;
 }
+
+ul.nav.navbar-nav {
+    margin: 0px !important;
+}

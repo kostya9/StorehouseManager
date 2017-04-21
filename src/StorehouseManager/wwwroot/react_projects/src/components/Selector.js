@@ -46,7 +46,8 @@ function mapStateToProps(state) {
         height: state.draw.height,
         areas: state.areas.areasList,
         selectedId: state.areas.selectedId,
-        addingAreaRectangle: state.areas.addingAreaRectangle
+        addingAreaRectangle: state.areas.addingAreaRectangle,
+        areaTypesAvailability: state.areas.areaTypesAvailability
     }
 }
 
