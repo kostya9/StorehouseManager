@@ -10,9 +10,10 @@ using StorehouseManager.Domain.Goods;
 namespace StorehouseManager.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170421214517_AddGoodsCharacteristics")]
+    partial class AddGoodsCharacteristics
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

@@ -21,6 +21,8 @@ namespace StorehouseManager.Domain.Goods
         public int? AreaId { get; set; }
         public Area Area { get; private set; }
 
+        public GoodsCharacteristics Characteristics { get; set; }
+
         public DateTime LastTransition { get; set; }
 
         public GoodsTransitionState TransitionState { get; set; }

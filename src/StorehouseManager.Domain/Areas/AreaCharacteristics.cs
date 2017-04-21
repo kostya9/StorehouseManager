@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using StorehouseManager.Domain.Characteristics;
 
 namespace StorehouseManager.Domain.Areas
 {
@@ -8,6 +9,7 @@ namespace StorehouseManager.Domain.Areas
     {
         private double _temperature;
         private double _humidity;
+        private double _volume;
         public int Id { get; private set; }
         public int AreaId { get; private set; }
         public Area Area { get; private set; }
@@ -17,8 +19,7 @@ namespace StorehouseManager.Domain.Areas
             get { return _temperature; }
             set
             {
-                if(value < LowestTemperature || value > HighestTemprature)
-                    throw new ArgumentException("The temperature is out of bounds {-20, 20}");
+                CharacteristicsBoundary.VerifyTemperature(value);
                 _temperature = value;
             }
         }
@@ -28,22 +29,32 @@ namespace StorehouseManager.Domain.Areas
             get { return _humidity; }
             set
             {
-                if(value > 1 || value < 0)
-                    throw new ArgumentException("Humidity can be only at range {0, 1}");
+                CharacteristicsBoundary.VerifyHumidity(value);
                 _humidity = value;
+            }
+        }
+
+        // In m^3
+        public double Volume
+        {
+            get { return _volume; }
+            set
+            {
+                CharacteristicsBoundary.VerifyVolume(value);
+                _volume = value;
             }
         }
 
         public static double DefaultTemperature => 25;
         public static double DefaultHumidity => 0.2;
+        public static double DefaultVolume => 1;
 
-        public static double HighestTemprature => 30;
-        public static double LowestTemperature => -20;
 
         public AreaCharacteristics()
         {
             Temperature = DefaultTemperature;
             Humidity = DefaultHumidity;
+            Volume = DefaultVolume;
         }
 
         public AreaCharacteristics(int areaId) : this()

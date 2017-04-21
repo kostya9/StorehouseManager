@@ -42,6 +42,12 @@ namespace StorehouseManager.Domain
 
             modelBuilder.Entity<Area>().HasOne(a => a.Characteristics).WithOne(c => c.Area)
                 .HasForeignKey<AreaCharacteristics>(a => a.AreaId);
+
+            modelBuilder.Entity<AreaCharacteristics>().Property(ac => ac.Volume)
+                .HasAnnotation("SqlDefaultValue", Domain.Areas.AreaCharacteristics.DefaultVolume);
+
+            modelBuilder.Entity<GoodsItem>().HasOne(gi => gi.Characteristics).WithOne(c => c.Area)
+                .HasForeignKey<GoodsCharacteristics>(c => c.AreaId);
         }
     }
 }

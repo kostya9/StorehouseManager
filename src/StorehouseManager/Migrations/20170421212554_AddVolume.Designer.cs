@@ -10,9 +10,10 @@ using StorehouseManager.Domain.Goods;
 namespace StorehouseManager.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170421212554_AddVolume")]
+    partial class AddVolume
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -100,31 +101,6 @@ namespace StorehouseManager.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("StorehouseManager.Domain.Goods.GoodsCharacteristics", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AreaId");
-
-                    b.Property<double>("HumidityHigh");
-
-                    b.Property<double>("HumidityLow");
-
-                    b.Property<double>("TemperatureHigh");
-
-                    b.Property<double>("TemperatureLow");
-
-                    b.Property<double>("Volume");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AreaId")
-                        .IsUnique();
-
-                    b.ToTable("GoodsCharacteristics");
-                });
-
             modelBuilder.Entity("StorehouseManager.Domain.Goods.GoodsItem", b =>
                 {
                     b.Property<int>("Id")
@@ -184,14 +160,6 @@ namespace StorehouseManager.Migrations
                     b.HasOne("StorehouseManager.Domain.Areas.Area", "Area")
                         .WithOne("Rectangle")
                         .HasForeignKey("StorehouseManager.Domain.Areas.Rectangle", "AreaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("StorehouseManager.Domain.Goods.GoodsCharacteristics", b =>
-                {
-                    b.HasOne("StorehouseManager.Domain.Goods.GoodsItem", "Area")
-                        .WithOne("Characteristics")
-                        .HasForeignKey("StorehouseManager.Domain.Goods.GoodsCharacteristics", "AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

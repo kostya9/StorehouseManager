@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Goods.TransitionLogs;
 using StorehouseManager.Domain.Goods.TransitionState;
@@ -19,7 +20,8 @@ namespace StorehouseManager.Domain.Goods
             _context = context;
             _stateFactory = new GoodsRepositoryStateFactory(transitionRepository);
 
-            GoodsItems = context.GoodsItems.OrderByDescending(gi => gi.LastTransition).AsQueryable()
+            GoodsItems = context.GoodsItems.Include(gi => gi.Characteristics)
+                .OrderByDescending(gi => gi.LastTransition).AsQueryable()
                 .Select(gi => InsertTransitionStrategy(gi));
         }
 
