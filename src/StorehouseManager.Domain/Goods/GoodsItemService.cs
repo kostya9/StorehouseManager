@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace StorehouseManager.Domain.Goods
 {
@@ -24,52 +25,36 @@ namespace StorehouseManager.Domain.Goods
             return _repository.FindById(itemId, userId);
         }
 
-        public void Arrive(int itemId, int userId)
+        public void ChangeState(GoodsItemStatus target, int itemId, int userId, int areaId = 0, string reasoning = null)
         {
             var item = GetItemById(itemId, userId);
-            item.TransitionState.Arrive();
-            _repository.Update(item);
-        }
+            switch (target)
+            {
+                case GoodsItemStatus.Arrived:
+                    item.TransitionState.Arrive();
+                    break;
+                case GoodsItemStatus.Accepted:
+                    item.TransitionState.Accept();
+                    break;
+                case GoodsItemStatus.Storing:
+                    item.TransitionState.Store(areaId);
+                    break;
+                case GoodsItemStatus.WaitingForUnloading:
+                    item.TransitionState.WaitForUnload();
+                    break;
+                case GoodsItemStatus.Unloaded:
+                    item.TransitionState.Unload();
+                    break;
+                case GoodsItemStatus.Removed:
+                    item.TransitionState.Remove();
+                    break;
+                case GoodsItemStatus.Rejected:
+                    item.TransitionState.Reject(reasoning);
+                    break;
+                default:
+                    throw new ArgumentException("Incorrect target state");
 
-        public void Accept(int itemId, int userId)
-        {
-            var item = GetItemById(itemId, userId);
-            item.TransitionState.Accept();
-            _repository.Update(item);
-        }
-
-        public void Store(int itemId, int areaId, int userId)
-        {
-            var item = GetItemById(itemId, userId);
-            item.TransitionState.Store(areaId);
-            _repository.Update(item);
-        }
-
-        public void WaitForUnload(int itemId, int userId)
-        {
-            var item = GetItemById(itemId, userId);
-            item.TransitionState.WaitForUnload();
-            _repository.Update(item);
-        }
-
-        public void Unload(int itemId, int userId)
-        {
-            var item = GetItemById(itemId, userId);
-            item.TransitionState.Unload();
-            _repository.Update(item);
-        }
-
-        public void Reject(int itemId, string reasoning, int userId)
-        {
-            var item = GetItemById(itemId, userId);
-            item.TransitionState.Reject(reasoning);
-            _repository.Update(item);
-        }
-
-        public void Remove(int itemId, int userId)
-        {
-            var item = GetItemById(itemId, userId);
-            item.TransitionState.Remove();
+            }
             _repository.Update(item);
         }
     }

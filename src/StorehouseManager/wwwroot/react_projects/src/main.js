@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 import reduce from './reducers/reducer'
 import thunk from 'redux-thunk'
 import {loadAreas} from "./actions/areas";
-import {loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsRejected} from "./actions/goods";
+import {loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsRejected, loadGoodsItemsAccepted} from "./actions/goods";
 
 import routes from './routes'
 import {Router, useRouterHistory, browserHistory } from 'react-router'
@@ -18,6 +18,7 @@ const store = createStore(reduce,
 store.dispatch(loadAreas());
 store.dispatch(loadGoodsItemsRegistered());
 store.dispatch(loadGoodsItemsArrived());
+store.dispatch(loadGoodsItemsAccepted());
 store.dispatch(loadGoodsItemsRejected());
 
 const base = '/StorehouseOwner';

@@ -3,8 +3,11 @@ import React, {Component} from 'react'
 import css from './AreaDetails.css'
 
 import AreaTypeSelect from './AreaTypeSelect'
+import * as actionCreators from './../../actionCreators';
 
-export default class AreaDetails extends Component {
+import {connect} from "react-redux";
+
+class AreaDetails extends Component {
 
   initState(from) {
       this.setState({...this.state, showName: from.name, type: from.type, temperature: from.temperature, humidity: from.humidity})
@@ -44,10 +47,20 @@ export default class AreaDetails extends Component {
     this.props.removeArea(this.props.id);
   }
 
+  reset() {
+    this.props.selectArea(-1);
+  }
+
   render() {
-    return (<form>
+      if(this.props.id == undefined) {
+        return (
+            <div className="nothing-selected-container"><div className="nothing-selected">
+              <h2>Nothing selected</h2>
+        </div></div>)
+      }
+      return (<div><form className="form-area-details">
       <h2>Selected Area</h2>
-    <hr />
+      <hr />
       <div className="form-group row">
         <label htmlFor="id" className="col-xs-2 col-form-label">Id</label>
         <div className="col-xs-10">
@@ -81,11 +94,41 @@ export default class AreaDetails extends Component {
       <button type="submit" className="btn btn-primary" onClick={(e) => this.onButtonClick(e)}>Update</button>
       <button className="btn btn-danger area-details-btn" onClick={(e) => this.onButtonClickRemove(e)}>Remove</button>
       <button className="btn btn-default area-details-btn" onClick={(e) => this.onReset(e)}>Reset</button>
-    </form>)
+      </form></div>)
   }
 
     onReset(e) {
         e.preventDefault();
-        this.props.reset();
+        this.reset();
     }
 }
+
+function getSelectedArea(state) {
+    const id = state.selectedId;
+    if (id === -1)
+        return null;
+
+    return state.areasList.find((area) => area.id === id);
+}
+
+const mapStateToProps = state => {
+  const selectedArea = getSelectedArea(state.areas);
+
+  if(selectedArea === null)
+    return {
+
+    };
+
+  return {
+    id: selectedArea.id,
+      name: selectedArea.name,
+      type: selectedArea.type,
+      temperature: selectedArea.temperature,
+      humidity: selectedArea.humidity,
+      areaTypesAvailability: state.areas.areaTypesAvailability
+  }
+};
+
+const AreaDetailsContainer = connect(mapStateToProps, actionCreators)(AreaDetails);
+
+export default AreaDetailsContainer;

@@ -12,10 +12,14 @@ import css from './Menu.css'
 export default class Menu extends Component {
     render() {
         return (<div className="text-center">
+            <h2>Areas</h2>
             <div className="sidebar-nav"><Navbar><Nav>
                     <IndexLinkContainer to="/">
                         <NavItem>Areas</NavItem>
                     </IndexLinkContainer>
+                <IndexLinkContainer to={"/area-edit"}>
+                    <NavItem>Area Edit</NavItem>
+                </IndexLinkContainer>
         </Nav> </Navbar> </div>
             <h2>Goods</h2>
             <Button className="register-btn" onClick={this.props.startRegisterGoods}>Register</Button>

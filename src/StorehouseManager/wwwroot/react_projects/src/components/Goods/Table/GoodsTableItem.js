@@ -28,6 +28,7 @@ export default class GoodsTableItem extends Component {
 
     rightClick() {
         this.setState({confirmRight: true});
+        console.log(1)
     }
 
     rightClickCancel() {
@@ -37,7 +38,7 @@ export default class GoodsTableItem extends Component {
     render() {
         const time = new Date(this.props.time);
         return (<div className="goods-table-item">
-            {this.state.confirmLeft && <ConfirmButton text={"Are you sure you want to remove " + this.props.name + "?"} cancel={() => this.leftClickCancel()} confirm={() => this.props.leftFunc()}/>}
+            {this.state.confirmLeft && <ConfirmButton text={this.props.leftText} cancel={() => this.leftClickCancel()} confirm={() => this.props.leftFunc()}/>}
             {this.props.leftFunc && <div className="left" onClick={() => this.leftClick()}><p>&larr;</p></div> }
             <div>
                 <div className="icon-container">
@@ -54,8 +55,8 @@ export default class GoodsTableItem extends Component {
                     <span>{this.padNumber(time.getHours())}:{this.padNumber(time.getMinutes())}</span></p>
                 </div>
             </div>
-            {this.state.confirmRight && <ConfirmButton cancel={() => this.rightClickCancel()} confirm={() => this.props.rightFunc()}/>}
-            {this.props.rightFunc && <div className="right" onClick={() => this.props.rightClick}><p>&rarr;</p></div> }
+            {this.state.confirmRight && <ConfirmButton text={this.props.rightText} cancel={() => this.rightClickCancel()} confirm={() => this.props.rightFunc()}/>}
+            {this.props.rightFunc && <div className="right" onClick={() => this.rightClick()}><p>&rarr;</p></div> }
         </div>);
     }
 }

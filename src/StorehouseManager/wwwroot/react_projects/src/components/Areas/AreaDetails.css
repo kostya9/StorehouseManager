@@ -1,3 +1,23 @@
 .area-details-btn {
   margin: 20px;
 }
+
+.nothing-selected-container {
+  height: 400px;
+  width: 330px;
+  margin:0 auto;
+}
+
+.nothing-selected {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline;
+  padding: 50px;
+  border: 1px solid rgb(231, 231, 231);
+}
+
+.form-area-details {
+  margin: 0 auto;
+  width: 600px;
+}

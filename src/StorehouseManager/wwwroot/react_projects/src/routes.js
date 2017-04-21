@@ -10,11 +10,14 @@ import GoodsRejectedContainer from "./components/Goods/GoodsRejected";
 
 import SelectorContainer from './components/Selector'
 
+import AreaDetailsContainer from './components/Areas/AreaDetails'
+
 import App from "./components/App";
 
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={SelectorContainer} />
+        <Route path="area-edit" component={AreaDetailsContainer}/>
         <Route path="not-storing" component={GoodsOutsideAreaContainer}/>
         <Route path="rejected" component={GoodsRejectedContainer}/>
     </Route>
