@@ -5,11 +5,13 @@ export const AREA_ENTER = 'AREA_ENTER'
 export const AREA_EXIT = 'AREA_EXIT'
 
 export default class Area extends Rectangle{
-  constructor(rectangle, id, type, name) {
+  constructor(rectangle, id, type, name, temperature, humidity) {
     super(rectangle.position.x, rectangle.position.y, rectangle.width, rectangle.height);
     this.id = id;
     this.name = name;
     this.type = type;
+    this.temperature = temperature;
+    this.humidity = humidity;
   }
 
   static fromTypeToName(type) {

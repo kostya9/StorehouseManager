@@ -36,7 +36,8 @@ class Selector extends Component {
 
         return (<div className="col-sm-5">
             <AreaDetails id={this.props.selectedId} name={selectedArea.name} type={selectedArea.type} updateArea={this.props.updateArea}
-                         removeArea={this.props.removeArea} areaTypesAvailability={this.props.areaTypesAvailability} reset={() => this.props.selectArea(-1)}/>
+                         removeArea={this.props.removeArea} areaTypesAvailability={this.props.areaTypesAvailability} reset={() => this.props.selectArea(-1)}
+                        temperature={selectedArea.temperature} humidity={selectedArea.humidity}/>
         </div>);
     }
 

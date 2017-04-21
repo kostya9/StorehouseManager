@@ -2,3 +2,20 @@
     border-left: 2px solid rgb(231, 231, 231);
     height: 100%;
 }
+
+.add-modal > .modal-content{
+    width: 400px;
+}
+
+.add-modal .btn, .add-modal  .modal-header {
+    text-align: center;
+}
+
+.add-modal .modal-body {
+    height: 220px;
+}
+
+.add-modal hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

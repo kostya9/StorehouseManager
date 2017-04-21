@@ -36,15 +36,6 @@ namespace StorehouseManager.Domain.Areas
             return area.Id;
         }
 
-        public AreaCharacteristics UpdateCharacteristics(int userId, int areaId, double humidity, double temperature)
-        {
-            var area = FindById(areaId, userId);
-            area.Characteristics.Humidity = humidity;
-            area.Characteristics.Temperature = temperature;
-            _context.SaveChanges();
-            return area.Characteristics;
-        }
-
         public IEnumerable<Area> FindAll(int userId)
         {
             return Areas.Where(area => area.UserId == userId);
@@ -58,11 +49,14 @@ namespace StorehouseManager.Domain.Areas
             _context.SaveChanges();
         }
 
-        public Area Update(int id, string name, AreaType type, int userId)
+        public Area Update(int id, string name, AreaType type, double humidity, double temperature, int userId)
         {
             var repositoryArea = FindById(id, userId);
             repositoryArea.Name = name;
             repositoryArea.Type = type;
+
+            repositoryArea.Characteristics.Humidity = humidity;
+            repositoryArea.Characteristics.Temperature = temperature;
             _context.Areas.Update(repositoryArea);
             _context.SaveChanges();
             return repositoryArea;

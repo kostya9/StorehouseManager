@@ -57,11 +57,14 @@ export function addArea(rectangle, type, name) {
     }
 }
 
-export function updateArea(id, name, type) {
+export function updateArea(id, name, type, temperature, humidity) {
     return (dispatch) => {
-        return AreasApi.updateArea(id, name, type)
+        return AreasApi.updateArea(id, name, type, temperature, humidity)
             .then((area) => {
                 dispatch(updateAreaSuccess(area))
+            }).catch(() => {
+                dispatch(loadAreas())
+                // Add error message
             })
     }
 }

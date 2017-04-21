@@ -10,9 +10,10 @@ using StorehouseManager.Domain.Goods;
 namespace StorehouseManager.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170421005853_AddAreaCharacteristics")]
+    partial class AddAreaCharacteristics
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -41,6 +42,8 @@ namespace StorehouseManager.Migrations
 
                     b.Property<int>("AreaId");
 
+                    b.Property<int?>("AreaId1");
+
                     b.Property<double>("Humidity");
 
                     b.Property<double>("Temperature");
@@ -48,6 +51,9 @@ namespace StorehouseManager.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AreaId")
+                        .IsUnique();
+
+                    b.HasIndex("AreaId1")
                         .IsUnique();
 
                     b.ToTable("AreaCharacteristics");
@@ -149,6 +155,10 @@ namespace StorehouseManager.Migrations
                         .WithOne("Characteristics")
                         .HasForeignKey("StorehouseManager.Domain.Areas.AreaCharacteristics", "AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StorehouseManager.Domain.Areas.Area")
+                        .WithOne()
+                        .HasForeignKey("StorehouseManager.Domain.Areas.AreaCharacteristics", "AreaId1");
                 });
 
             modelBuilder.Entity("StorehouseManager.Domain.Areas.Rectangle", b =>

@@ -6,12 +6,16 @@ import AreaTypeSelect from './AreaTypeSelect'
 
 export default class AreaDetails extends Component {
 
+  initState(from) {
+      this.setState({...this.state, showName: from.name, type: from.type, temperature: from.temperature, humidity: from.humidity})
+  }
+
   componentWillMount() {
-    this.setState({...this.state, showName: this.props.name, type: this.props.type})
+    this.initState(this.props);
   }
 
   componentWillReceiveProps(next) {
-    this.setState({...this.state, showName: next.name, type: next.type})
+    this.initState(next);
   }
 
   onChange(e) {
@@ -22,9 +26,17 @@ export default class AreaDetails extends Component {
     this.setState({ ...this.props, type: e.target.value})
   }
 
+  onHumidityChange(e) {
+      this.setState({ ...this.props, humidity: e.target.value})
+  }
+
+  onTemperatureChange(e) {
+      this.setState({ ...this.props, temperature: e.target.value})
+  }
+
   onButtonClick(e) {
     e.preventDefault();
-    this.props.updateArea(this.props.id, this.state.showName, this.state.type);
+    this.props.updateArea(this.props.id, this.state.showName, this.state.type, this.state.temperature, this.state.humidity);
   }
 
   onButtonClickRemove(e) {
@@ -52,6 +64,18 @@ export default class AreaDetails extends Component {
         <label htmlFor="type" className="col-xs-2 col-form-label">Type</label>
         <div className="col-xs-10">
           <AreaTypeSelect onChange={(e) => this.onTypeChange(e)} value={this.state.type} areaTypesAvailability={this.props.areaTypesAvailability}/>
+        </div>
+      </div>
+      <div className="form-group row">
+        <label htmlFor="temperature" className="col-xs-2 col-form-label">Temperature</label>
+        <div className="col-xs-10">
+          <input className="form-control" type="text" id="temperature" value={this.state.temperature} onChange={(e) => this.onTemperatureChange(e)}/>
+        </div>
+      </div>
+      <div className="form-group row">
+        <label htmlFor="humidity" className="col-xs-2 col-form-label">Humidity</label>
+        <div className="col-xs-10">
+          <input className="form-control" type="text" id="humidity" value={this.state.humidity} onChange={(e) => this.onHumidityChange(e)}/>
         </div>
       </div>
       <button type="submit" className="btn btn-primary" onClick={(e) => this.onButtonClick(e)}>Update</button>

@@ -8,9 +8,9 @@ namespace StorehouseManager.Domain.Areas
     {
         private double _temperature;
         private double _humidity;
-        public int Id { get; }
-        public int AreaId { get; }
-        public Area Area { get; }
+        public int Id { get; private set; }
+        public int AreaId { get; private set; }
+        public Area Area { get; private set; }
 
         public double Temperature
         {
@@ -44,6 +44,11 @@ namespace StorehouseManager.Domain.Areas
         {
             Temperature = DefaultTemperature;
             Humidity = DefaultHumidity;
+        }
+
+        public AreaCharacteristics(int areaId) : this()
+        {
+            AreaId = areaId;
         }
     }
 }

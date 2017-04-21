@@ -17,6 +17,7 @@ namespace StorehouseManager.Domain
         public DbSet<Area> Rectangles { get; set; }
         public DbSet<GoodsItem> GoodsItems { get; set; }
         public DbSet<GoodsTransition> GoodsTransitions { get; set; }
+        public DbSet<AreaCharacteristics> AreaCharacteristics { get; set; }
 
         public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
         {

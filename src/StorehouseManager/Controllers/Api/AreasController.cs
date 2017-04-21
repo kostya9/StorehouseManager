@@ -29,23 +29,17 @@ namespace StorehouseManager.Controllers.Api
         public IEnumerable<AreaModel> Areas()
         {
             var userId = this.GetCurrentUserId();
-            return _areaRepository.FindAll(userId).Select(a => new AreaModel
-            {
-                Id = a.Id,
-                Name = a.Name,
-                Rectangle = a.Rectangle,
-                Type = a.Type
-            });
+            return _areaRepository.FindAll(userId).Select(AreaModel.FromArea);
         }
 
         [HttpPost]
-        public Area AddArea([FromBody]AreaModel area)
+        public AreaModel AddArea([FromBody]AreaModel area)
         {
             if (area.Rectangle == null)
                 throw new ArgumentException();
             var userId = this.GetCurrentUserId();
             var id = _areaRepository.Add(area.Rectangle, area.Type, area.Name, userId);
-            return _areaRepository.FindById(id, userId);
+            return AreaModel.FromArea(_areaRepository.FindById(id, userId));
         }
 
         [HttpDelete("{id}")]
@@ -56,16 +50,14 @@ namespace StorehouseManager.Controllers.Api
         }
 
         [HttpPut("{id}")]
-        public Area UpdateArea(int id, [FromBody]AreaModel area)
+        public AreaModel UpdateArea(int id, [FromBody]AreaModel area)
         {
-            return _areaRepository.Update(id, area.Name, area.Type, this.GetCurrentUserId());
-        }
+            var returnedArea = _areaRepository.Update(id, area.Name, area.Type,
+                area.Humidity, area.Temperature,
+                this.GetCurrentUserId());
 
-        [HttpPut("{id}")]
-        public AreaCharacteristics UpdateCharacteristics(int id, [FromBody] AreaCharacteristics characteristics)
-        {
-            return _areaRepository.UpdateCharacteristics(
-                this.GetCurrentUserId(), id, characteristics.Humidity, characteristics.Temperature);
+            return AreaModel.FromArea(returnedArea);
+
         }
     }
 }

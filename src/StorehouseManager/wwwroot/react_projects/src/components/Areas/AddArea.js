@@ -37,7 +37,7 @@ export default class AddArea extends Component {
   }
 
   render() {
-    return (<Modal show={this.props.addingAreaRectangle != undefined} onHide={() => this.hide()} dialogClassName="custom-modal">
+    return (<Modal show={this.props.addingAreaRectangle != undefined} onHide={() => this.hide()} dialogClassName="add-modal">
       <Modal.Header closeButton>
         <h2>Add area</h2>
       </Modal.Header>
@@ -51,7 +51,8 @@ export default class AddArea extends Component {
           <ControlLabel>Name</ControlLabel>
           <FormControl onChange={(e) => this.handleNameChange(e)} value={this.state.name} componentClass="input" />
         </FormGroup>
-        <Button onClick={(e) => {this.addArea(e)}}>Add</Button>
+          <hr />
+        <Button onClick={(e) => {this.addArea(e)}} className="col-xs-3 col-xs-offset-5">Add</Button>
       </Form>
       </Modal.Body>
     </Modal>)

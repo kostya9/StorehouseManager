@@ -34,7 +34,7 @@ export default class RegisterGoods extends Component {
     }
 
     render() {
-        return (<Modal show={this.props.newItem != undefined} onHide={() => this.hide()} dialogClassName="custom-modal">
+        return (<Modal show={this.props.newItem != undefined} onHide={() => this.hide()} dialogClassName="add-modal">
             <Modal.Header closeButton>
                 <h2>Register goods</h2>
             </Modal.Header>
@@ -48,7 +48,8 @@ export default class RegisterGoods extends Component {
                         <ControlLabel>Shipper</ControlLabel>
                         <FormControl onChange={(e) => this.handleShipperChange(e)} value={this.state.shipper} componentClass="input" />
                     </FormGroup>
-                    <Button onClick={(e) => {this.register(e)}}>Register</Button>
+                    <hr />
+                    <Button onClick={(e) => {this.register(e)}} className="col-xs-3 col-xs-offset-5">Register</Button>
                 </Form>
             </Modal.Body>
         </Modal>)
