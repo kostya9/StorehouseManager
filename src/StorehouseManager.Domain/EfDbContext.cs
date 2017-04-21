@@ -38,6 +38,9 @@ namespace StorehouseManager.Domain
 
             modelBuilder.Entity<GoodsTransition>().HasOne(gt => gt.GoodsItem).WithMany(gi => gi.Transitions)
                 .HasForeignKey(gt => gt.GoodsItemId);
+
+            modelBuilder.Entity<Area>().HasOne(a => a.Characteristics).WithOne(c => c.Area)
+                .HasForeignKey<AreaCharacteristics>(a => a.AreaId);
         }
     }
 }

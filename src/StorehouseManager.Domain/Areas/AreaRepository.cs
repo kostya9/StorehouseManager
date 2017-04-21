@@ -16,7 +16,9 @@ namespace StorehouseManager.Domain.Areas
         public AreaRepository(EfDbContext context)
         {
             _context = context;
-            Areas = _context.Areas.Include(area => area.Rectangle).AsQueryable();
+            Areas = _context.Areas
+                .Include(area => area.Rectangle).Include(area => area.Characteristics)
+                .AsQueryable();
         }
 
         public int Add(Rectangle rectangle, AreaType type, string name, int userId)
@@ -28,9 +30,19 @@ namespace StorehouseManager.Domain.Areas
                     throw new ArgumentException("This area type should be unique");
             }
             var area = new Area(userId, name, type, rectangle);
+            area.Characteristics = new AreaCharacteristics();
             _context.Areas.Add(area);
             _context.SaveChanges();
             return area.Id;
+        }
+
+        public AreaCharacteristics UpdateCharacteristics(int userId, int areaId, double humidity, double temperature)
+        {
+            var area = FindById(areaId, userId);
+            area.Characteristics.Humidity = humidity;
+            area.Characteristics.Temperature = temperature;
+            _context.SaveChanges();
+            return area.Characteristics;
         }
 
         public IEnumerable<Area> FindAll(int userId)

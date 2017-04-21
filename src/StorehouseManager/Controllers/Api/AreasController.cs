@@ -60,5 +60,12 @@ namespace StorehouseManager.Controllers.Api
         {
             return _areaRepository.Update(id, area.Name, area.Type, this.GetCurrentUserId());
         }
+
+        [HttpPut("{id}")]
+        public AreaCharacteristics UpdateCharacteristics(int id, [FromBody] AreaCharacteristics characteristics)
+        {
+            return _areaRepository.UpdateCharacteristics(
+                this.GetCurrentUserId(), id, characteristics.Humidity, characteristics.Temperature);
+        }
     }
 }
