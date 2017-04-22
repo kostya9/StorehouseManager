@@ -87,4 +87,11 @@ export default class GoodsApi {
     static rejectGoodsItem(id, reasoning) {
         return fetch(this.getOperationAddress(id, "reject") + "?reasoning=" + reasoning, createPostFetchOptions(''))
     }
+
+    static fetchHints(id) {
+        return fetch(`/api/goodsitems/${id}/areamark`, sameOriginOption)
+            .then((result) => {
+                return result.json();
+            })
+    }
 }

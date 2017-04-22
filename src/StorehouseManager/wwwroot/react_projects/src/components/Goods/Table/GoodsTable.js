@@ -9,10 +9,16 @@ import GoodsTableHeader from './GoodsTableHeader'
 import css from './GoodsTable.css'
 
 export default class GoodsTable extends Component {
+
     createGoodsTablesItem(goodsItem, rightFunc, leftFunc, leftText, rightText) {
-        return (<GoodsTableItem name={goodsItem.name} time={goodsItem.lastTransition} key={goodsItem.id} id={goodsItem.id} shipper={goodsItem.shipper}
+        const confirmLeft = this.props.confirmLeft;
+        const confirmRight = this.props.confirmRight;
+        return (<GoodsTableItem key={goodsItem.id} id={goodsItem.id}
+                                name={goodsItem.name} time={goodsItem.lastTransition} shipper={goodsItem.shipper}
                                 leftFunc={leftFunc && (() => leftFunc(goodsItem.id))} leftText={leftText}
                                 rightFunc={rightFunc && (() => rightFunc(goodsItem.id))} rightText={rightText}
+                                confirmLeft={confirmLeft}
+                                confirmRight={confirmRight}
         />)
     }
 

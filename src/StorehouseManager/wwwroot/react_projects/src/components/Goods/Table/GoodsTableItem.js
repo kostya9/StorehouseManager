@@ -11,7 +11,13 @@ import ConfirmButton from "../../Shared/ConfirmButton";
 export default class GoodsTableItem extends Component {
     componentWillMount() {
         this.setState({})
+
+
     }
+
+    componentWillReceiveProps(next) {
+    }
+
 
     padNumber(number) {
         const pad = number < 10 ? '0' : '';
@@ -19,7 +25,10 @@ export default class GoodsTableItem extends Component {
     }
 
     leftClick() {
-        this.setState({confirmLeft: true})
+        if(this.confirmLeft)
+            this.setState({confirmLeft: true})
+        else
+            this.props.leftFunc();
     }
 
     leftClickCancel() {
@@ -27,8 +36,10 @@ export default class GoodsTableItem extends Component {
     }
 
     rightClick() {
-        this.setState({confirmRight: true});
-        console.log(1)
+        if(this.confirmRight)
+            this.setState({confirmRight: true})
+        else
+            this.props.rightFunc();
     }
 
     rightClickCancel() {
@@ -36,9 +47,20 @@ export default class GoodsTableItem extends Component {
     }
 
     render() {
+        if(this.props.confirmLeft == undefined)
+            this.confirmLeft = true;
+        else
+            this.confirmLeft = this.props.confirmLeft;
+
+        if(this.props.confirmRight == undefined)
+            this.confirmRight = true;
+        else
+            this.confirmRight = this.props.confirmRight;
+
         const time = new Date(this.props.time);
         return (<div className="goods-table-item">
-            {this.state.confirmLeft && <ConfirmButton text={this.props.leftText} cancel={() => this.leftClickCancel()} confirm={() => this.props.leftFunc()}/>}
+            <ConfirmButton show={this.confirmLeft && this.state.confirmLeft} text={this.props.leftText}
+                           cancel={() => this.leftClickCancel()} confirm={() => {this.props.leftFunc(); this.leftClickCancel();}}/>
             {this.props.leftFunc && <div className="left" onClick={() => this.leftClick()}><p>&larr;</p></div> }
             <div>
                 <div className="icon-container">
@@ -55,7 +77,8 @@ export default class GoodsTableItem extends Component {
                     <span>{this.padNumber(time.getHours())}:{this.padNumber(time.getMinutes())}</span></p>
                 </div>
             </div>
-            {this.state.confirmRight && <ConfirmButton text={this.props.rightText} cancel={() => this.rightClickCancel()} confirm={() => this.props.rightFunc()}/>}
+            <ConfirmButton show={this.confirmRight && this.state.confirmRight} text={this.props.rightText}
+                           cancel={() => this.rightClickCancel()} confirm={() => {this.props.rightFunc(); this.rightClickCancel();}}/>
             {this.props.rightFunc && <div className="right" onClick={() => this.rightClick()}><p>&rarr;</p></div> }
         </div>);
     }

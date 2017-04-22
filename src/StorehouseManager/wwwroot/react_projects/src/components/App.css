@@ -16,7 +16,8 @@ html {
 }
 
 .add-modal .modal-body {
-    height: 220px;
+    min-height: 220px;
+    padding-bottom: 50px;
 }
 
 .add-modal hr {

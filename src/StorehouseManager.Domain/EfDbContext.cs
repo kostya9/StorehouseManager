@@ -18,6 +18,7 @@ namespace StorehouseManager.Domain
         public DbSet<GoodsItem> GoodsItems { get; set; }
         public DbSet<GoodsTransition> GoodsTransitions { get; set; }
         public DbSet<AreaCharacteristics> AreaCharacteristics { get; set; }
+        public DbSet<GoodsCharacteristics> GoodsCharacteristics { get; set; }
 
         public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
         {
@@ -47,7 +48,7 @@ namespace StorehouseManager.Domain
                 .HasAnnotation("SqlDefaultValue", Domain.Areas.AreaCharacteristics.DefaultVolume);
 
             modelBuilder.Entity<GoodsItem>().HasOne(gi => gi.Characteristics).WithOne(c => c.Area)
-                .HasForeignKey<GoodsCharacteristics>(c => c.AreaId);
+                .HasForeignKey<GoodsCharacteristics>(c => c.GoodsItemId);
         }
     }
 }

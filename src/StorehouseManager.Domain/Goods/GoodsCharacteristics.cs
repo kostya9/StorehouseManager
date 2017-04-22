@@ -13,7 +13,7 @@ namespace StorehouseManager.Domain.Goods
         private double _temperatureHigh;
         private double _volume;
         public int Id { get; private set; }
-        public int AreaId { get; private set; }
+        public int GoodsItemId { get; private set; }
 
         public double TemperatureLow
         {
@@ -66,5 +66,19 @@ namespace StorehouseManager.Domain.Goods
         }
 
         public GoodsItem Area { get; private set; }
+
+        public GoodsCharacteristics()
+        {
+            HumidityLow = 0.2;
+            HumidityHigh = 0.5;
+            TemperatureLow = 20;
+            TemperatureHigh = 25;
+            Volume = 0.001;
+        }
+
+        public GoodsCharacteristics(int goodsItemId) : this()
+        {
+            GoodsItemId = goodsItemId;
+        }
     }
 }

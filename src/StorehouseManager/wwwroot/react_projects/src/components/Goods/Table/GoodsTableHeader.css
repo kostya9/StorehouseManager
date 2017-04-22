@@ -13,4 +13,15 @@
 
 .goods-table-header > .right, .goods-table-header > .left {
     cursor: default;
+    width: 80px;
+}
+
+.goods-table-header > .right > p, .goods-table-header > .left > p{
+    cursor: default;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.goods-table-header {
+    padding: 0;
 }

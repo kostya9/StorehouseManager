@@ -28,7 +28,7 @@ namespace StorehouseManager.Domain.Goods
         public GoodsTransitionState TransitionState { get; set; }
         public ICollection<GoodsTransition> Transitions { get; set; }
 
-        public GoodsItem(string name, string shipper, int userId)
+        public GoodsItem(string name, string shipper, int userId, GoodsCharacteristics characteristics)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException(nameof(name));
@@ -39,6 +39,7 @@ namespace StorehouseManager.Domain.Goods
             Shipper = shipper;
             Status = GoodsItemStatus.Registered;
             LastTransition = DateTime.UtcNow;
+            Characteristics = characteristics;
         }
 
         protected GoodsItem()

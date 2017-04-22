@@ -36,7 +36,7 @@ namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 
         public override void Reject(string reasoning)
         {
-            throw new InvalidOperationException("The GoodsItem is not stored");
+            base.Reject(reasoning);
         }
 
         public override void Remove()

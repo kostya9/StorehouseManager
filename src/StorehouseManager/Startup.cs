@@ -71,6 +71,18 @@ namespace StorehouseManager
                 app.UseExceptionHandler("/Home/Error");
             }
 
+
+            // Inti char-s
+            /*using (var ctx = app.ApplicationServices.GetService<EfDbContext>())
+            {
+                var items = ctx.GoodsItems.Include(gi => gi.Characteristics).ToList().Where(gi => gi.Characteristics == null);
+                foreach (var goodsItem in items)
+                {
+                    ctx.GoodsCharacteristics.Add(new GoodsCharacteristics(goodsItem.Id));
+                }
+                ctx.SaveChanges();
+            }*/
+
             app.UseStaticFiles();
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions

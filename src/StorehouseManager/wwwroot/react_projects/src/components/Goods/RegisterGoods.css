@@ -1,0 +1,16 @@
+.data-range {
+    width: 100%;
+}
+
+.data-range input {
+    width: 120px;
+    display: inline-block;
+}
+
+.data-range input:first-child {
+    margin-right: 20px;
+}
+
+.data-range input:nth-child(3){
+    margin-left: 20px;
+}

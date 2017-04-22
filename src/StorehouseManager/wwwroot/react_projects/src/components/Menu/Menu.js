@@ -27,6 +27,9 @@ export default class Menu extends Component {
             <LinkContainer to="/not-storing">
                 <NavItem>Not Storing</NavItem>
             </LinkContainer>
+            <LinkContainer to="/transition">
+                <NavItem>Transition</NavItem>
+            </LinkContainer>
             <LinkContainer to="/rejected">
                 <NavItem>Rejected</NavItem>
             </LinkContainer>

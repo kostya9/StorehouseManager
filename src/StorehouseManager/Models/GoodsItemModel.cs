@@ -10,5 +10,9 @@ namespace StorehouseManager.Models
         public int UserId { get; set; }
         public string Name { get; set; }
         public string Shipper { get; set; }
+        public double TemperatureLow { get; set; }
+        public double TemperatureHigh { get; set; }
+        public double HumidityLow { get; set; }
+        public double HumidityHigh { get; set; }
     }
 }

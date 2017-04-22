@@ -8,13 +8,9 @@ import * as actionCreators from './../../actions/shared';
 import {connect} from "react-redux";
 import {Button, Modal} from "react-bootstrap";
 
-class ConfirmButton extends Component{
-    componentWillMount() {
-        this.props.showConfirmButton();
-    }
+export default class ConfirmButton extends Component{
 
     hide() {
-        this.props.hideConfirmButton();
         this.props.cancel();
     }
 
@@ -25,7 +21,7 @@ class ConfirmButton extends Component{
     }
 
     render() {
-        return (<Modal show={this.props.confirmButtonShow} onHide={() => this.hide()} dialogClassName="custom-modal" className="text-center">
+        return (<Modal show={this.props.show} onHide={() => this.hide()} dialogClassName="custom-modal" className="text-center">
             <Modal.Header closeButton>
                 <h2>{this.props.text}</h2>
             </Modal.Header>
@@ -38,14 +34,3 @@ class ConfirmButton extends Component{
         </Modal>)
     }
 }
-
-const mapPropsToState = (state) => {
-    return {
-        confirmButtonShow: state.shared.confirmButtonShow
-    }
-};
-
-const ConfirmButtonContainer = connect(mapPropsToState, actionCreators)(ConfirmButton);
-
-export default ConfirmButtonContainer;
-

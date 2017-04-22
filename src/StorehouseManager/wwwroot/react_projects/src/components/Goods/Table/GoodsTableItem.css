@@ -20,12 +20,28 @@
 }
 
 .goods-table-item .left, .goods-table-item .right {
-    width: 50px;
+    width: 70px;
     cursor: pointer;
   }
 
+.goods-table-item .right {
+    border-left: 1px solid white;
+    margin-left: 10px;
+}
+
+.goods-table-item .left {
+    border-right: 1px solid white;
+    margin-right: 10px;
+}
+
 .goods-table-item .right > p {
     text-align: right;
+    display: block;
+    width: 100%;
+}
+
+.goods-table-item .left > p {
+    text-align: left;
     display: block;
     width: 100%;
 }

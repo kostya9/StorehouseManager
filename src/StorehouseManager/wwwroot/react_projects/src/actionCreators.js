@@ -3,9 +3,10 @@ import {ADD_AREA, SELECT_AREA, SET_NAME, REMOVE_AREA, CANCEL_ADD_AREA, START_ADD
 
 export {addArea, removeArea, updateArea} from './actions/areas';
 export {
-  loadGoodsItems, loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsAccepted, loadGoodsItemsStoring, loadGoodsItemsWaitingForUnload, loadGoodsItemsUnloaded, loadGoodsItemsRejected,
+  loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsAccepted, loadGoodsItemsStoring, loadGoodsItemsWaitingForUnload, loadGoodsItemsUnloaded, loadGoodsItemsRejected,
   registerGoodsItem, startRegisterGoods, cancelRegisterGoods,
-  removeGoodsItem, arriveGoodsItem, acceptGoodsItem, storeGoodsItem, waitingForUnloadGoodsItem, unloadGoodsItem, rejectGoodsItem} from './actions/goods';
+  removeGoodsItem, arriveGoodsItem, acceptGoodsItem, storeGoodsItem, waitingForUnloadGoodsItem, unloadGoodsItem, rejectGoodsItem,
+  loadAreaMarkHints} from './actions/goods';
 
 export function selectArea(id) {
   return {

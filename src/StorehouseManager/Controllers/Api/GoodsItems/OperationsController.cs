@@ -29,7 +29,14 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
         [Route("[action]")]
         public GoodsItem Create([FromBody]GoodsItemModel item)
         {
-            var goods = new GoodsItem(item.Name, item.Shipper, this.GetCurrentUserId());
+            var goods = new GoodsItem(item.Name, item.Shipper, this.GetCurrentUserId(),
+                new GoodsCharacteristics
+                {
+                    TemperatureLow = item.TemperatureLow,
+                    TemperatureHigh = item.TemperatureHigh,
+                    HumidityLow = item.HumidityLow,
+                    HumidityHigh = item.HumidityHigh
+                });
             return _service.Create(goods);
         }
 

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
+using StorehouseManager.Domain.Areas;
+using StorehouseManager.Domain.Characteristics;
 
 namespace StorehouseManager.Domain.Goods
 {
@@ -9,10 +12,12 @@ namespace StorehouseManager.Domain.Goods
     public class GoodsItemService
     {
         private readonly GoodsRepository _repository;
+        private readonly AreaRepository _areaRepository;
 
-        public GoodsItemService(GoodsRepository repository)
+        public GoodsItemService(GoodsRepository repository, AreaRepository areaRepository)
         {
             _repository = repository;
+            _areaRepository = areaRepository;
         }
 
         public GoodsItem Create(GoodsItem item)
@@ -56,6 +61,20 @@ namespace StorehouseManager.Domain.Goods
 
             }
             _repository.Update(item);
+        }
+
+        public IEnumerable<AreaMarkingReport> MarkAreas(int goodsItemId, int userId)
+        {
+            var item = _repository.FindById(goodsItemId, userId);
+
+            var marker = new TransitionAreaMarker(item);
+
+            var estimate = new AreaUsedVolumeEstimate(_repository);
+
+            return _areaRepository.FindAll(userId)
+                .Where(area => area.Id != item.Id).ToList()
+                .Select(area =>
+                    marker.Mark(area, estimate.Calculate(area)));
         }
     }
 }

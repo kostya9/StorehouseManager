@@ -13,16 +13,14 @@ import RegisteredTable from "./ConcreteTable/RegisteredTable";
 import ArrivedTable from "./ConcreteTable/ArrivedTable";
 import AcceptedTable from "./ConcreteTable/AcceptedTable";
 
-class GoodsOutsideArea extends Component {
+class GoodsTransition extends Component {
 
     render() {
         return (
             <div className="outsideArea">
                 <div className="goodsTableContainer">
-                    <RegisteredTable removeGoodsItem={this.props.removeGoodsItem} registered={this.props.registered} arriveGoodsItem={this.props.arriveGoodsItem}/>
-                </div>
-                <div className="goodsTableContainer">
-                    <ArrivedTable rejectGoodsItem={this.props.rejectGoodsItem} arrived={this.props.arrived} acceptGoodsItem={this.props.acceptGoodsItem}/>
+                    <AcceptedTable rejectGoodsItem={this.props.rejectGoodsItem} accepted={this.props.accepted} hints={this.props.hints} areas={this.props.areas}
+                                   loadAreaMarkHints={this.props.loadAreaMarkHints}/>
                 </div>
             </div>
         )
@@ -31,11 +29,12 @@ class GoodsOutsideArea extends Component {
 
 function mapStateToProps(state) {
     return {
-        registered: state.goods.registered,
-        arrived: state.goods.arrived
+        accepted: state.goods.accepted,
+        hints: state.goods.hints,
+        areas: state.areas.areasList
     }
 }
 
-const GoodsOutsideAreaContainer = connect(mapStateToProps, actionCreators)(GoodsOutsideArea);
+const GoodsTransitionAreaContainer = connect(mapStateToProps, actionCreators)(GoodsTransition);
 
-export default GoodsOutsideAreaContainer;
+export default GoodsTransitionAreaContainer;

@@ -7,7 +7,7 @@ import GoodsApi from "../api/goods";
 import {LOAD_GOODSITEMS_SUCCESS, LOAD_GOODSITEMS_REGISTERED_SUCCESS, LOAD_GOODSITEMS_ARRIVED_SUCCESS,
 LOAD_GOODSITEMS_REJECTED_SUCCESS, LOAD_GOODSITEMS_STORING_SUCCESS, LOAD_GOODSITEMS_WAITINGFORUNLOAD_SUCCESS, LOAD_GOODSITEMS_UNLOADED_SUCCESS} from './../reducers/goods'
 import {
-    CANCEL_REGISTERING_ITEM, LOAD_GOODSITEMS_ACCEPTED_SUCCESS, REGISTER_ITEM_SUCCESS,
+    CANCEL_REGISTERING_ITEM, LOAD_AREA_MARK_HINTS_SUCCESS, LOAD_GOODSITEMS_ACCEPTED_SUCCESS, REGISTER_ITEM_SUCCESS,
     START_REGISTERING_ITEM
 } from "../reducers/goods";
 
@@ -70,12 +70,18 @@ export function cancelRegisterGoods() {
     }
 }
 
+function loadAreaMarkHintsSuccess(hints) {
+    return {
+        type: LOAD_AREA_MARK_HINTS_SUCCESS,
+        hints: hints
+    }
+}
+
 export function registerGoodsItem(item) {
     return dispatch => {
         return GoodsApi.registerGoods(item)
             .then((goodsItem) => {
-                dispatch(registerGoodsSuccess(goodsItem))
-                dispatch(loadGoodsItems());
+                dispatch(registerGoodsSuccess(goodsItem));
             });
     }
 }
@@ -225,8 +231,18 @@ export function rejectGoodsItem(id, reasoning) {
     return (dispatch) => {
         return GoodsApi.rejectGoodsItem(id, reasoning)
             .then(() => {
+                dispatch(loadGoodsItemsAccepted());
                 dispatch(loadGoodsItemsArrived());
                 dispatch(loadGoodsItemsRejected());
             })
+    }
+}
+
+export function loadAreaMarkHints(id) {
+    return (dispatch) => {
+        return GoodsApi.fetchHints(id)
+            .then((hints) => {
+                dispatch(loadAreaMarkHintsSuccess(hints));
+            });
     }
 }

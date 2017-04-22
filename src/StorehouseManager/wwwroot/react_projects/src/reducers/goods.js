@@ -11,11 +11,13 @@ export const LOAD_GOODSITEMS_UNLOADED_SUCCESS = 'LOAD_GOODSITEMS_UNLOADED_SUCCES
 export const LOAD_GOODSITEMS_REGISTERED_SUCCESS = 'LOAD_GOODSITEMS_REGISTERED_SUCCESS';
 export const LOAD_GOODSITEMS_REJECTED_SUCCESS = 'LOAD_GOODSITEMS_REJECTED_SUCCESS';
 
+export const LOAD_AREA_MARK_HINTS_SUCCESS = 'LOAD_AREA_MARK_HINTS_SUCCESS';
+
 export const START_REGISTERING_ITEM = 'START_REGISTERING_ITEM';
 export const CANCEL_REGISTERING_ITEM = 'CANCEL_REGISTERING_ITEM';
 export const REGISTER_ITEM_SUCCESS = 'REGISTER_ITEM_SUCCESS';
 
-const goods = (state = {goodsItems: [], registered: [], arrived: [], rejected: [], accepted: [], storing: [], waitingForUnload: [], unloaded: []}, action) => {
+const goods = (state = {goodsItems: [], registered: [], arrived: [], rejected: [], accepted: [], storing: [], waitingForUnload: [], unloaded: [], hints: []}, action) => {
     switch(action.type) {
         case LOAD_GOODSITEMS_SUCCESS:
             return {...state, goodsItems: action.goodsItems};
@@ -33,6 +35,8 @@ const goods = (state = {goodsItems: [], registered: [], arrived: [], rejected: [
             return {...state, unloaded: action.goodsItems};
         case LOAD_GOODSITEMS_REJECTED_SUCCESS:
             return {...state, rejected: action.goodsItems};
+        case LOAD_AREA_MARK_HINTS_SUCCESS:
+            return {...state, hints: action.hints};
         case START_REGISTERING_ITEM:
             return{...state, newItem: {}};
         case CANCEL_REGISTERING_ITEM:
