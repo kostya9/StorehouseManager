@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Internal.Networking;
@@ -14,6 +15,7 @@ using StorehouseManager.Models;
 namespace StorehouseManager.Controllers.Api.GoodsItems
 {
     [Route("/api/goodsitems/[controller]")]
+    [Authorize]
     public class OperationsController : Controller
     {
         private readonly GoodsItemService _service;
