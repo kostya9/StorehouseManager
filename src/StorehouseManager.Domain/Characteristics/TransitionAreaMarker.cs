@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Characteristics.Weight;
@@ -52,26 +53,25 @@ namespace StorehouseManager.Domain.Characteristics
 
             else if (area.Characteristics.Humidity < _item.Characteristics.HumidityLow)
                 yield return new AreaMark(MarkType.Warning, GetHumidityLowDelta(area),
-                    new HumidityWeightStrategy(), "The humidity of the area is too low"));
+                    new HumidityWeightStrategy(), "The humidity of the area is too low");
 
             if (area.Characteristics.Temperature > _item.Characteristics.TemperatureHigh)
                 yield return new AreaMark(MarkType.Warning, GetTemperatureHighDelta(area),
                     new TemperatureWeightStrategy(), "The humidity of the area is too high");
+
             else if (area.Characteristics.Temperature < _item.Characteristics.TemperatureLow)
                 yield return new AreaMark(MarkType.Warning, GetTemperatureLowDelta(area),
                     new TemperatureWeightStrategy(), "The humidity of the area is too low");
         }
 
-        public IEnumerable<AreaMark> Mark(Area area, double storedVolume)
+        public AreaMarkingReport Mark(Area area, double storedVolume)
         {
-
             var marks = UnacceptableMarks(area, storedVolume).ToArray();
 
             if (!marks.Any())
-                return new[]{AreaMark.Acceptable};
+                return new AreaMarkingReport(area.Id, new[]{AreaMark.Acceptable});
 
-            return marks;
-
+            return new AreaMarkingReport(area.Id, marks);
         }
     }
 }

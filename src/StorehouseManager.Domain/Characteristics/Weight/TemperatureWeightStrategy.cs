@@ -8,7 +8,7 @@ namespace StorehouseManager.Domain.Characteristics.Weight
     {
         public override double GetWeighted(double value)
         {
-            return 100 / (CharacteristicsBoundary.HighestTemprature - CharacteristicsBoundary.LowestTemperature);
+            return value * 100 / (CharacteristicsBoundary.HighestTemprature - CharacteristicsBoundary.LowestTemperature);
         }
     }
 }
