@@ -5,7 +5,7 @@ import css from './Area.css'
 export default class Area extends Component {
   render() {
     return (
-    <div className="area" onClick={() => this.props.selectArea(this.props.id)}>
+    <div className={"area " + (this.props.selected && "slide current")} onClick={() => this.props.selectArea(this.props.id)}>
       {
         this.props.selected ? <span className="selected key area-info-badge">+</span> : ''
       }

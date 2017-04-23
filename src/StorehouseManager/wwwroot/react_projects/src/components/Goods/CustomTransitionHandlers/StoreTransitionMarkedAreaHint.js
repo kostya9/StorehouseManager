@@ -3,15 +3,21 @@
  */
 
 import React, {Component} from 'react';
-import {Button, FormControl, Modal} from "react-bootstrap";
+import {Button, FormControl, Label, Modal} from "react-bootstrap";
 
 import css from './StoreTransitionMarkedAreaHint.css'
 
 export default class StoreTransitionMarkedAreaHint extends Component {
     componentWillReceiveProps(next) {
-        if(next.hints.length == 0)
+        if(next.hints.length == 0 || next.hints == this.props.hints)
             return;
-        this.setState({selectedId: next.hints[0].areaId - 0})
+
+        let id = next.hints[0].areaId - 0;
+
+        if(next.recommended != undefined && (next.hints.find(h => h.areaId == next.recommended) != null))
+            id = next.recommended
+
+        this.state = {selectedId: id}
     }
 
     componentWillMount() {
@@ -35,28 +41,36 @@ export default class StoreTransitionMarkedAreaHint extends Component {
 
     }
 
-    getBackgroundColor(type) {
+    getCssClass(type) {
         switch(type) {
             case -1:
-                return 'red';
+                return 'danger';
             case 0:
-                return 'orange';
+                return 'warning';
             case 1:
-                return 'lightgreen';
+                return 'accepted';
         }
 
-        return 'white'
+        return ''
     }
 
     generateSelectOption(hint) {
         const currentArea = this.props.areas.find(area => area.id === hint.areaId);
-        return (<option key={hint.areaId} style={{backgroundColor: this.getBackgroundColorByHint(hint)}} value={hint.areaId}>{currentArea.id} : {currentArea.name}</option>);
+        const colorClass = this.getCssColorByHint(hint);
+        return (<option key={hint.areaId} value={hint.areaId} className={colorClass}>
+            {currentArea.id} : {currentArea.name}
+            </option>);
     }
 
-    getBackgroundColorByHint(hint) {
+    getCssColorByHint(hint) {
+
         const markTypes = hint.marks.map(m => m.mark);
         const minMark = Math.min.apply(Math, markTypes);
-        return this.getBackgroundColor(minMark);
+        const colorClass = this.getCssClass(minMark);
+        let classes = "";
+        if((hint.areaId === this.props.recommended) && (colorClass !== 'danger'))
+            classes = "mark-recommended ";
+        return classes + colorClass;
     }
 
     getHintBySelectedId() {
@@ -64,11 +78,11 @@ export default class StoreTransitionMarkedAreaHint extends Component {
         return this.props.hints.find(h => id === h.areaId);
     }
 
-    getSelectedBackgroundColor() {
+    getSelectedCssClass() {
         const hint = this.getHintBySelectedId();
         if(!hint)
             return 'white';
-        return this.getBackgroundColorByHint(hint);
+        return this.getCssColorByHint(hint);
     }
 
     getSelectedAreaMarkNotes() {
@@ -80,20 +94,26 @@ export default class StoreTransitionMarkedAreaHint extends Component {
     }
 
     render() {
+        let i = 0;
+        let label;
+        if(this.state.selectedId == this.props.recommended)
+            label = <Label className="slide current">recommended</Label>
         return (<Modal show={this.props.show} onHide={() => this.hide()} dialogClassName="mark-modal" className="text-center">
             <Modal.Header closeButton>
                 <h2>Area recommender (hints)</h2>
             </Modal.Header>
             <Modal.Body>
                 <div>
-                    <FormControl componentClass="select" onChange={(e) => this.changeArea(e)} value={this.state.selectedId} className="mark-select"
-                                 style={{backgroundColor: this.getSelectedBackgroundColor()}}>
-                        {this.props.hints.map(hint => this.generateSelectOption(hint))}
-                    </FormControl>
+                    <div className="mark-selected-selector">
+                        <FormControl componentClass="select" onChange={(e) => this.changeArea(e)} value={this.state.selectedId} className={"mark-select " + this.getSelectedCssClass()}>
+                            {this.props.hints.map(hint => this.generateSelectOption(hint))}
+                        </FormControl>
+                        {label}
+                    </div>
 
-                    <ul>
-                        {this.getSelectedAreaMarkNotes().map(note => (<li>{note}</li>))}
-                    </ul>
+                    <div className="mark-notes">
+                        {this.getSelectedAreaMarkNotes().map(note => (<div key={i++}>{note}</div>))}
+                    </div>
                     <hr/>
                     <Button className="mark-confirm-btn" onClick={(e) => this.confirm(e)}>Store</Button>
                 </div>

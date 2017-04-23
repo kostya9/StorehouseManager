@@ -4,11 +4,11 @@ using System.Text;
 
 namespace StorehouseManager.Domain.Characteristics.Weight
 {
-    class VolumeWeightStrategy : WeightStrategy
+    public class ExceededVolumeWeightStrategy : WeightStrategy
     {
         public override double GetWeighted(double value)
         {
-            return -value;
+            return Double.MaxValue;
         }
     }
 }

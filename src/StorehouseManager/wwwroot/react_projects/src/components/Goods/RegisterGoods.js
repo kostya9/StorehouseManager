@@ -13,7 +13,8 @@ export default class RegisterGoods extends Component {
             temperatureLow: 20,
             temperatureHigh: 25,
             humidityLow: 0.2,
-            humidityHigh: 0.5});
+            humidityHigh: 0.5,
+            volume: 0.01});
     }
 
     componentWillMount() {
@@ -21,7 +22,8 @@ export default class RegisterGoods extends Component {
             temperatureLow: 20,
             temperatureHigh: 25,
             humidityLow: 0.2,
-            humidityHigh: 0.5});
+            humidityHigh: 0.5,
+            volume: 0.01});
     }
 
     hide() {
@@ -36,7 +38,8 @@ export default class RegisterGoods extends Component {
             temperatureLow: this.state.temperatureLow,
             temperatureHigh: this.state.temperatureHigh,
             humidityLow: this.state.humidityLow,
-            humidityHigh: this.state.humidityHigh
+            humidityHigh: this.state.humidityHigh,
+            volume: this.state.volume
         });
         this.hide();
 
@@ -81,6 +84,10 @@ export default class RegisterGoods extends Component {
                             <FormControl onChange={(e) => this.handleHumidityHigh(e)} value={this.state.humidityHigh} componentClass="input" />
                         </div>
                     </FormGroup>
+                    <FormGroup>
+                        <ControlLabel>Volume</ControlLabel>
+                        <FormControl onChange={(e) => this.handleVolume(e)} value={this.state.volume} componentClass="input"/>
+                    </FormGroup>
                     <hr />
                     <Button onClick={(e) => {this.register(e)}} className="col-xs-3 col-xs-offset-5">Register</Button>
                 </Form>
@@ -88,8 +95,12 @@ export default class RegisterGoods extends Component {
         </Modal>)
     }
 
+    checkNumber(value) {
+        return isNaN(value) && (value != "") && (value != "-");
+    }
+
     handleTemperatureLow(e) {
-        if(isNaN(e.target.value) || (e.target.value > this.state.temperatureHigh))
+        if(this.checkNumber(e.target.value))
             return;
         this.setState({...this.state,
             temperatureLow: e.target.value
@@ -97,7 +108,7 @@ export default class RegisterGoods extends Component {
     }
 
     handleTemperatureHigh(e) {
-        if(isNaN(e.target.value) || (e.target.value < this.state.temperatureLow))
+        if(this.checkNumber(e.target.value))
             return;
         this.setState({...this.state,
             temperatureHigh: e.target.value
@@ -105,7 +116,7 @@ export default class RegisterGoods extends Component {
     }
 
     handleHumidityLow(e) {
-        if(isNaN(e.target.value) || (e.target.value > this.state.humidityHigh))
+        if(this.checkNumber(e.target.value))
             return;
         this.setState({...this.state,
             humidityLow: e.target.value
@@ -113,10 +124,16 @@ export default class RegisterGoods extends Component {
     }
 
     handleHumidityHigh(e) {
-        if(isNaN(e.target.value) || (e.target.value < this.state.humidityLow))
+        if(this.checkNumber(e.target.value))
             return;
         this.setState({...this.state,
             humidityHigh: e.target.value
         })
+    }
+
+    handleVolume(e) {
+        if(this.checkNumber(e.target.value))
+            return;
+        this.setState({...this.state, volume: e.target.value})
     }
 }

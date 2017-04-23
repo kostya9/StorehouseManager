@@ -41,37 +41,37 @@ namespace StorehouseManager.Domain.Characteristics
             return _item.Characteristics.TemperatureLow - area.Characteristics.Temperature;
         }
 
-        private IEnumerable<AreaMark> UnacceptableMarks(Area area, double storedVolume)
+        private IEnumerable<AreaPropertyMark> UnacceptableMarks(Area area, double storedVolume)
         {
             if (_item.Characteristics.Volume + storedVolume > area.Characteristics.Volume)
-                yield return new AreaMark(MarkType.Danger, GetExceededVolume(area, storedVolume), 
-                    new VolumeWeightStrategy(), $"The volume of the are will be exceeded by {GetExceededVolume(area, storedVolume)} m^3$");
+                yield return new AreaPropertyMark(MarkType.Danger, GetExceededVolume(area, storedVolume), 
+                    new ExceededVolumeWeightStrategy(), $"The volume of the are will be exceeded by {GetExceededVolume(area, storedVolume)} m^3");
 
             if (area.Characteristics.Humidity > _item.Characteristics.HumidityHigh)
-                yield return new AreaMark(MarkType.Warning, GetHumidityHighDelta(area),
+                yield return new AreaPropertyMark(MarkType.Warning, GetHumidityHighDelta(area),
                     new HumidityWeightStrategy(),"The humidity of the area is too high");
 
             else if (area.Characteristics.Humidity < _item.Characteristics.HumidityLow)
-                yield return new AreaMark(MarkType.Warning, GetHumidityLowDelta(area),
+                yield return new AreaPropertyMark(MarkType.Warning, GetHumidityLowDelta(area),
                     new HumidityWeightStrategy(), "The humidity of the area is too low");
 
             if (area.Characteristics.Temperature > _item.Characteristics.TemperatureHigh)
-                yield return new AreaMark(MarkType.Warning, GetTemperatureHighDelta(area),
-                    new TemperatureWeightStrategy(), "The humidity of the area is too high");
+                yield return new AreaPropertyMark(MarkType.Warning, GetTemperatureHighDelta(area),
+                    new TemperatureWeightStrategy(), "The temperature of the area is too high");
 
             else if (area.Characteristics.Temperature < _item.Characteristics.TemperatureLow)
-                yield return new AreaMark(MarkType.Warning, GetTemperatureLowDelta(area),
-                    new TemperatureWeightStrategy(), "The humidity of the area is too low");
+                yield return new AreaPropertyMark(MarkType.Warning, GetTemperatureLowDelta(area),
+                    new TemperatureWeightStrategy(), "The temperature of the area is too low");
         }
 
-        public AreaMarkingReport Mark(Area area, double storedVolume)
+        public AreaMark Mark(Area area, double storedVolume)
         {
             var marks = UnacceptableMarks(area, storedVolume).ToArray();
 
             if (!marks.Any())
-                return new AreaMarkingReport(area.Id, new[]{AreaMark.Acceptable});
+                return new AreaMark(area.Id, new[]{AreaPropertyMark.Acceptable});
 
-            return new AreaMarkingReport(area.Id, marks);
+            return new AreaMark(area.Id, marks);
         }
     }
 }

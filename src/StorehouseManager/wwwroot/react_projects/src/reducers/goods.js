@@ -17,7 +17,7 @@ export const START_REGISTERING_ITEM = 'START_REGISTERING_ITEM';
 export const CANCEL_REGISTERING_ITEM = 'CANCEL_REGISTERING_ITEM';
 export const REGISTER_ITEM_SUCCESS = 'REGISTER_ITEM_SUCCESS';
 
-const goods = (state = {goodsItems: [], registered: [], arrived: [], rejected: [], accepted: [], storing: [], waitingForUnload: [], unloaded: [], hints: []}, action) => {
+const goods = (state = {goodsItems: [], registered: [], arrived: [], rejected: [], accepted: [], storing: [], waitingForUnload: [], unloaded: [], hints: {marks: []}}, action) => {
     switch(action.type) {
         case LOAD_GOODSITEMS_SUCCESS:
             return {...state, goodsItems: action.goodsItems};

@@ -35,7 +35,8 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
                     TemperatureLow = item.TemperatureLow,
                     TemperatureHigh = item.TemperatureHigh,
                     HumidityLow = item.HumidityLow,
-                    HumidityHigh = item.HumidityHigh
+                    HumidityHigh = item.HumidityHigh,
+                    Volume = item.Volume
                 });
             return _service.Create(goods);
         }

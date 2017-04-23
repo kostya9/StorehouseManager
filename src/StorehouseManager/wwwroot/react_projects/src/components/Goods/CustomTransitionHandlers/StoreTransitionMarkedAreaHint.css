@@ -5,3 +5,89 @@
 .mark-confirm-btn, .mark-select {
     margin: 0 auto;
 }
+
+.mark-notes {
+    margin-top: 20px;
+}
+
+.mark-recommended{
+    font-weight: bold;
+}
+
+.danger {
+    background-color: red;
+}
+
+.warning {
+    background-color: orange;
+}
+
+.accepted {
+    background-color: lightgreen;
+}
+
+.mark-selected-selector > .label{
+    float : none;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.mark-select {
+    transition: background-color 1s;
+ }
+
+.mark-select label {
+    transition: visible 1s;
+}
+
+.slide { opacity: 0; }
+
+/*TODO.CHANGE.ANIMATION.OF.RECOMMENDED.LABEL */
+
+.slide.current {
+    opacity: 1;
+    animation-name: fadeIn;
+    -webkit-animation-name: fadeIn;
+    animation-duration: 1.5s;
+    -webkit-animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
+    visibility: visible !important;
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: scale(0);
+        opacity: 0.0;
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    80% {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        -webkit-transform: scale(0);
+        opacity: 0.0;
+    }
+    60% {
+        -webkit-transform: scale(1.1);
+    }
+    80% {
+        -webkit-transform: scale(0.9);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+}

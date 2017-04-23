@@ -49,7 +49,7 @@ export default class AcceptedTable extends Component {
         return (<div>
             <GoodsReject show={this.state.showReject} id={this.state.selectedId}
                          confirm={(id, reason) => this.confirmReject(id, reason)} cancel={() => this.hideReject()} name={selected && selected.name}/>
-            <StoreTransitionMarkedAreaHint show={this.state.showHint} hints={this.props.hints} areas={this.props.areas}
+            <StoreTransitionMarkedAreaHint show={this.state.showHint} hints={this.props.hints.marks} areas={this.props.areas} recommended={this.props.hints.recommendedAreaId}
                                            cancel={() => this.hideHints()} confirm={(id) => {this.hideHints(); this.confirmStore(id)}}/>
 
             <GoodsTable goodsItems={this.props.accepted} name="Accepted"

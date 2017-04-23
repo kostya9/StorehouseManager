@@ -14,5 +14,6 @@ namespace StorehouseManager.Models
         public double TemperatureHigh { get; set; }
         public double HumidityLow { get; set; }
         public double HumidityHigh { get; set; }
+        public double Volume { get; set; }
     }
 }

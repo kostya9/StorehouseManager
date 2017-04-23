@@ -22,8 +22,8 @@ class Selector extends Component {
 
         return (
             <div>
-                <div className="row col-xs-12 drawAndSelected">
-                    <div className={"text-center col-xs-12"}>
+                <div className="drawAndSelected">
+                    <div>
                         <Drawer drawing={this.props.drawing} areas={this.props.areas} selectedId={this.props.selectedId}
                           currentDrawFigure={this.props.currentDrawFigure} height={this.props.height} width={this.props.width}
                           startDrawing={this.props.startDrawing} addArea={this.props.addArea} stopDrawing={this.props.stopDrawing} mouseMove={this.props.mouseMove}

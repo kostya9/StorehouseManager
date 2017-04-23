@@ -22,7 +22,7 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
         }
 
         [HttpGet]
-        public IEnumerable<AreaMarkingReport> Mark(int id)
+        public AreaMarkingReport Mark(int id)
         {
             return _service.MarkAreas(id, this.GetCurrentUserId());
         }

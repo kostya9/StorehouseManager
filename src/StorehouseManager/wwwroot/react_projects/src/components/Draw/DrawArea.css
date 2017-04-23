@@ -1,4 +1,21 @@
 .drawArea {
   position: absolute;
-  margin: 0
+  margin: 0;
+  /*transition: border 1s;*/
+}
+
+.border-animate {
+    animation-name: dashsolid;
+    -webkit-animation-name: dashsolid;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+@keyframes dashsolid {
+    to {
+        border-style: solid;
+        box-shadow: 0 0 0 2px #E0E4CC;
+    }
 }

@@ -1,36 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using StorehouseManager.Domain.Characteristics.Weight;
 
 namespace StorehouseManager.Domain.Characteristics
 {
     public class AreaMark
     {
-        private readonly WeightStrategy _weight;
-
-        public AreaMark(MarkType mark, double value, WeightStrategy weight = null, string note = "")
+        public AreaMark(int areaId, IEnumerable<AreaPropertyMark> marks)
         {
-            _weight = weight;
-            Mark = mark;
-            Note = note;
-            _value = value;
+            AreaId = areaId;
+            Marks = marks;
         }
 
-        public static AreaMark Acceptable => new AreaMark(MarkType.Acceptable, 0, new AcceptedWeightStrategy());
-
-        private readonly double _value;
-
-        public MarkType Mark { get; }
-        public string Note { get; }
-        public double WeightedValue => _weight.GetWeighted(_value);
-
-        private class AcceptedWeightStrategy : WeightStrategy
-        {
-            public override double GetWeighted(double value)
+        public int AreaId { get; }
+        public IEnumerable<AreaPropertyMark> Marks { get; }
+        public double WeightedValue
+        { 
+            get
             {
-                return Double.MinValue;
+                if (Marks.Any(am => am.Mark == MarkType.Danger))
+                    return Double.MaxValue;
+
+                return Marks.Sum(m => m.WeightedValue);
             }
         }
-    }
+}
 }

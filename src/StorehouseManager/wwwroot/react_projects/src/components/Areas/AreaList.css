@@ -1,6 +1,27 @@
 .areaList {
   list-style-type: none;
   position: relative;
-  display:  inline-block;
-  width: 100%;
+  margin: 0 auto;
+  width: 700px;
+  transition: all 1s;
+}
+
+.slide.current {
+  opacity: 1;
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+  animation-duration: 0.5s;
+  -webkit-animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  visibility: visible !important;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: scaleX(0.85);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }

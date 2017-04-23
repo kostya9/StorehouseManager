@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import css from './DrawArea.css'
 
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup' // ES6
+
 import {AREA_ENTER, AREA_EXIT, AREA_SECTION} from '../../domain/area'
 
 class DrawArea extends Component {
@@ -44,8 +46,8 @@ class DrawArea extends Component {
   render() {
     const positionProps = this.getPositionProperties();
     return (
-      <div className="drawArea" style={{width: positionProps.width, height: positionProps.height,
-          top: positionProps.y, left: positionProps.x, borderColor: this.getBorderColor(this.props.id), borderStyle: this.getBorderStyle(this.props.id)}} onClick={() => this.onClick()}></div>
+      <div key="0" className={"drawArea " + ((this.props.id == this.props.selectedId) && "border-animate")} style={{width: positionProps.width, height: positionProps.height,
+          top: positionProps.y, left: positionProps.x, borderColor: this.getBorderColor(this.props.id), borderStyle: this.getBorderStyle(this.props.id)}} onClick={() => this.onClick()} />
     )
   }
 }

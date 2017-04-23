@@ -63,7 +63,7 @@ namespace StorehouseManager.Domain.Goods
             _repository.Update(item);
         }
 
-        public IEnumerable<AreaMarkingReport> MarkAreas(int goodsItemId, int userId)
+        public AreaMarkingReport MarkAreas(int goodsItemId, int userId)
         {
             var item = _repository.FindById(goodsItemId, userId);
 
@@ -71,10 +71,10 @@ namespace StorehouseManager.Domain.Goods
 
             var estimate = new AreaUsedVolumeEstimate(_repository);
 
-            return _areaRepository.FindAll(userId)
+            return new AreaMarkingReport(_areaRepository.FindAll(userId)
                 .Where(area => area.Id != item.Id).ToList()
                 .Select(area =>
-                    marker.Mark(area, estimate.Calculate(area)));
+                    marker.Mark(area, estimate.Calculate(area))));
         }
     }
 }
