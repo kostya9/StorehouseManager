@@ -10,22 +10,33 @@ import css from './StoreTransitionMarkedAreaHint.css'
 export default class StoreTransitionMarkedAreaHint extends Component {
     componentWillReceiveProps(next) {
         if(next.hints.length == 0 || next.hints == this.props.hints)
+        {
+            this.setState({loading: true, selectedId: -1});
             return;
+        }
+
+
+        let loading = this.state.loading;
+        if(next.show == true && this.props.show == true)
+        {
+            loading = false;
+        }
 
         let id = next.hints[0].areaId - 0;
 
         if(next.recommended != undefined && (next.hints.find(h => h.areaId == next.recommended) != null))
             id = next.recommended
 
-        this.state = {selectedId: id}
+        this.setState({selectedId: id, loading: loading})
     }
 
     componentWillMount() {
-        this.setState({});
+        this.setState({loading: true});
     }
 
     hide() {
         this.props.cancel();
+        this.setState({loading: true})
     }
 
     confirm(e) {
@@ -117,6 +128,7 @@ export default class StoreTransitionMarkedAreaHint extends Component {
                 <div>
                     <div className="mark-selected-selector">
                         <FormControl componentClass="select" onChange={(e) => this.changeArea(e)} value={this.state.selectedId} className={"mark-select " + this.getSelectedCssClass()}>
+                            {this.state.loading && <option selected disabled value={-1}>Loading...</option>}
                             {this.props.hints.map(hint => this.generateSelectOption(hint))}
                         </FormControl>
                         {label}
