@@ -19,6 +19,11 @@ namespace StorehouseManager.Domain.Goods
             return _repository.FindAll(userId).Where(gi => gi.Status == status);
         }
 
+        public GoodsItem ById(int id, int userId)
+        {
+            return _repository.FindById(id, userId);
+        }
+
         public IEnumerable<GoodsItem> All(int userId)
         {
             return _repository.FindAll(userId);
@@ -44,9 +49,9 @@ namespace StorehouseManager.Domain.Goods
             return ByStatus(userId, GoodsItemStatus.Accepted);
         }
 
-        public IEnumerable<GoodsItem> Storing(int userId)
+        public IEnumerable<GoodsItem> Storing(int areaId, int userId)
         {
-            return ByStatus(userId, GoodsItemStatus.Storing);
+            return ByStatus(userId, GoodsItemStatus.Storing).Where(gi => gi.AreaId == areaId);
         }
 
         public IEnumerable<GoodsItem> WaitingForUnload(int userId)

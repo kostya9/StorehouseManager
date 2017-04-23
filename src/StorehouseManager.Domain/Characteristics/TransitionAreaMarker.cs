@@ -69,7 +69,12 @@ namespace StorehouseManager.Domain.Characteristics
             var marks = UnacceptableMarks(area, storedVolume).ToArray();
 
             if (!marks.Any())
-                return new AreaMark(area.Id, new[]{AreaPropertyMark.Acceptable});
+                return new AreaMark(area.Id, new[]
+                {
+                    new AreaPropertyMark(MarkType.Acceptable, 
+                    -GetExceededVolume(area, storedVolume),
+                    new VolumeWeightStrategy())
+                });
 
             return new AreaMark(area.Id, marks);
         }

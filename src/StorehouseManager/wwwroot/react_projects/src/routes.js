@@ -8,6 +8,9 @@ import {Route, IndexRoute} from 'react-router'
 import GoodsOutsideAreaContainer from "./components/Goods/GoodsOutsideArea";
 import GoodsTransitionAreaContainer from "./components/Goods/GoodsTransition";
 import GoodsRejectedContainer from "./components/Goods/GoodsRejected";
+import StoringGoodsContainer from "./components/Goods/StoringGoods";
+import GoodsUnloadedContainer from "./components/Goods/GoodsUnloaded";
+import GoodsDetailsContainer from "./components/Goods/GoodsDetails";
 
 import SelectorContainer from './components/Selector'
 
@@ -23,7 +26,10 @@ export default (
         <Route path="area-edit" component={AreaDetailsContainer}/>
         <Route path="not-storing" component={GoodsOutsideAreaContainer}/>
         <Route path="transition" component={GoodsTransitionAreaContainer}/>
+        <Route path="storing" component={StoringGoodsContainer}/>
+        <Route path="unloaded" component={GoodsUnloadedContainer}/>
         <Route path="rejected" component={GoodsRejectedContainer}/>
+        <Route path="goods/:id" component={GoodsDetailsContainer}/>
     </Route>
 )
 

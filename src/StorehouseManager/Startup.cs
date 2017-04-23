@@ -73,7 +73,7 @@ namespace StorehouseManager
 
 
             // Inti char-s
-            /*using (var ctx = app.ApplicationServices.GetService<EfDbContext>())
+            using (var ctx = app.ApplicationServices.GetService<EfDbContext>())
             {
                 var items = ctx.GoodsItems.Include(gi => gi.Characteristics).ToList().Where(gi => gi.Characteristics == null);
                 foreach (var goodsItem in items)
@@ -81,7 +81,7 @@ namespace StorehouseManager
                     ctx.GoodsCharacteristics.Add(new GoodsCharacteristics(goodsItem.Id));
                 }
                 ctx.SaveChanges();
-            }*/
+            }
 
             app.UseStaticFiles();
 

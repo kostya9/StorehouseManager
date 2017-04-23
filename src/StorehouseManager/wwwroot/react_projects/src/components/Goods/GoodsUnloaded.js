@@ -1,5 +1,5 @@
 /**
- * Created by kostya on 4/17/2017.
+ * Created by kostya on 4/23/2017.
  */
 
 import React, {Component} from 'react'
@@ -9,11 +9,11 @@ import * as actionCreators from './../../actionCreators';
 import GoodsTable from "./Table/GoodsTable";
 import {connect} from "react-redux";
 
-export class GoodsRejected extends Component {
+export class GoodsUnloaded extends Component {
     render() {
         return (<div className="outsideArea">
             <div className="goodsTableContainer">
-                <GoodsTable goodsItems={this.props.rejected} name="Rejected" router={this.props.router}/>
+                <GoodsTable goodsItems={this.props.unloaded} name="Unloaded" router={this.props.router}/>
             </div>
         </div>);
     }
@@ -21,10 +21,10 @@ export class GoodsRejected extends Component {
 
 function mapStateToProps(state) {
     return {
-        rejected: state.goods.rejected,
+        unloaded: state.goods.unloaded,
     }
 }
 
-const GoodsRejectedContainer = connect(mapStateToProps, actionCreators)(GoodsRejected);
+const GoodsUnloadedContainer = connect(mapStateToProps, actionCreators)(GoodsUnloaded);
 
-export default GoodsRejectedContainer;
+export default GoodsUnloadedContainer;

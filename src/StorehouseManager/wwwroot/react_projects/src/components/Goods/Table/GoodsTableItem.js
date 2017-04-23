@@ -46,6 +46,10 @@ export default class GoodsTableItem extends Component {
         this.setState({confirmRight: false});
     }
 
+    goToItemDetails() {
+        this.props.router.push(`/goods/${this.props.id}`)
+    }
+
     render() {
         if(this.props.confirmLeft == undefined)
             this.confirmLeft = true;
@@ -62,7 +66,7 @@ export default class GoodsTableItem extends Component {
             <ConfirmButton show={this.confirmLeft && this.state.confirmLeft} text={this.props.leftText}
                            cancel={() => this.leftClickCancel()} confirm={() => {this.props.leftFunc(); this.leftClickCancel();}}/>
             {this.props.leftFunc && <div className="left" onClick={() => this.leftClick()}><p>&larr;</p></div> }
-            <div>
+            <div className="details" onClick={() => this.goToItemDetails()}>
                 <div className="icon-container">
                     <p><img className="icon" src={crate}/></p>
                 </div>

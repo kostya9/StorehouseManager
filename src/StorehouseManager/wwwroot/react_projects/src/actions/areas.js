@@ -57,9 +57,9 @@ export function addArea(rectangle, type, name) {
     }
 }
 
-export function updateArea(id, name, type, temperature, humidity) {
+export function updateArea(id, name, type, temperature, humidity, volume) {
     return (dispatch) => {
-        return AreasApi.updateArea(id, name, type, temperature, humidity)
+        return AreasApi.updateArea(id, name, type, temperature, humidity, volume)
             .then((area) => {
                 dispatch(updateAreaSuccess(area))
             }).catch(() => {

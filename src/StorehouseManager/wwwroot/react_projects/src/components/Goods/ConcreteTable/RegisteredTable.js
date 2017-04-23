@@ -16,6 +16,6 @@ export default class RegisteredTable extends Component{
     render() {
         return (<GoodsTable goodsItems={this.props.registered} name="Registered"
                     leftText="Remove" leftFunc={this.props.removeGoodsItem} leftConfirmText={this.removeConfirmText}
-                    rightText="Arrive" rightFunc={this.props.arriveGoodsItem} rightConfirmText={this.arriveConfirmText}/>);
+                    rightText="Arrive" rightFunc={this.props.arriveGoodsItem} rightConfirmText={this.arriveConfirmText} router={this.props.router}/>);
     }
 }

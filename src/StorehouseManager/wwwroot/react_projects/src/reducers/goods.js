@@ -17,8 +17,12 @@ export const START_REGISTERING_ITEM = 'START_REGISTERING_ITEM';
 export const CANCEL_REGISTERING_ITEM = 'CANCEL_REGISTERING_ITEM';
 export const REGISTER_ITEM_SUCCESS = 'REGISTER_ITEM_SUCCESS';
 
-const goods = (state = {goodsItems: [], registered: [], arrived: [], rejected: [], accepted: [], storing: [], waitingForUnload: [], unloaded: [], hints: {marks: []}}, action) => {
+export const LOAD_GOODSITEM_SUCCESS = 'LOAD_GOODSITEM_SUCCESS';
+
+const goods = (state = {goodsItems: [], registered: [], arrived: [], rejected: [], accepted: [], storing: {}, waitingForUnload: [], unloaded: [], hints: {marks: []}, selectedItem: {}}, action) => {
     switch(action.type) {
+        case LOAD_GOODSITEM_SUCCESS:
+            return {...state, selectedItem: action.item}
         case LOAD_GOODSITEMS_SUCCESS:
             return {...state, goodsItems: action.goodsItems};
         case LOAD_GOODSITEMS_REGISTERED_SUCCESS:
@@ -28,7 +32,9 @@ const goods = (state = {goodsItems: [], registered: [], arrived: [], rejected: [
         case LOAD_GOODSITEMS_ACCEPTED_SUCCESS:
             return {...state, accepted: action.goodsItems};
         case LOAD_GOODSITEMS_STORING_SUCCESS:
-            return {...state, storing: [...state.storing, {id: action.id, goodsItems: action.goodsItems}]};
+            let newStoring = {...state.storing};
+            newStoring[action.id] = action.goodsItems;
+            return {...state, storing: newStoring};
         case LOAD_GOODSITEMS_WAITINGFORUNLOAD_SUCCESS:
             return {...state, waitingForUnload: action.goodsItems};
         case LOAD_GOODSITEMS_UNLOADED_SUCCESS:

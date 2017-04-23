@@ -20,6 +20,13 @@ export default class GoodsApi {
             })
     }
 
+    static fetchGoodsItem(id) {
+        return fetch(address + '/api/goodsitems/filter/' + id, sameOriginOption)
+            .then((response) => {
+                return response.json();
+            })
+    }
+
     static fetchGoodsItemsRegistered() {
         return this.fetchGoodsItems("registered");
     }
@@ -73,7 +80,7 @@ export default class GoodsApi {
     }
 
     static waitingForUnloadGoodsItem(id) {
-        return this.simpleGoodsItemOperation(id, "waitingforunload");
+        return this.simpleGoodsItemOperation(id, "waitforunload");
     }
 
     static unloadGoodsItem(id) {

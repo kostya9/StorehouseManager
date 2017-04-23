@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 import reduce from './reducers/reducer'
 import thunk from 'redux-thunk'
 import {loadAreas} from "./actions/areas";
-import {loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsRejected, loadGoodsItemsAccepted} from "./actions/goods";
+import {loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsRejected, loadGoodsItemsAccepted, loadGoodsItemsWaitingForUnload, loadGoodsItemsUnloaded} from "./actions/goods";
 
 import routes, {base} from './routes'
 import {Router, useRouterHistory, browserHistory } from 'react-router'
@@ -20,6 +20,8 @@ store.dispatch(loadGoodsItemsRegistered());
 store.dispatch(loadGoodsItemsArrived());
 store.dispatch(loadGoodsItemsAccepted());
 store.dispatch(loadGoodsItemsRejected());
+store.dispatch(loadGoodsItemsWaitingForUnload());
+store.dispatch(loadGoodsItemsUnloaded());
 
 const history = useRouterHistory(createHistory)({ basename: base });
 

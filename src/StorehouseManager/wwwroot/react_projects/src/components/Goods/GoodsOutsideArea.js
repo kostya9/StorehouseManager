@@ -19,10 +19,10 @@ class GoodsOutsideArea extends Component {
         return (
             <div className="outsideArea">
                 <div className="goodsTableContainer">
-                    <RegisteredTable removeGoodsItem={this.props.removeGoodsItem} registered={this.props.registered} arriveGoodsItem={this.props.arriveGoodsItem}/>
+                    <RegisteredTable removeGoodsItem={this.props.removeGoodsItem} registered={this.props.registered} arriveGoodsItem={this.props.arriveGoodsItem} router={this.props.router}/>
                 </div>
                 <div className="goodsTableContainer">
-                    <ArrivedTable rejectGoodsItem={this.props.rejectGoodsItem} arrived={this.props.arrived} acceptGoodsItem={this.props.acceptGoodsItem}/>
+                    <ArrivedTable rejectGoodsItem={this.props.rejectGoodsItem} arrived={this.props.arrived} acceptGoodsItem={this.props.acceptGoodsItem} router={this.props.router}/>
                 </div>
             </div>
         )

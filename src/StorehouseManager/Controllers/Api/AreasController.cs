@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorehouseManager.Domain;
 using StorehouseManager.Domain.Areas;
+using StorehouseManager.Domain.Goods;
 using StorehouseManager.Helpers;
 using StorehouseManager.Models;
 
@@ -19,17 +20,20 @@ namespace StorehouseManager.Controllers.Api
     public class AreasController : Controller
     {
         private readonly AreaRepository _areaRepository;
+        private AreaUsedVolumeEstimate _estimator;
 
-        public AreasController(EfDbContext context)
+        public AreasController(EfDbContext context, GoodsRepository repository)
         {
             _areaRepository = new AreaRepository(context);
+            _estimator = new AreaUsedVolumeEstimate(repository);
         }
 
         [HttpGet]
         public IEnumerable<AreaModel> Areas()
         {
             var userId = this.GetCurrentUserId();
-            return _areaRepository.FindAll(userId).Select(AreaModel.FromArea);
+            return _areaRepository.FindAll(userId).ToList()
+                .Select(area => AreaModel.FromArea(area, _estimator.Calculate(area)));
         }
 
         [HttpPost]
@@ -39,7 +43,8 @@ namespace StorehouseManager.Controllers.Api
                 throw new ArgumentException();
             var userId = this.GetCurrentUserId();
             var id = _areaRepository.Add(area.Rectangle, area.Type, area.Name, userId);
-            return AreaModel.FromArea(_areaRepository.FindById(id, userId));
+            var foundArea = _areaRepository.FindById(id, userId);
+            return AreaModel.FromArea(foundArea, _estimator.Calculate(foundArea));
         }
 
         [HttpDelete("{id}")]
@@ -53,10 +58,10 @@ namespace StorehouseManager.Controllers.Api
         public AreaModel UpdateArea(int id, [FromBody]AreaModel area)
         {
             var returnedArea = _areaRepository.Update(id, area.Name, area.Type,
-                area.Humidity, area.Temperature,
+                area.Humidity, area.Temperature, area.Volume,
                 this.GetCurrentUserId());
 
-            return AreaModel.FromArea(returnedArea);
+            return AreaModel.FromArea(returnedArea, _estimator.Calculate(returnedArea));
 
         }
     }

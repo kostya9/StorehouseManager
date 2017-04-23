@@ -17,7 +17,10 @@ namespace StorehouseManager.Domain.Areas
 
         public double Calculate(Area area)
         {
-            return _goodsRepository.GoodsItems.Where(gi => gi.AreaId == area.Id).ToList().Sum(gi => gi.Characteristics.Volume);
+            var goodsItemsVolumeSum = _goodsRepository.GoodsItems.Where(gi => gi.AreaId == area.Id).ToList().
+                Sum(gi => gi.Characteristics.Volume);
+
+            return goodsItemsVolumeSum;
         }
     }
 }

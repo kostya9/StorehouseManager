@@ -37,7 +37,7 @@ export default class ArrivedTable extends Component {
             <GoodsReject show={this.state.show} id={this.state.selectedId} confirm={(id, reason) => this.confirm(id, reason)} cancel={() => this.hide()} name={selected && selected.name}/>
             <GoodsTable goodsItems={this.props.arrived} name="Arrived"
                     leftText="Reject" leftFunc={(id) => this.show(id)} confirmLeft={false}
-                                 rightText="Accept" rightFunc={this.props.acceptGoodsItem} rightConfirmText={this.acceptConfirmText}/></div>);
+                                 rightText="Accept" rightFunc={this.props.acceptGoodsItem} rightConfirmText={this.acceptConfirmText} router={this.props.router}/></div>);
     }
 
 }

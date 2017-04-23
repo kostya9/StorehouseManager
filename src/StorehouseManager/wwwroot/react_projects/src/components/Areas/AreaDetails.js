@@ -12,7 +12,7 @@ import {base} from "../../routes";
 class AreaDetails extends Component {
 
   initState(from) {
-      this.setState({...this.state, showName: from.name, type: from.type, temperature: from.temperature, humidity: from.humidity})
+      this.setState({...this.state, showName: from.name, type: from.type, temperature: from.temperature, humidity: from.humidity, volume: from.volume})
   }
 
   componentWillMount() {
@@ -41,7 +41,7 @@ class AreaDetails extends Component {
 
   onButtonClick(e) {
     e.preventDefault();
-    this.props.updateArea(this.props.id, this.state.showName, this.state.type, this.state.temperature, this.state.humidity);
+    this.props.updateArea(this.props.id, this.state.showName, this.state.type, this.state.temperature, this.state.humidity, this.state.volume);
       this.props.router.push('/');
   }
 
@@ -95,6 +95,18 @@ class AreaDetails extends Component {
           <input className="form-control" type="text" id="humidity" value={this.state.humidity} onChange={(e) => this.onHumidityChange(e)}/>
         </div>
       </div>
+          <div className="form-group row">
+              <label htmlFor="volume" className="col-xs-2 col-form-label">Volume</label>
+              <div className="col-xs-10">
+                  <input className="form-control" type="text" id="volume" value={this.state.volume} onChange={(e) => this.onVolumeChange(e)}/>
+              </div>
+          </div>
+          <div className="form-group row">
+              <label htmlFor="usedVolume" className="col-xs-2 col-form-label">Used Volume</label>
+              <div className="col-xs-10">
+                  <input disabled className="form-control" type="text" id="usedVolume" value={this.props.usedVolume}/>
+              </div>
+          </div>
       <button type="submit" className="btn btn-primary" onClick={(e) => this.onButtonClick(e)}>Update</button>
       <button className="btn btn-danger area-details-btn" onClick={(e) => this.onButtonClickRemove(e)}>Remove</button>
       <button className="btn btn-default area-details-btn" onClick={(e) => this.onReset(e)}>Reset</button>
@@ -105,6 +117,13 @@ class AreaDetails extends Component {
         e.preventDefault();
         this.reset();
         this.props.router.push('/');
+    }
+
+    onVolumeChange(e) {
+        this.setState({
+            ...this.state,
+            volume: e.target.value - 0
+        })
     }
 }
 
@@ -130,7 +149,9 @@ const mapStateToProps = state => {
       type: selectedArea.type,
       temperature: selectedArea.temperature,
       humidity: selectedArea.humidity,
-      areaTypesAvailability: state.areas.areaTypesAvailability
+      areaTypesAvailability: state.areas.areaTypesAvailability,
+      volume: selectedArea.volume,
+      usedVolume: selectedArea.usedVolume
   }
 };
 

@@ -10,7 +10,7 @@ import css from './GoodsTable.css'
 
 export default class GoodsTable extends Component {
 
-    createGoodsTablesItem(goodsItem, rightFunc, leftFunc, leftText, rightText) {
+    createGoodsTablesItem(goodsItem, rightFunc, leftFunc, leftText, rightText, router) {
         const confirmLeft = this.props.confirmLeft;
         const confirmRight = this.props.confirmRight;
         return (<GoodsTableItem key={goodsItem.id} id={goodsItem.id}
@@ -18,7 +18,7 @@ export default class GoodsTable extends Component {
                                 leftFunc={leftFunc && (() => leftFunc(goodsItem.id))} leftText={leftText}
                                 rightFunc={rightFunc && (() => rightFunc(goodsItem.id))} rightText={rightText}
                                 confirmLeft={confirmLeft}
-                                confirmRight={confirmRight}
+                                confirmRight={confirmRight} router={router}
         />)
     }
 
@@ -30,7 +30,7 @@ export default class GoodsTable extends Component {
                     rightText={this.props.rightText}/>
                 {this.props.goodsItems.map(gi => this.createGoodsTablesItem(gi, this.props.rightFunc, this.props.leftFunc,
                     this.props.leftConfirmText && this.props.leftConfirmText(gi.name),
-                    this.props.rightConfirmText && this.props.rightConfirmText(gi.name)))}
+                    this.props.rightConfirmText && this.props.rightConfirmText(gi.name), this.props.router))}
         </div>);
     }
 }

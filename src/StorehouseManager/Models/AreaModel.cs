@@ -16,8 +16,11 @@ namespace StorehouseManager.Models
 
         public double Humidity { get; set; }
         public double Temperature { get; set; }
+        public double Volume { get; set; }
 
-        public static AreaModel FromArea(Area area)
+        public double UsedVolume { get; set; }
+
+        public static AreaModel FromArea(Area area, double usedVolume)
         {
             return new AreaModel
             {
@@ -26,7 +29,9 @@ namespace StorehouseManager.Models
                 Rectangle = area.Rectangle,
                 Type = area.Type,
                 Humidity = area.Characteristics.Humidity,
-                Temperature = area.Characteristics.Temperature
+                Temperature = area.Characteristics.Temperature,
+                Volume = area.Characteristics.Volume,
+                UsedVolume = usedVolume
             };
         }
     }

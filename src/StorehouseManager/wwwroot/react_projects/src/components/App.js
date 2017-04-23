@@ -18,7 +18,7 @@ class App extends Component {
         return (
             <div className="app">
                 <div className="col-xs-2 app-menu">
-                    <Menu startRegisterGoods={this.props.startRegisterGoods}/>
+                    <Menu startRegisterGoods={this.props.startRegisterGoods} areas={this.props.areas} selectedId={this.props.selectedId} selectArea={this.props.selectArea}/>
                 </div>
                 <div className="col-xs-10 vertical-line app-component">
                     <EasyTransition
@@ -38,7 +38,9 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        newItem: state.goods.newItem
+        newItem: state.goods.newItem,
+        selectedId: state.areas.selectedId,
+        areas: state.areas.areasList
     }
 }
 

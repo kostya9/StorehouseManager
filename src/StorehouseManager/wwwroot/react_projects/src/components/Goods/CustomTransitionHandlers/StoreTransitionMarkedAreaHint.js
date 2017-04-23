@@ -30,7 +30,7 @@ export default class StoreTransitionMarkedAreaHint extends Component {
 
     confirm(e) {
         e.preventDefault();
-        this.props.confirm();
+        this.props.confirm(this.state.selectedId);
         this.hide();
     }
 
@@ -56,13 +56,13 @@ export default class StoreTransitionMarkedAreaHint extends Component {
 
     generateSelectOption(hint) {
         const currentArea = this.props.areas.find(area => area.id === hint.areaId);
-        const colorClass = this.getCssColorByHint(hint);
+        const colorClass = this.getCssClassByHint(hint);
         return (<option key={hint.areaId} value={hint.areaId} className={colorClass}>
             {currentArea.id} : {currentArea.name}
             </option>);
     }
 
-    getCssColorByHint(hint) {
+    getCssClassByHint(hint) {
 
         const markTypes = hint.marks.map(m => m.mark);
         const minMark = Math.min.apply(Math, markTypes);
@@ -82,7 +82,7 @@ export default class StoreTransitionMarkedAreaHint extends Component {
         const hint = this.getHintBySelectedId();
         if(!hint)
             return 'white';
-        return this.getCssColorByHint(hint);
+        return this.getCssClassByHint(hint);
     }
 
     getSelectedAreaMarkNotes() {
@@ -91,6 +91,17 @@ export default class StoreTransitionMarkedAreaHint extends Component {
         if(hint == undefined)
             return [];
         return hint.marks.map(m => m.note);
+    }
+
+    isDanger() {
+        const hint = this.getHintBySelectedId();
+        if(hint == undefined)
+            return false;
+        const markTypes = hint.marks.map(m => m.mark);
+        const minMark = Math.min.apply(Math, markTypes);
+        const colorClass = this.getCssClass(minMark);
+        return colorClass === "danger";
+
     }
 
     render() {
@@ -115,7 +126,7 @@ export default class StoreTransitionMarkedAreaHint extends Component {
                         {this.getSelectedAreaMarkNotes().map(note => (<div key={i++}>{note}</div>))}
                     </div>
                     <hr/>
-                    <Button className="mark-confirm-btn" onClick={(e) => this.confirm(e)}>Store</Button>
+                    <Button className={"mark-confirm-btn"} onClick={(e) => this.confirm(e)} disabled={this.isDanger()}>Store</Button>
                 </div>
             </Modal.Body>
         </Modal>)

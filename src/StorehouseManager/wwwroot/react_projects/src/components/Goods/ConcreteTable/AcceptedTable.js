@@ -18,15 +18,15 @@ export default class AcceptedTable extends Component {
 
     showHints(id) {
         this.props.loadAreaMarkHints(id);
-        this.setState({showHint: true});
+        this.setState({showHint: true, selectedGoodsItemId: id});
+    }
+
+    confirm(areaId) {
+        this.props.storeGoodsItem(this.state.selectedGoodsItemId, areaId)
     }
 
     hideHints() {
         this.setState({showHint: false});
-    }
-
-    confirmStore(id) {
-        this.props.storeGoodsItem(id);
     }
 
     showReject(id) {
@@ -50,12 +50,12 @@ export default class AcceptedTable extends Component {
             <GoodsReject show={this.state.showReject} id={this.state.selectedId}
                          confirm={(id, reason) => this.confirmReject(id, reason)} cancel={() => this.hideReject()} name={selected && selected.name}/>
             <StoreTransitionMarkedAreaHint show={this.state.showHint} hints={this.props.hints.marks} areas={this.props.areas} recommended={this.props.hints.recommendedAreaId}
-                                           cancel={() => this.hideHints()} confirm={(id) => {this.hideHints(); this.confirmStore(id)}}/>
+                                           cancel={() => this.hideHints()} confirm={(areaId) => {this.hideHints(); this.confirm(areaId)}}/>
 
             <GoodsTable goodsItems={this.props.accepted} name="Accepted"
                         leftText="Reject" rightText="Store"
                         confirmLeft={false} leftFunc={(id) => this.showReject(id)}
-                        confirmRight={false} rightFunc={(id) => this.showHints(id)}/>
+                        confirmRight={false} rightFunc={(id) => this.showHints(id)} router={this.props.router}/>
         </div>);
     }
 }

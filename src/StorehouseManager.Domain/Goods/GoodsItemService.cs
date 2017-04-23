@@ -71,9 +71,13 @@ namespace StorehouseManager.Domain.Goods
 
             var estimate = new AreaUsedVolumeEstimate(_repository);
 
-            return new AreaMarkingReport(_areaRepository.FindAll(userId)
-                .Where(area => area.Id != item.Id).ToList()
-                .Select(area =>
+            var areas = _areaRepository.FindAll(userId)
+                .Where(area => area.Type != AreaType.AreaEnter
+                               && area.Type != AreaType.AreaExit)
+                .Where(area => area.Id != (item.AreaId ?? 0)).ToList();
+
+            return new AreaMarkingReport(
+                areas.Select(area =>
                     marker.Mark(area, estimate.Calculate(area))));
         }
     }

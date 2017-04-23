@@ -12,6 +12,7 @@ import GoodsTable from "./Table/GoodsTable";
 import RegisteredTable from "./ConcreteTable/RegisteredTable";
 import ArrivedTable from "./ConcreteTable/ArrivedTable";
 import AcceptedTable from "./ConcreteTable/AcceptedTable";
+import WaitingForUnloadTable from "./ConcreteTable/WaitingForUnloadTable";
 
 class GoodsTransition extends Component {
 
@@ -20,7 +21,10 @@ class GoodsTransition extends Component {
             <div className="outsideArea">
                 <div className="goodsTableContainer">
                     <AcceptedTable rejectGoodsItem={this.props.rejectGoodsItem} accepted={this.props.accepted} hints={this.props.hints} areas={this.props.areas}
-                                   loadAreaMarkHints={this.props.loadAreaMarkHints}/>
+                                   loadAreaMarkHints={this.props.loadAreaMarkHints} storeGoodsItem={this.props.storeGoodsItem} router={this.props.router}/>
+                </div>
+                <div className="goodsTableContainer">
+                    <WaitingForUnloadTable waitingForUnload={this.props.waitingForUnload} unloadGoodsItem={this.props.unloadGoodsItem} router={this.props.router}/>
                 </div>
             </div>
         )
@@ -31,7 +35,8 @@ function mapStateToProps(state) {
     return {
         accepted: state.goods.accepted,
         hints: state.goods.hints,
-        areas: state.areas.areasList
+        areas: state.areas.areasList,
+        waitingForUnload : state.goods.waitingForUnload
     }
 }
 

@@ -15,7 +15,7 @@ namespace StorehouseManager.Domain.Goods
     {
         private readonly EfDbContext _context;
 
-        public GoodsRepository(EfDbContext context, AreaRepository areaRepository, GoodsTransitionRepository transitionRepository)
+        public GoodsRepository(EfDbContext context, GoodsTransitionRepository transitionRepository)
         {
             _context = context;
             _stateFactory = new GoodsRepositoryStateFactory(transitionRepository);

@@ -7,7 +7,7 @@ namespace StorehouseManager.Models
 {
     public class GoodsItemModel
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Shipper { get; set; }
         public double TemperatureLow { get; set; }
@@ -15,5 +15,6 @@ namespace StorehouseManager.Models
         public double HumidityLow { get; set; }
         public double HumidityHigh { get; set; }
         public double Volume { get; set; }
+        public string Status { get; set; }
     }
 }

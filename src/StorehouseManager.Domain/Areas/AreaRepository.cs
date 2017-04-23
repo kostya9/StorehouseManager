@@ -29,8 +29,7 @@ namespace StorehouseManager.Domain.Areas
                 if(sameTypeArea != null)
                     throw new ArgumentException("This area type should be unique");
             }
-            var area = new Area(userId, name, type, rectangle);
-            area.Characteristics = new AreaCharacteristics();
+            var area = new Area(userId, name, type, rectangle) {Characteristics = new AreaCharacteristics()};
             _context.Areas.Add(area);
             _context.SaveChanges();
             return area.Id;
@@ -49,7 +48,7 @@ namespace StorehouseManager.Domain.Areas
             _context.SaveChanges();
         }
 
-        public Area Update(int id, string name, AreaType type, double humidity, double temperature, int userId)
+        public Area Update(int id, string name, AreaType type, double humidity, double temperature, double volume, int userId)
         {
             var repositoryArea = FindById(id, userId);
             repositoryArea.Name = name;
@@ -57,6 +56,7 @@ namespace StorehouseManager.Domain.Areas
 
             repositoryArea.Characteristics.Humidity = humidity;
             repositoryArea.Characteristics.Temperature = temperature;
+            repositoryArea.Characteristics.Volume = volume;
             _context.Areas.Update(repositoryArea);
             _context.SaveChanges();
             return repositoryArea;

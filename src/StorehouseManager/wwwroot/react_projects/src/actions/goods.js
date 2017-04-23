@@ -7,9 +7,18 @@ import GoodsApi from "../api/goods";
 import {LOAD_GOODSITEMS_SUCCESS, LOAD_GOODSITEMS_REGISTERED_SUCCESS, LOAD_GOODSITEMS_ARRIVED_SUCCESS,
 LOAD_GOODSITEMS_REJECTED_SUCCESS, LOAD_GOODSITEMS_STORING_SUCCESS, LOAD_GOODSITEMS_WAITINGFORUNLOAD_SUCCESS, LOAD_GOODSITEMS_UNLOADED_SUCCESS} from './../reducers/goods'
 import {
-    CANCEL_REGISTERING_ITEM, LOAD_AREA_MARK_HINTS_SUCCESS, LOAD_GOODSITEMS_ACCEPTED_SUCCESS, REGISTER_ITEM_SUCCESS,
+    CANCEL_REGISTERING_ITEM, LOAD_AREA_MARK_HINTS_SUCCESS, LOAD_GOODSITEM_SUCCESS, LOAD_GOODSITEMS_ACCEPTED_SUCCESS,
+    REGISTER_ITEM_SUCCESS,
     START_REGISTERING_ITEM
 } from "../reducers/goods";
+import {loadAreas} from "./areas";
+
+function loadGoodsItemSuccess(item) {
+    return {
+        type: LOAD_GOODSITEM_SUCCESS,
+        item: item
+    }
+}
 
 function loadGoodsItemsSuccessPrototype(type, goodsItems) {
     return {
@@ -117,7 +126,7 @@ export function loadGoodsItemsStoring(areaId) {
     return dispatch => {
         return GoodsApi.fetchGoodsItemsStoring(areaId)
             .then((goodsItems) => {
-                dispatch(loadGoodsItemsStoringSuccess(goodsItems))
+                dispatch(loadGoodsItemsStoringSuccess(areaId, goodsItems))
             });
     }
 }
@@ -193,6 +202,7 @@ export function storeGoodsItem(id, areaId) {
             .then(() => {
                 dispatch(loadGoodsItemsAccepted());
                 dispatch(loadGoodsItemsStoring(areaId));
+                dispatch(loadAreas())
             })
     }
 }
@@ -212,7 +222,7 @@ export function waitingForUnloadGoodsItem(id, fromAreaId) {
         return GoodsApi.waitingForUnloadGoodsItem(id)
             .then(() => {
                 dispatch(loadGoodsItemsStoring(fromAreaId));
-                dispatch(loadGoodItemsUnloadedSuccess());
+                dispatch(loadGoodsItemsWaitingForUnload());
             })
     }
 }
@@ -244,5 +254,14 @@ export function loadAreaMarkHints(id) {
             .then((hints) => {
                 dispatch(loadAreaMarkHintsSuccess(hints));
             });
+    }
+}
+
+export function loadGoodsItem(id) {
+    return (dispatch) => {
+        return GoodsApi.fetchGoodsItem(id)
+            .then((item) => {
+                dispatch(loadGoodsItemSuccess(item))
+            })
     }
 }

@@ -33,7 +33,7 @@ function fromServerArea(area) {
     const serverRectangle = area.rectangle;
     const rectangle = new Rectangle(serverRectangle.x, serverRectangle.y, serverRectangle.width, serverRectangle.height);
     const type = fromServerType(area.type);
-    return new Area(rectangle, area.id, type, area.name, area.temperature, area.humidity);
+    return new Area(rectangle, area.id, type, area.name, area.temperature, area.humidity, area.volume, area.usedVolume);
 }
 
 function toServerArea(area) {
@@ -47,7 +47,8 @@ function toServerArea(area) {
         type: toServerType(area.type),
         name: area.name,
         humidity: area.humidity,
-        temperature: area.temperature
+        temperature: area.temperature,
+        volume: area.volume
     }
 }
 
@@ -78,9 +79,9 @@ export default class AreasApi {
         return fetch(address + '/api/areas/' + id, createDeleteFetchOptions())
     }
 
-    static updateArea(id, name, type, temperature, humidity) {
+    static updateArea(id, name, type, temperature, humidity, volume) {
         return fetch(address + '/api/areas/' + id,
-            createPutFetchOptions(JSON.stringify({name: name, type: toServerType(type), temperature: temperature, humidity: humidity})))
+            createPutFetchOptions(JSON.stringify({name: name, type: toServerType(type), temperature: temperature, humidity: humidity, volume: volume})))
             .then((response) => {
                 return response.json();
             })
