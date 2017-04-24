@@ -8,6 +8,7 @@ import {LOAD_GOODSITEMS_SUCCESS, LOAD_GOODSITEMS_REGISTERED_SUCCESS, LOAD_GOODSI
 LOAD_GOODSITEMS_REJECTED_SUCCESS, LOAD_GOODSITEMS_STORING_SUCCESS, LOAD_GOODSITEMS_WAITINGFORUNLOAD_SUCCESS, LOAD_GOODSITEMS_UNLOADED_SUCCESS} from './../reducers/goods'
 import {
     CANCEL_REGISTERING_ITEM, LOAD_AREA_MARK_HINTS_SUCCESS, LOAD_GOODSITEM_SUCCESS, LOAD_GOODSITEMS_ACCEPTED_SUCCESS,
+    LOAD_TRANSITIONS_SUCCESS,
     REGISTER_ITEM_SUCCESS,
     START_REGISTERING_ITEM
 } from "../reducers/goods";
@@ -263,5 +264,22 @@ export function loadGoodsItem(id) {
             .then((item) => {
                 dispatch(loadGoodsItemSuccess(item))
             })
+    }
+}
+
+export function loadTransitions(id) {
+    return (dispatch) => {
+        return  GoodsApi.fetchTransitions(id)
+            .then((transitions) => {
+                dispatch(loadTransitionsSuccess(id, transitions));
+            })
+    }
+}
+
+function loadTransitionsSuccess(id, transitions) {
+    return {
+        type: LOAD_TRANSITIONS_SUCCESS,
+        id: id,
+        transitions: transitions
     }
 }

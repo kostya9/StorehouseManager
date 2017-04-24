@@ -12,8 +12,6 @@ import css from './GoodsDetails.css'
 
 class GoodsDetails extends Component {
     componentWillReceiveProps(next) {
-        console.log(this.props)
-        console.log(next)
         if((this.props.params.id != next.params.id) || (this.props.id == undefined))
             next.loadGoodsItem(next.params.id);
     }
@@ -77,9 +75,14 @@ class GoodsDetails extends Component {
                     <ControlLabel>Volume</ControlLabel>
                     <FormControl value={this.props.volume} componentClass="input" disabled/>
                 </FormGroup>
+                <Button onClick={() => this.goToReport()} className="generate-report">Generate report</Button>
             </Form>
 </div>
         </div>)
+    }
+
+    goToReport() {
+        this.props.router.push(`/goods/${this.props.params.id}/transitions`)
     }
 }
 

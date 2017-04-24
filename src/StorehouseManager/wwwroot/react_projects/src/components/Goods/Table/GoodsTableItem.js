@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import css from './GoodsTableItem.css'
 import crate from '../../../img/crate.png'
 import ConfirmButton from "../../Shared/ConfirmButton";
+import TimeView from "../../Shared/TimeView";
 
 export default class GoodsTableItem extends Component {
     componentWillMount() {
@@ -16,12 +17,6 @@ export default class GoodsTableItem extends Component {
     }
 
     componentWillReceiveProps(next) {
-    }
-
-
-    padNumber(number) {
-        const pad = number < 10 ? '0' : '';
-        return pad + number;
     }
 
     leftClick() {
@@ -77,8 +72,7 @@ export default class GoodsTableItem extends Component {
                     <p>{this.props.shipper}</p>
                 </div>
                 <div className="time">
-                    <p><span>{time.getFullYear()}.{this.padNumber(time.getMonth() + 1)}.{this.padNumber(time.getDate())}</span>
-                    <span>{this.padNumber(time.getHours())}:{this.padNumber(time.getMinutes())}</span></p>
+                    <p><TimeView time={time}/></p>
                 </div>
             </div>
             <ConfirmButton show={this.confirmRight && this.state.confirmRight} text={this.props.rightText}

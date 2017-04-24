@@ -1,0 +1,17 @@
+.transitions .goods-table-item {
+    min-width: 600px;
+}
+
+.transitions p{
+    margin: 0 auto;
+    text-align: center !important;
+    width: 100%;
+}
+
+.transitions .name {
+    width: 150px;
+}
+
+.goods-table-item {
+    padding: 0 10px;
+}

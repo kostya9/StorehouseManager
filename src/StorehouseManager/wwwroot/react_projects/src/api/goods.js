@@ -101,4 +101,11 @@ export default class GoodsApi {
                 return result.json();
             })
     }
+
+    static fetchTransitions(id) {
+        return fetch(`/api/goodsitems/${id}/transitions`, sameOriginOption)
+            .then((result) => {
+                return result.json();
+            })
+    }
 }

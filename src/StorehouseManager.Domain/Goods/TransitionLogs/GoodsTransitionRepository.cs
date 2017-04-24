@@ -14,7 +14,7 @@ namespace StorehouseManager.Domain.Goods.TransitionLogs
         public GoodsTransitionRepository(EfDbContext context)
         {
             _context = context;
-            Transitions = _context.GoodsTransitions.AsQueryable();
+            Transitions = _context.GoodsTransitions.OrderByDescending(dt => dt.TimeStamp).AsQueryable();
         }
 
         public GoodsTransition Add(GoodsItemStatus from, GoodsItemStatus to, int goodsItemId)
@@ -32,5 +32,16 @@ namespace StorehouseManager.Domain.Goods.TransitionLogs
             _context.SaveChanges();
             return transition;
         }
-    }
+
+        public IEnumerable<GoodsTransition> FindByGoodsItemId(int goodsItemId, int userId)
+        {
+            var itemsRepository = new GoodsRepository(_context, this);
+            var item = itemsRepository.FindById(goodsItemId, userId);
+
+            if(item == null)
+                throw new ArgumentException("No goodsItem for that user");
+
+            return Transitions.Where(transition => transition.GoodsItemId == goodsItemId);
+        }
+}
 }

@@ -3,7 +3,8 @@ import {ADD_AREA, SELECT_AREA, SET_NAME, REMOVE_AREA, CANCEL_ADD_AREA, START_ADD
 
 export {addArea, removeArea, updateArea} from './actions/areas';
 export {
-  loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsAccepted, loadGoodsItemsStoring, loadGoodsItemsWaitingForUnload, loadGoodsItemsUnloaded, loadGoodsItemsRejected, loadGoodsItem,
+  loadGoodsItemsRegistered, loadGoodsItemsArrived, loadGoodsItemsAccepted, loadGoodsItemsStoring,
+    loadGoodsItemsWaitingForUnload, loadGoodsItemsUnloaded, loadGoodsItemsRejected, loadGoodsItem, loadTransitions,
   registerGoodsItem, startRegisterGoods, cancelRegisterGoods,
   removeGoodsItem, arriveGoodsItem, acceptGoodsItem, storeGoodsItem, waitingForUnloadGoodsItem, unloadGoodsItem, rejectGoodsItem, changeStoreGoodsItem,
   loadAreaMarkHints} from './actions/goods';

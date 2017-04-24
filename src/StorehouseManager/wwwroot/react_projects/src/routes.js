@@ -11,6 +11,8 @@ import GoodsRejectedContainer from "./components/Goods/GoodsRejected";
 import StoringGoodsContainer from "./components/Goods/StoringGoods";
 import GoodsUnloadedContainer from "./components/Goods/GoodsUnloaded";
 import GoodsDetailsContainer from "./components/Goods/GoodsDetails";
+import GoodsTransitionsReportContainer from "./components/Goods/GoodsTransitionsReport";
+
 
 import SelectorContainer from './components/Selector'
 
@@ -30,6 +32,7 @@ export default (
         <Route path="unloaded" component={GoodsUnloadedContainer}/>
         <Route path="rejected" component={GoodsRejectedContainer}/>
         <Route path="goods/:id" component={GoodsDetailsContainer}/>
+        <Route path="goods/:id/transitions" component={GoodsTransitionsReportContainer} />
     </Route>
 )
 
