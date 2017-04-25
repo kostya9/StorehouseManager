@@ -14,54 +14,54 @@ namespace StorehouseManager.Domain.Goods
             _repository = repository;
         }
 
-        private IEnumerable<GoodsItem> ByStatus(int userId, GoodsItemStatus status)
+        private IEnumerable<GoodsItem> ByStatus(GoodsItemStatus status)
         {
-            return _repository.FindAll(userId).Where(gi => gi.Status == status);
+            return _repository.FindAll().Where(gi => gi.Status == status);
         }
 
-        public GoodsItem ById(int id, int userId)
+        public GoodsItem ById(int id)
         {
-            return _repository.FindById(id, userId);
+            return _repository.FindById(id);
         }
 
-        public IEnumerable<GoodsItem> All(int userId)
+        public IEnumerable<GoodsItem> All()
         {
-            return _repository.FindAll(userId);
+            return _repository.FindAll();
         }
 
-        public IEnumerable<GoodsItem> Registered(int userId)
+        public IEnumerable<GoodsItem> Registered()
         {
-            return ByStatus(userId, GoodsItemStatus.Registered);
+            return ByStatus(GoodsItemStatus.Registered);
         }
 
-        public IEnumerable<GoodsItem> Arrived(int userId)
+        public IEnumerable<GoodsItem> Arrived()
         {
-            return ByStatus(userId, GoodsItemStatus.Arrived);
+            return ByStatus(GoodsItemStatus.Arrived);
         }
 
-        public IEnumerable<GoodsItem> Rejected(int userId)
+        public IEnumerable<GoodsItem> Rejected()
         {
-            return ByStatus(userId, GoodsItemStatus.Rejected);
+            return ByStatus(GoodsItemStatus.Rejected);
         }
 
-        public IEnumerable<GoodsItem> Accepted(int userId)
+        public IEnumerable<GoodsItem> Accepted()
         {
-            return ByStatus(userId, GoodsItemStatus.Accepted);
+            return ByStatus(GoodsItemStatus.Accepted);
         }
 
-        public IEnumerable<GoodsItem> Storing(int areaId, int userId)
+        public IEnumerable<GoodsItem> Storing(int areaId)
         {
-            return ByStatus(userId, GoodsItemStatus.Storing).Where(gi => gi.AreaId == areaId);
+            return ByStatus(GoodsItemStatus.Storing).Where(gi => gi.AreaId == areaId);
         }
 
-        public IEnumerable<GoodsItem> WaitingForUnload(int userId)
+        public IEnumerable<GoodsItem> WaitingForUnload()
         {
-            return ByStatus(userId, GoodsItemStatus.WaitingForUnloading);
+            return ByStatus(GoodsItemStatus.WaitingForUnloading);
         }
 
-        public IEnumerable<GoodsItem> Unloaded(int userId)
+        public IEnumerable<GoodsItem> Unloaded()
         {
-            return ByStatus(userId, GoodsItemStatus.Unloaded);
+            return ByStatus(GoodsItemStatus.Unloaded);
         }
     }
 }

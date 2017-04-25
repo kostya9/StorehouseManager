@@ -23,17 +23,13 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
 
         public IEnumerable<GoodsItem> Items()
         {
-            int userId = this.GetCurrentUserId();
-
-            return _filter.All(userId);
+            return _filter.All();
         }
 
         [Route("{id}")]
         public GoodsItemModel Item([FromRoute]int id)
         {
-            int userId = this.GetCurrentUserId();
-
-            var item = _filter.ById(id, userId);
+            var item = _filter.ById(id);
             return new GoodsItemModel
             {
                 Name = item.Name,
@@ -51,58 +47,44 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
         [Route("[action]")]
         public IEnumerable<GoodsItem> Registered()
         {
-            int userId = this.GetCurrentUserId();
-
-            return _filter.Registered(userId);
+            return _filter.Registered();
         }
 
         [Route("[action]")]
         public IEnumerable<GoodsItem> Arrived()
         {
-            int userId = this.GetCurrentUserId();
-
-            return _filter.Arrived(userId);
+            return _filter.Arrived();
         }
 
         [Route("[action]")]
         public IEnumerable<GoodsItem> Accepted()
         {
-            int userId = this.GetCurrentUserId();
-
-            return _filter.Accepted(userId);
+            return _filter.Accepted();
         }
 
         [Route("[action]")]
         public IEnumerable<GoodsItem> Storing([FromQuery]int areaId)
         {
-            int userId = this.GetCurrentUserId();
-
-            return _filter.Storing(areaId, userId);
+            return _filter.Storing(areaId);
         }
 
         [Route("[action]")]
         public IEnumerable<GoodsItem> WaitingForUnload()
         {
-            int userId = this.GetCurrentUserId();
-
-            return _filter.WaitingForUnload(userId);
+            return _filter.WaitingForUnload();
         }
 
         [Route("[action]")]
         public IEnumerable<GoodsItem> Unloaded()
         {
-            int userId = this.GetCurrentUserId();
-
-            return _filter.Unloaded(userId);
+            return _filter.Unloaded();
         }
 
 
         [Route("[action]")]
         public IEnumerable<GoodsItem> Rejected()
         {
-            int userId = this.GetCurrentUserId();
-
-            return _filter.Rejected(userId);
+            return _filter.Rejected();
         }
     }
 }

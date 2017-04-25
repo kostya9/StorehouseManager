@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Remotion.Linq.Clauses;
+using StorehouseManager.Domain.Authentication;
 
 namespace StorehouseManager.Domain.Goods.TransitionLogs
 {
     public class GoodsTransitionRepository
     {
         private readonly EfDbContext _context;
+        private readonly User _user;
         public IQueryable<GoodsTransition> Transitions { get; }
 
-        public GoodsTransitionRepository(EfDbContext context)
+        public GoodsTransitionRepository(EfDbContext context, User user)
         {
             _context = context;
+            _user = user;
             Transitions = _context.GoodsTransitions.OrderByDescending(dt => dt.TimeStamp).AsQueryable();
         }
 
@@ -35,8 +38,8 @@ namespace StorehouseManager.Domain.Goods.TransitionLogs
 
         public IEnumerable<GoodsTransition> FindByGoodsItemId(int goodsItemId, int userId)
         {
-            var itemsRepository = new GoodsRepository(_context, this);
-            var item = itemsRepository.FindById(goodsItemId, userId);
+            var itemsRepository = new GoodsRepository(_context, this, _user);
+            var item = itemsRepository.FindById(goodsItemId);
 
             if(item == null)
                 throw new ArgumentException("No goodsItem for that user");

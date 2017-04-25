@@ -34,8 +34,7 @@ export default class StoringTable extends Component {
                                            cancel={() => this.hideHints()} confirm={(areaId) => {this.hideHints(); this.confirm(areaId)}}/>
             <GoodsTable goodsItems={this.props.storing} name="Storing"
                             leftText="Store" confirmLeft={false} leftFunc={(id) => this.showHints(id)}
-                            rightText="Wait For Unload" rightFunc={(goodsItemId) => this.props.waitingForUnloadGoodsItem(goodsItemId, this.props.selectedId)} r
-                        ightConfirmText={this.rightConfirmText} router={this.props.router}/>
+                            rightText="Wait For Unload" rightFunc={(goodsItemId) => this.props.waitingForUnloadGoodsItem(goodsItemId, this.props.selectedId)} rightConfirmText={this.rightConfirmText} router={this.props.router}/>
         </div>);
     }
 }

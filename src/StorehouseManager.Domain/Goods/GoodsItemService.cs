@@ -27,7 +27,7 @@ namespace StorehouseManager.Domain.Goods
 
         private GoodsItem GetItemById(int itemId, int userId)
         {
-            return _repository.FindById(itemId, userId);
+            return _repository.FindById(itemId);
         }
 
         public void ChangeState(GoodsItemStatus target, int itemId, int userId, int areaId = 0, string reasoning = null)
@@ -65,13 +65,13 @@ namespace StorehouseManager.Domain.Goods
 
         public AreaMarkingReport MarkAreas(int goodsItemId, int userId)
         {
-            var item = _repository.FindById(goodsItemId, userId);
+            var item = _repository.FindById(goodsItemId);
 
             var marker = new TransitionAreaMarker(item);
 
             var estimate = new AreaUsedVolumeEstimate(_repository);
 
-            var areas = _areaRepository.FindAll(userId)
+            var areas = _areaRepository.FindAll()
                 .Where(area => area.Type != AreaType.AreaEnter
                                && area.Type != AreaType.AreaExit)
                 .Where(area => area.Id != (item.AreaId ?? 0)).ToList();

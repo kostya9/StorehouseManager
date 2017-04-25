@@ -22,17 +22,17 @@ namespace StorehouseManager.Controllers.Api
         private readonly AreaRepository _areaRepository;
         private AreaUsedVolumeEstimate _estimator;
 
-        public AreasController(EfDbContext context, GoodsRepository repository)
+        public AreasController(AreaRepository areaRepository, GoodsRepository goodsRepository)
         {
-            _areaRepository = new AreaRepository(context);
-            _estimator = new AreaUsedVolumeEstimate(repository);
+            _areaRepository = areaRepository;
+            _estimator = new AreaUsedVolumeEstimate(goodsRepository);
         }
 
         [HttpGet]
         public IEnumerable<AreaModel> Areas()
         {
             var userId = this.GetCurrentUserId();
-            return _areaRepository.FindAll(userId).ToList()
+            return _areaRepository.FindAll().ToList()
                 .Select(area => AreaModel.FromArea(area, _estimator.Calculate(area)));
         }
 
@@ -41,25 +41,22 @@ namespace StorehouseManager.Controllers.Api
         {
             if (area.Rectangle == null)
                 throw new ArgumentException();
-            var userId = this.GetCurrentUserId();
-            var id = _areaRepository.Add(area.Rectangle, area.Type, area.Name, userId);
-            var foundArea = _areaRepository.FindById(id, userId);
+            var id = _areaRepository.Add(area.Rectangle, area.Type, area.Name);
+            var foundArea = _areaRepository.FindById(id);
             return AreaModel.FromArea(foundArea, _estimator.Calculate(foundArea));
         }
 
         [HttpDelete("{id}")]
         public void RemoveArea(int id)
         {
-            var userId = this.GetCurrentUserId();
-            _areaRepository.Remove(id, userId);
+            _areaRepository.Remove(id);
         }
 
         [HttpPut("{id}")]
         public AreaModel UpdateArea(int id, [FromBody]AreaModel area)
         {
             var returnedArea = _areaRepository.Update(id, area.Name, area.Type,
-                area.Humidity, area.Temperature, area.Volume,
-                this.GetCurrentUserId());
+                area.Humidity, area.Temperature, area.Volume);
 
             return AreaModel.FromArea(returnedArea, _estimator.Calculate(returnedArea));
 

@@ -4,10 +4,10 @@ namespace StorehouseManager.Domain.Authentication
 {
     public class User
     {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string SecondName { get; set; }
-        public string HashedPassword { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string SecondName { get; set; }
+        public virtual string HashedPassword { get; set; }
     }
 }

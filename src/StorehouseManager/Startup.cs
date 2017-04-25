@@ -53,6 +53,9 @@ namespace StorehouseManager
             services.AddScoped<GoodsTransitionRepository>();
 
             services.AddScoped<GoodsItemService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<User, UserProxy>();
         }
 
 
