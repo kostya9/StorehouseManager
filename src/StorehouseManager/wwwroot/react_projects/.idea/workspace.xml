@@ -58,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="boundRectangle.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="boundRectangle.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/domain/boundRectangle.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="34" column="29" lean-forward="true" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+              <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -73,6 +73,31 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
               <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StoringTable.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Goods/ConcreteTable/StoringTable.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="36" column="159" lean-forward="false" selection-start-line="36" selection-start-column="159" selection-end-line="36" selection-end-column="159" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#44#83#0" expanded="true" />
+                <marker date="1493068744768" expanded="true" signature="822:1554" ph="..." />
+                <marker date="1493068744768" expanded="true" signature="998:1051" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StoringGoods.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/Goods/StoringGoods.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="149">
+              <caret line="26" column="24" lean-forward="true" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -141,7 +166,6 @@
         <option value="$PROJECT_DIR$/src/components/Goods/GoodsRejected.js" />
         <option value="$PROJECT_DIR$/src/components/Goods/GoodsTransition.js" />
         <option value="$PROJECT_DIR$/src/components/Goods/GoodsUnloaded.js" />
-        <option value="$PROJECT_DIR$/src/components/Goods/StoringGoods.js" />
         <option value="$PROJECT_DIR$/src/components/Goods/Table/GoodsTableItem.css" />
         <option value="$PROJECT_DIR$/src/components/Goods/CustomTransitionHandlers/StoreTransitionMarkedAreaHint.css" />
         <option value="$PROJECT_DIR$/src/components/Goods/CustomTransitionHandlers/StoreTransitionMarkedAreaHint.js" />
@@ -159,6 +183,7 @@
         <option value="$PROJECT_DIR$/src/components/Goods/ConcreteTable/StoringTable.js" />
         <option value="$PROJECT_DIR$/src/domain/rectangle.js" />
         <option value="$PROJECT_DIR$/src/domain/boundRectangle.js" />
+        <option value="$PROJECT_DIR$/src/components/Goods/StoringGoods.js" />
       </list>
     </option>
   </component>
@@ -548,8 +573,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="npm.compile" />
-        <item index="1" class="java.lang.String" itemvalue="npm.prod" />
+        <item index="0" class="java.lang.String" itemvalue="npm.prod" />
+        <item index="1" class="java.lang.String" itemvalue="npm.compile" />
       </list>
     </recent_temporary>
   </component>
@@ -573,12 +598,12 @@
       <workItem from="1492951328652" duration="13410000" />
       <workItem from="1492967394703" duration="1821000" />
       <workItem from="1493057113371" duration="9126000" />
-      <workItem from="1493110784892" duration="1228000" />
+      <workItem from="1493110784892" duration="3407000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128742000" />
+    <option name="totallyTimeSpent" value="130921000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -598,7 +623,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50416666" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2528978" sideWeight="0.3231018" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33509514" sideWeight="0.47291666" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
@@ -741,14 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Goods/StoringGoods.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="38" column="5" lean-forward="false" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Areas/AreaDetails.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -809,6 +826,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="34" column="90" lean-forward="false" selection-start-line="34" selection-start-column="90" selection-end-line="34" selection-end-column="90" />
+          <folding>
+            <element signature="e#43#68#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -940,20 +960,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Goods/ConcreteTable/StoringTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="36" column="159" lean-forward="false" selection-start-line="36" selection-start-column="159" selection-end-line="36" selection-end-column="159" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#44#83#0" expanded="true" />
-            <marker date="1493068744768" expanded="true" signature="822:1554" ph="..." />
-            <marker date="1493068744768" expanded="true" signature="998:1051" ph="..." />
+            <element signature="e#0#45#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1001,7 +1008,28 @@
     <entry file="file://$PROJECT_DIR$/src/domain/boundRectangle.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="34" column="29" lean-forward="true" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+          <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Goods/ConcreteTable/StoringTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="36" column="159" lean-forward="false" selection-start-line="36" selection-start-column="159" selection-end-line="36" selection-end-column="159" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#44#83#0" expanded="true" />
+            <marker date="1493068744768" expanded="true" signature="822:1554" ph="..." />
+            <marker date="1493068744768" expanded="true" signature="998:1051" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Goods/StoringGoods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="26" column="24" lean-forward="true" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
           <folding />
         </state>
       </provider>

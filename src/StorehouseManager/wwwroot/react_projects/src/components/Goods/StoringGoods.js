@@ -22,6 +22,15 @@ class StoringGoods extends Component {
     }
 
     render() {
+        const area = this.props.areas.find(a => a.id == this.props.selectedId);
+
+        if(area != null)
+            if(area.type != "AREA_SECTION")
+                return (
+                    <div className="nothing-selected-container"><div className="nothing-selected">
+                        <h2>This is a transition area. Look in the according tab.</h2>
+                    </div></div>)
+
         if(this.props.selectedId == undefined || this.props.selectedId == -1) {
             return (
                 <div className="nothing-selected-container"><div className="nothing-selected">
