@@ -1,23 +1,58 @@
 import  Rectangle from './rectangle'
 
 
+
+// PATTERN: Decorator
 export default class BoundRectangle extends Rectangle {
   constructor(rectangle, xMin, yMin, xMax, yMax) {
-    super(0, 0, 0, 0);
+    super();
     const maximumPosition = {x: xMax, y: yMax};
     const minimumPosition = {x: xMin, y: yMin};
 
     this.getMinimumPosition = () => minimumPosition;
     this.getMaximumPosition = () => maximumPosition;
 
+    this.rectangle = rectangle;
+
+    // Position to bound position
     const newPosition = this.getBoundPosition(rectangle.position.x, rectangle.position.y);
     this.position.x = newPosition.x;
     this.position.y = newPosition.y;
 
-    this.extend(rectangle.width, rectangle.height);
+    // Save and Reset
+    const prevWidth = this.width;
+    const prevHeight = this.height;
+    this.width = 0;
+    this.height = 0;
+
+    this.extend(prevWidth, prevHeight);
   }
 
-  getBoundPosition(x, y) {
+  get position() {
+    return this.rectangle.position;
+  }
+
+  set position(newPosition) {
+    this.rectangle.position = newPosition;
+  }
+
+  get width() {
+    return this.rectangle.width;
+  }
+
+  set width(newValue) {
+    this.rectangle.width = newValue;
+  }
+
+  get height() {
+      return this.rectangle.height;
+  }
+
+  set height(newValue) {
+      this.rectangle.height = newValue;
+  }
+
+    getBoundPosition(x, y) {
     let newX = x;
     let newY = y;
 
@@ -41,9 +76,9 @@ export default class BoundRectangle extends Rectangle {
   extend(width, height) {
     const prevWidth = this.width;
     const prevHeight = this.height;
-    super.extend(width, height);
+    this.rectangle.extend(width, height);
 
-    const endPosition = this.getEndPosition();
+    const endPosition = this.rectangle.getEndPosition();
     const newPosition = this.getBoundPosition(endPosition.x, endPosition.y);
     this.width = newPosition.x - this.position.x;
     this.height = newPosition.y - this.position.y;

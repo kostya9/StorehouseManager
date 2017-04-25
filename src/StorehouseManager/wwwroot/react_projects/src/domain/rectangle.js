@@ -1,8 +1,13 @@
 export default class Rectangle {
   constructor(x, y, width, height) {
+    if(x == undefined || y == undefined || width == undefined || height == undefined)
+      return;
+
     this.position = {x, y};
-    this.height = height;
-    this.width = width;
+    this.height = 0;
+    this.width = 0;
+
+    this.extend(width, height);
   }
 
   getEndPosition() {
