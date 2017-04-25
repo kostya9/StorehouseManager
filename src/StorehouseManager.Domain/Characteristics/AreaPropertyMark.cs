@@ -17,20 +17,10 @@ namespace StorehouseManager.Domain.Characteristics
             _value = value;
         }
 
-        public static AreaPropertyMark Acceptable => new AreaPropertyMark(MarkType.Acceptable, 0, new AcceptedWeightStrategy());
-
         private readonly double _value;
 
         public MarkType Mark { get; }
         public string Note { get; }
         public double WeightedValue => _weight.GetWeighted(_value);
-
-        private class AcceptedWeightStrategy : WeightStrategy
-        {
-            public override double GetWeighted(double value)
-            {
-                return Double.MinValue;
-            }
-        }
     }
 }

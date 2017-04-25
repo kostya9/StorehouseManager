@@ -73,7 +73,7 @@ namespace StorehouseManager.Domain.Characteristics
                 {
                     new AreaPropertyMark(MarkType.Acceptable, 
                     -GetExceededVolume(area, storedVolume),
-                    new VolumeWeightStrategy())
+                    new AvailableVolumeWeightStrategy())
                 });
 
             return new AreaMark(area.Id, marks);

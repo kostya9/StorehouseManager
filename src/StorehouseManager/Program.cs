@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using StorehouseManager;
 
-namespace WebFileManager
+namespace StorehouseManager
 {
     public class Program
     {
