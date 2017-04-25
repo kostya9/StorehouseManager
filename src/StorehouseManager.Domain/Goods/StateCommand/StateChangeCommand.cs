@@ -4,6 +4,7 @@ using StorehouseManager.Domain.Goods.TransitionState.StateFactory;
 
 namespace StorehouseManager.Domain.Goods.StateCommand
 {
+    // PATTERN: Command
     public abstract class StateChangeCommand
     {
         protected readonly GoodsItem _item;

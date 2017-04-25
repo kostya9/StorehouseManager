@@ -7,6 +7,7 @@ using StorehouseManager.Domain.Goods.TransitionState.ConcreteState;
 
 namespace StorehouseManager.Domain.Goods.TransitionState.StateFactory
 {
+    // PATTERN: factory method
     class GoodsStateFactory
     {
         public GoodsTransitionState FromGoods(GoodsItem item)

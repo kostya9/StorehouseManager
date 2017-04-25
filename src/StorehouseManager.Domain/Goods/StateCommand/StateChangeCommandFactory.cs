@@ -7,6 +7,7 @@ using StorehouseManager.Domain.Goods.TransitionState;
 
 namespace StorehouseManager.Domain.Goods.StateCommand
 {
+    // PATTERN(duplicate): factory method
     public class StateChangeCommandFactory
     {
         private readonly GoodsTransitionRepository _repository;

@@ -4,7 +4,7 @@ using StorehouseManager.Domain.Goods.TransitionState.StateFactory;
 
 namespace StorehouseManager.Domain.Goods.TransitionState
 {
-    // PATTERN : State
+    // PATTERN: State
     public abstract class GoodsTransitionState
     {
         public GoodsItem Item { get; private set; }
