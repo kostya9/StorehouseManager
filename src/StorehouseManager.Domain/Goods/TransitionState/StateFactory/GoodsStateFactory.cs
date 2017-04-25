@@ -7,33 +7,31 @@ using StorehouseManager.Domain.Goods.TransitionState.ConcreteState;
 
 namespace StorehouseManager.Domain.Goods.TransitionState.StateFactory
 {
-    abstract class GoodsStateFactory
+    class GoodsStateFactory
     {
-        protected GoodsTransitionState FromGoods(GoodsItem item, TransitionLog log)
+        public GoodsTransitionState FromGoods(GoodsItem item)
         {
             switch (item.Status)
             {
                 case GoodsItemStatus.Registered:
-                    return new RegisteredTransitionState(item, log);
+                    return new RegisteredTransitionState(item);
                 case GoodsItemStatus.Arrived:
-                    return new ArrivedTransitionState(item, log);
+                    return new ArrivedTransitionState(item);
                 case GoodsItemStatus.Accepted:
-                    return new AcceptedTransitionState(item, log);
+                    return new AcceptedTransitionState(item);
                 case GoodsItemStatus.Storing:
-                    return new StoringTransitionState(item, log);
+                    return new StoringTransitionState(item);
                 case GoodsItemStatus.WaitingForUnloading:
-                    return new WaitingForUnloadTransitionState(item, log);
+                    return new WaitingForUnloadTransitionState(item);
                 case GoodsItemStatus.Unloaded:
-                    return new UnloadedTransitionState(item, log);
+                    return new UnloadedTransitionState(item);
                 case GoodsItemStatus.Rejected:
-                     return new RejectedTransitionState(item, log);
+                     return new RejectedTransitionState(item);
                 case  GoodsItemStatus.Removed:
-                    return new RemovedTransitionState(item, log);
+                    return new RemovedTransitionState(item);
                 default:
                     throw new ArgumentException("Incorrect status");
             }
         }
-
-        public abstract GoodsTransitionState FromGoods(GoodsItem item);
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Characteristics;
+using StorehouseManager.Domain.Goods.StateCommand;
 
 namespace StorehouseManager.Domain.Goods
 {
@@ -13,11 +14,13 @@ namespace StorehouseManager.Domain.Goods
     {
         private readonly GoodsRepository _repository;
         private readonly AreaRepository _areaRepository;
+        private readonly StateChangeCommandFactory _factory;
 
-        public GoodsItemService(GoodsRepository repository, AreaRepository areaRepository)
+        public GoodsItemService(GoodsRepository repository, AreaRepository areaRepository, StateChangeCommandFactory factory)
         {
             _repository = repository;
             _areaRepository = areaRepository;
+            _factory = factory;
         }
 
         public GoodsItem Create(GoodsItem item)
@@ -25,41 +28,16 @@ namespace StorehouseManager.Domain.Goods
             return _repository.Add(item);
         }
 
-        private GoodsItem GetItemById(int itemId, int userId)
+        private GoodsItem GetItemById(int itemId)
         {
             return _repository.FindById(itemId);
         }
 
-        public void ChangeState(GoodsItemStatus target, int itemId, int userId, int areaId = 0, string reasoning = null)
+        public void ChangeState(GoodsItemStatus target, int itemId, int areaId = 0, string reasoning = null)
         {
-            var item = GetItemById(itemId, userId);
-            switch (target)
-            {
-                case GoodsItemStatus.Arrived:
-                    item.TransitionState.Arrive();
-                    break;
-                case GoodsItemStatus.Accepted:
-                    item.TransitionState.Accept();
-                    break;
-                case GoodsItemStatus.Storing:
-                    item.TransitionState.Store(areaId);
-                    break;
-                case GoodsItemStatus.WaitingForUnloading:
-                    item.TransitionState.WaitForUnload();
-                    break;
-                case GoodsItemStatus.Unloaded:
-                    item.TransitionState.Unload();
-                    break;
-                case GoodsItemStatus.Removed:
-                    item.TransitionState.Remove();
-                    break;
-                case GoodsItemStatus.Rejected:
-                    item.TransitionState.Reject(reasoning);
-                    break;
-                default:
-                    throw new ArgumentException("Incorrect target state");
-
-            }
+            var item = GetItemById(itemId);
+            var command = _factory.FromTransitionType(item, target, reasoning, areaId);
+            command.Execute();
             _repository.Update(item);
         }
 

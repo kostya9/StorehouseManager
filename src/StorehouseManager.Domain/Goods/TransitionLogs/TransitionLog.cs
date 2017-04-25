@@ -18,13 +18,13 @@ namespace StorehouseManager.Domain.Goods.TransitionLogs
         public void Log(GoodsItemStatus to)
         {
             _repository.Add(_item.Status, to, _item.Id);
-            _item.LastTransition = DateTime.Now;
+            _item.LastTransition = DateTime.UtcNow;
         }
 
         public void Log(GoodsItemStatus to, string note)
         {
             _repository.Add(_item.Status, to, _item.Id, note);
-            _item.LastTransition = DateTime.Now;
+            _item.LastTransition = DateTime.UtcNow;
         }
 
         public void LogChangeStoreLocation(int areaId)

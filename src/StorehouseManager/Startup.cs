@@ -16,6 +16,7 @@ using StorehouseManager.Domain;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Authentication;
 using StorehouseManager.Domain.Goods;
+using StorehouseManager.Domain.Goods.StateCommand;
 using StorehouseManager.Domain.Goods.TransitionLogs;
 
 namespace StorehouseManager
@@ -53,6 +54,8 @@ namespace StorehouseManager
             services.AddScoped<GoodsTransitionRepository>();
 
             services.AddScoped<GoodsItemService>();
+
+            services.AddScoped<StateChangeCommandFactory>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<User, UserProxy>();

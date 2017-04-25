@@ -5,7 +5,7 @@ namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 {
     class ArrivedTransitionState : GoodsTransitionState
     {
-        public ArrivedTransitionState(GoodsItem item, TransitionLog log) : base(item, log)
+        public ArrivedTransitionState(GoodsItem item) : base(item)
         {
         }
 

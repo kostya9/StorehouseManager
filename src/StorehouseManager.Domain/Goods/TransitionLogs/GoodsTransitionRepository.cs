@@ -38,7 +38,7 @@ namespace StorehouseManager.Domain.Goods.TransitionLogs
 
         public IEnumerable<GoodsTransition> FindByGoodsItemId(int goodsItemId, int userId)
         {
-            var itemsRepository = new GoodsRepository(_context, this, _user);
+            var itemsRepository = new GoodsRepository(_context, _user);
             var item = itemsRepository.FindById(goodsItemId);
 
             if(item == null)

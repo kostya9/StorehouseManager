@@ -17,10 +17,10 @@ namespace StorehouseManager.Domain.Goods
         private readonly EfDbContext _context;
         private readonly User _user;
 
-        public GoodsRepository(EfDbContext context, GoodsTransitionRepository transitionRepository, User user)
+        public GoodsRepository(EfDbContext context, User user)
         {
             _context = context;
-            _stateFactory = new GoodsRepositoryStateFactory(transitionRepository);
+            _stateFactory = new GoodsStateFactory();
 
             GoodsItems = context.GoodsItems.Include(gi => gi.Characteristics)
                 .OrderByDescending(gi => gi.LastTransition).AsQueryable()

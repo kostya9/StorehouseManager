@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Internal.Networking;
+using StorehouseManager.Domain.Authentication;
 using StorehouseManager.Domain.Goods;
 using StorehouseManager.Models;
 
@@ -19,18 +20,20 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
     public class OperationsController : Controller
     {
         private readonly GoodsItemService _service;
+        private readonly User _user;
 
-        public OperationsController(GoodsItemService service)
+        public OperationsController(GoodsItemService service, User user)
         {
             _service = service;
+            _user = user;
         }
 
         [HttpPost]
         [Route("[action]")]
         public GoodsItem Create([FromBody]GoodsItemModel item)
         {
-            var goods = new GoodsItem(item.Name, item.Shipper, this.GetCurrentUserId(),
-                new GoodsCharacteristics
+            var goods = new GoodsItem(item.Name, item.Shipper, _user.Id,
+            new GoodsCharacteristics
                 {
                     TemperatureLow = item.TemperatureLow,
                     TemperatureHigh = item.TemperatureHigh,
@@ -45,49 +48,49 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
         [Route("{id}/[action]")]
         public void Arrive([FromRoute]int id)
         {
-            _service.ChangeState(GoodsItemStatus.Arrived, id, this.GetCurrentUserId());
+            _service.ChangeState(GoodsItemStatus.Arrived, id);
         }
 
         [HttpPost]
         [Route("{id}/[action]")]
         public void Accept([FromRoute]int id)
         {
-            _service.ChangeState(GoodsItemStatus.Accepted, id, this.GetCurrentUserId());
+            _service.ChangeState(GoodsItemStatus.Accepted, id);
         }
 
         [HttpPost]
         [Route("{id}/[action]")]
         public void Store([FromRoute]int id, [FromQuery]int areaId)
         {
-            _service.ChangeState(GoodsItemStatus.Storing, id, this.GetCurrentUserId(), areaId);
+            _service.ChangeState(GoodsItemStatus.Storing, id, areaId);
         }
 
         [HttpPost]
         [Route("{id}/[action]")]
         public void WaitForUnload([FromRoute]int id)
         {
-            _service.ChangeState(GoodsItemStatus.WaitingForUnloading, id, this.GetCurrentUserId());
+            _service.ChangeState(GoodsItemStatus.WaitingForUnloading, id);
         }
 
         [HttpPost]
         [Route("{id}/[action]")]
         public void Unload([FromRoute]int id)
         {
-            _service.ChangeState(GoodsItemStatus.Unloaded, id, this.GetCurrentUserId());
+            _service.ChangeState(GoodsItemStatus.Unloaded, id);
         }
 
         [HttpPost]
         [Route("{id}/[action]")]
         public void Reject([FromRoute]int id, [FromQuery]string reasoning)
         {
-            _service.ChangeState(GoodsItemStatus.Rejected, id, this.GetCurrentUserId(), reasoning:reasoning);
+            _service.ChangeState(GoodsItemStatus.Rejected, id, reasoning:reasoning);
         }
 
         [HttpPost]
         [Route("{id}/[action]")]
         public void Remove([FromRoute]int id)
         {
-            _service.ChangeState(GoodsItemStatus.Removed, id, this.GetCurrentUserId());
+            _service.ChangeState(GoodsItemStatus.Removed, id);
         }
     }
 }

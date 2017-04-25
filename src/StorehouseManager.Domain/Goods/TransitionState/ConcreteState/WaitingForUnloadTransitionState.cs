@@ -5,7 +5,7 @@ namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 {
     class WaitingForUnloadTransitionState : GoodsTransitionState
     {
-        public WaitingForUnloadTransitionState(GoodsItem item, TransitionLog log) : base(item, log)
+        public WaitingForUnloadTransitionState(GoodsItem item) : base(item)
         {
         }
 
