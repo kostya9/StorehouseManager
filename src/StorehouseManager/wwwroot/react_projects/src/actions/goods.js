@@ -13,6 +13,7 @@ import {
     START_REGISTERING_ITEM
 } from "../reducers/goods";
 import {loadAreas} from "./areas";
+import {notificationFailure} from "./notification";
 
 function loadGoodsItemSuccess(item) {
     return {
@@ -92,6 +93,11 @@ export function registerGoodsItem(item) {
         return GoodsApi.registerGoods(item)
             .then((goodsItem) => {
                 dispatch(registerGoodsSuccess(goodsItem));
+            })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
             });
     }
 }
@@ -174,6 +180,12 @@ export function removeGoodsItem(id) {
             .then(() => {
                 dispatch(loadGoodsItemsRegistered())
             })
+            .catch((msgPromise) => {
+                console.log(msgPromise)
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
+            });
     }
 }
 
@@ -183,6 +195,11 @@ export function arriveGoodsItem(id) {
             .then(() => {
                 dispatch(loadGoodsItemsRegistered());
                 dispatch(loadGoodsItemsArrived())
+            })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
             });
     }
 }
@@ -193,6 +210,11 @@ export function acceptGoodsItem(id) {
             .then(() => {
                 dispatch(loadGoodsItemsArrived());
                 dispatch(loadGoodsItemsAccepted());
+            })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
             });
     }
 }
@@ -205,6 +227,11 @@ export function storeGoodsItem(id, areaId) {
                 dispatch(loadGoodsItemsStoring(areaId));
                 dispatch(loadAreas())
             })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
+            });
     }
 }
 
@@ -215,6 +242,11 @@ export function changeStoreGoodsItem(id, fromAreaId, toAreaId) {
                 dispatch(loadGoodsItemsStoring(fromAreaId));
                 dispatch(loadGoodsItemsStoring(toAreaId));
             })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
+            });
     }
 }
 
@@ -225,6 +257,11 @@ export function waitingForUnloadGoodsItem(id, fromAreaId) {
                 dispatch(loadGoodsItemsStoring(fromAreaId));
                 dispatch(loadGoodsItemsWaitingForUnload());
             })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
+            });
     }
 }
 
@@ -235,6 +272,11 @@ export function unloadGoodsItem(id) {
                 dispatch(loadGoodsItemsWaitingForUnload());
                 dispatch(loadGoodsItemsUnloaded());
             })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
+            });
     }
 }
 
@@ -246,6 +288,11 @@ export function rejectGoodsItem(id, reasoning) {
                 dispatch(loadGoodsItemsArrived());
                 dispatch(loadGoodsItemsRejected());
             })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
+            });
     }
 }
 

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StorehouseManager.CustomInfrastructure;
 using StorehouseManager.Domain;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Goods;
@@ -15,12 +16,13 @@ using StorehouseManager.Models;
 
 namespace StorehouseManager.Controllers.Api
 {
+    [ApiException]
     [Route("/api/[controller]")]
     [Authorize]
     public class AreasController : Controller
     {
         private readonly AreaRepository _areaRepository;
-        private AreaUsedVolumeEstimate _estimator;
+        private readonly AreaUsedVolumeEstimate _estimator;
 
         public AreasController(AreaRepository areaRepository, GoodsRepository goodsRepository)
         {
@@ -31,7 +33,6 @@ namespace StorehouseManager.Controllers.Api
         [HttpGet]
         public IEnumerable<AreaModel> Areas()
         {
-            var userId = this.GetCurrentUserId();
             return _areaRepository.FindAll().ToList()
                 .Select(area => AreaModel.FromArea(area, _estimator.Calculate(area)));
         }

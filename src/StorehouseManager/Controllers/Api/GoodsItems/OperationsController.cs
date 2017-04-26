@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Internal.Networking;
+using StorehouseManager.CustomInfrastructure;
 using StorehouseManager.Domain.Authentication;
 using StorehouseManager.Domain.Goods;
 using StorehouseManager.Models;
@@ -15,6 +16,7 @@ using StorehouseManager.Models;
 
 namespace StorehouseManager.Controllers.Api.GoodsItems
 {
+    [ApiException]
     [Route("/api/goodsitems/[controller]")]
     [Authorize]
     public class OperationsController : Controller

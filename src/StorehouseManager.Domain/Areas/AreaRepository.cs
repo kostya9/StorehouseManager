@@ -46,7 +46,10 @@ namespace StorehouseManager.Domain.Areas
 
         public void Remove(int id)
         {
-            _context.Remove(FindById(id));
+            var area = FindById(id);
+            if(_context.GoodsItems.Any(gi => gi.AreaId == id))
+                throw new InvalidOperationException("Cannot remove an area that has items inside.");
+            _context.Remove(area);
             _context.SaveChanges();
         }
 

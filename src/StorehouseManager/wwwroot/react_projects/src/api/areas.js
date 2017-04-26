@@ -5,7 +5,10 @@ import {address} from './apiConstants'
 import Area, {AREA_SECTION, AREA_ENTER, AREA_EXIT} from "../domain/area";
 import Rectangle from "../domain/rectangle";
 
-import {createPutFetchOptions, createDeleteFetchOptions, sameOriginOption, createPostFetchOptions} from './apiFunctions';
+import {
+    createPutFetchOptions, createDeleteFetchOptions, sameOriginOption, createPostFetchOptions,
+    handleErrors, parseAndHandleErrors
+} from './apiFunctions';
 
 function fromServerType(type) {
     switch(type) {
@@ -56,9 +59,7 @@ function toServerArea(area) {
 export default class AreasApi {
     static getAreas() {
         return fetch(address + '/api/areas', sameOriginOption)
-            .then((response) => {
-                return response.json();
-            })
+            .then(parseAndHandleErrors)
             .then((areas) => {
                 return areas.map(fromServerArea);
             })
@@ -67,9 +68,7 @@ export default class AreasApi {
     static addArea(area) {
         const serverArea = toServerArea(area)
         return fetch(address + '/api/areas', createPostFetchOptions(JSON.stringify(serverArea)))
-            .then((response) => {
-                return response.json()
-            })
+            .then(parseAndHandleErrors)
             .then((area) => {
                 return fromServerArea(area);
             })
@@ -77,16 +76,13 @@ export default class AreasApi {
 
     static removeArea(id) {
         return fetch(address + '/api/areas/' + id, createDeleteFetchOptions())
+            .then(parseAndHandleErrors)
+
     }
 
     static updateArea(id, name, type, temperature, humidity, volume) {
         return fetch(address + '/api/areas/' + id,
             createPutFetchOptions(JSON.stringify({name: name, type: toServerType(type), temperature: temperature, humidity: humidity, volume: volume})))
-            .then((response) => {
-                return response.json();
-            })
-            .then((area) => {
-                return fromServerArea(area);
-            });
+            .then(parseAndHandleErrors)
     }
 }

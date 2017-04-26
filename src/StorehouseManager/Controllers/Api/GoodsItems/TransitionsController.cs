@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Parser.SyntaxTree;
+using StorehouseManager.CustomInfrastructure;
 using StorehouseManager.Domain.Goods;
 using StorehouseManager.Domain.Goods.TransitionLogs;
 using StorehouseManager.Models;
 
 namespace StorehouseManager.Controllers.Api.GoodsItems
 {
+    [ApiException]
     [Route("/api/goodsitems/{id}/[controller]")]
     [Authorize]
     public class TransitionsController : Controller
@@ -24,9 +26,8 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
 
         public IEnumerable<GoodsTransitionModel> TransitionsById(int id)
         {
-            var userId = this.GetCurrentUserId();
 
-            return _repository.FindByGoodsItemId(id, userId).Select(t => new GoodsTransitionModel
+            return _repository.FindByGoodsItemId(id).Select(t => new GoodsTransitionModel
             {
                 Id = t.Id,
                 From = Enum.GetName(typeof(GoodsItemStatus), t.From),

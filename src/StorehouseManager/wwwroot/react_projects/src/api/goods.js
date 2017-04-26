@@ -4,27 +4,24 @@
 
 import {address} from './apiConstants'
 
-import {createPutFetchOptions, createDeleteFetchOptions, sameOriginOption, createPostFetchOptions} from './apiFunctions';
+import {
+    createPutFetchOptions, createDeleteFetchOptions, sameOriginOption, createPostFetchOptions,
+    handleErrors, parseAndHandleErrors
+} from './apiFunctions';
 
 export default class GoodsApi {
     static registerGoods(goodsItem) {
         return fetch(address + '/api/goodsitems/operations/create', createPostFetchOptions(JSON.stringify(goodsItem)))
-            .then((response) => {
-                return response.json();
-            })
+            .then(parseAndHandleErrors)
     }
     static fetchGoodsItems(state) {
         return fetch(address + '/api/goodsitems/filter/' + state, sameOriginOption)
-            .then((response) => {
-                return response.json();
-            })
+            .then(parseAndHandleErrors)
     }
 
     static fetchGoodsItem(id) {
         return fetch(address + '/api/goodsitems/filter/' + id, sameOriginOption)
-            .then((response) => {
-                return response.json();
-            })
+            .then(parseAndHandleErrors)
     }
 
     static fetchGoodsItemsRegistered() {
@@ -41,9 +38,7 @@ export default class GoodsApi {
 
     static fetchGoodsItemsStoring(areaId) {
         return fetch(address + '/api/goodsitems/filter/storing?areaId=' + areaId, sameOriginOption)
-            .then((response) => {
-                return response.json();
-            })
+            .then(parseAndHandleErrors);
     }
 
     static fetchGoodsItemsWaitingForUnload() {
@@ -65,6 +60,7 @@ export default class GoodsApi {
 
     static simpleGoodsItemOperation(id, operation) {
         return fetch(this.getOperationAddress(id, operation), createPostFetchOptions(''))
+            .then(parseAndHandleErrors);
     }
 
     static arriveGoodsItem(id) {
@@ -77,6 +73,7 @@ export default class GoodsApi {
 
     static storeGoodsItem(id, areaId) {
         return fetch(this.getOperationAddress(id, "store") + "?areaId=" + areaId, createPostFetchOptions(''))
+            .then(parseAndHandleErrors);
     }
 
     static waitingForUnloadGoodsItem(id) {
@@ -88,24 +85,22 @@ export default class GoodsApi {
     }
 
     static removeGoodsItem(id) {
-        return this.simpleGoodsItemOperation(id, "remove");
+        return this.simpleGoodsItemOperation(id, "remove")
+
     }
 
     static rejectGoodsItem(id, reasoning) {
         return fetch(this.getOperationAddress(id, "reject") + "?reasoning=" + reasoning, createPostFetchOptions(''))
+            .then(parseAndHandleErrors);
     }
 
     static fetchHints(id) {
         return fetch(`/api/goodsitems/${id}/areamark`, sameOriginOption)
-            .then((result) => {
-                return result.json();
-            })
+            .then(parseAndHandleErrors);
     }
 
     static fetchTransitions(id) {
         return fetch(`/api/goodsitems/${id}/transitions`, sameOriginOption)
-            .then((result) => {
-                return result.json();
-            })
+            .then(parseAndHandleErrors);
     }
 }

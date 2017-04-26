@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using StorehouseManager.CustomInfrastructure;
 using StorehouseManager.Domain.Characteristics;
 using StorehouseManager.Domain.Goods;
 
 namespace StorehouseManager.Controllers.Api.GoodsItems
 {
+    [ApiException]
     [Authorize]
     [Route("/api/goodsitems/{id}/[controller]")]
     public class AreaMarkController : Controller
@@ -24,7 +26,7 @@ namespace StorehouseManager.Controllers.Api.GoodsItems
         [HttpGet]
         public AreaMarkingReport Mark(int id)
         {
-            return _service.MarkAreas(id, this.GetCurrentUserId());
+            return _service.MarkAreas(id);
         }
     }
 }

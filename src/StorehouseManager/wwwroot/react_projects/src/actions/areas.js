@@ -1,6 +1,7 @@
 import AreasApi from "../api/areas";
 import {LOAD_AREAS, ADD_AREA, REMOVE_AREA, UPDATE_AREA} from "../reducers/areas";
 import Area from "../domain/area";
+import {notificationFailure} from "./notification";
 
 function loadAreasSuccess(areas) {
     return {type: LOAD_AREAS, areas: areas}
@@ -44,6 +45,11 @@ export function removeArea(id) {
                 dispatch(removeAreaFromState());
                 loadAreas()(dispatch)
             })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
+            });
     }
 }
 
@@ -54,6 +60,11 @@ export function addArea(rectangle, type, name) {
             .then((area) => {
                 dispatch(addAreaSuccess(area))
             })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>
+                    dispatch(notificationFailure(msg))
+                );
+            });
     }
 }
 
@@ -62,9 +73,13 @@ export function updateArea(id, name, type, temperature, humidity, volume) {
         return AreasApi.updateArea(id, name, type, temperature, humidity, volume)
             .then((area) => {
                 dispatch(updateAreaSuccess(area))
-            }).catch(() => {
-                dispatch(loadAreas())
-                // Add error message
             })
+            .catch((msgPromise) => {
+                msgPromise.then((msg) =>{
+                    dispatch(notificationFailure(msg));
+                    dispatch(loadAreas());
+                    }
+                );
+            });
     }
 }

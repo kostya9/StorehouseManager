@@ -12,7 +12,7 @@ namespace StorehouseManager.Domain.Characteristics
 
         public static void VerifyHumidity(double humidity)
         {
-            if (humidity > HighestHumidity || humidity < LowestHumidity)
+            if (humidity > HighestHumidity || humidity <= LowestHumidity)
                 throw new ArgumentException($"Humidity can be only in range {{ {LowestHumidity}, {HighestHumidity} }}");
         }
 

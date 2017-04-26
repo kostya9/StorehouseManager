@@ -10,13 +10,17 @@ import css from './App.css'
 import RegisterGoods from "./Goods/RegisterGoods";
 import {connect} from "react-redux";
 
+import Notifications from 'react-notification-system-redux';
+
 import * as actionCreators from './../actionCreators';
 import EasyTransition from 'react-easy-transition'
 
 class App extends Component {
     render() {
+        const {notifications} = this.props;
         return (
             <div className="app">
+                <Notifications notifications={notifications} />
                 <div className="col-xs-2 app-menu">
                     <Menu startRegisterGoods={this.props.startRegisterGoods} areas={this.props.areas} selectedId={this.props.selectedId} selectArea={this.props.selectArea}/>
                 </div>
@@ -40,7 +44,8 @@ function mapStateToProps(state) {
     return {
         newItem: state.goods.newItem,
         selectedId: state.areas.selectedId,
-        areas: state.areas.areasList
+        areas: state.areas.areasList,
+        notifications: state.notifications
     }
 }
 

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StorehouseManager.CustomInfrastructure;
 using StorehouseManager.Domain.Goods;
 using StorehouseManager.Models;
 
 namespace StorehouseManager.Controllers.Api.GoodsItems
 {
+    [ApiException]
     [Route("/api/goodsitems/[controller]")]
     [Authorize]
     public class FilterController : Controller

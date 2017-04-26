@@ -33,3 +33,12 @@ export function createPutFetchOptions(body)
         headers: headers
     };
 }
+
+export function parseAndHandleErrors(response) {
+    const json = response.json().catch((e) => Promise.resolve(""));
+
+    if(!response.ok)
+        return Promise.reject(json);
+
+    return json;
+}

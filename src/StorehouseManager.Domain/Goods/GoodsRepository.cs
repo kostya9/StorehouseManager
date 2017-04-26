@@ -64,9 +64,9 @@ namespace StorehouseManager.Domain.Goods
 
         public GoodsItem Add(GoodsItem item)
         {
-            if(item.Characteristics.HumidityHigh > item.Characteristics.HumidityLow)
+            if(item.Characteristics.HumidityLow > item.Characteristics.HumidityHigh)
                 throw new ArgumentException("Incorrect humidity");
-            if (item.Characteristics.TemperatureHigh > item.Characteristics.TemperatureLow)
+            if (item.Characteristics.TemperatureLow > item.Characteristics.TemperatureHigh)
                 throw new ArgumentException("Incorrect temperature");
             _context.Add(item);
             _context.SaveChanges();

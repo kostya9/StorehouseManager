@@ -41,7 +41,7 @@ namespace StorehouseManager.Domain.Goods
             _repository.Update(item);
         }
 
-        public AreaMarkingReport MarkAreas(int goodsItemId, int userId)
+        public AreaMarkingReport MarkAreas(int goodsItemId)
         {
             var item = _repository.FindById(goodsItemId);
 
