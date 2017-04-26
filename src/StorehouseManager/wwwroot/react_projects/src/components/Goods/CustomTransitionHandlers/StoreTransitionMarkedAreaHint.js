@@ -9,10 +9,14 @@ import css from './StoreTransitionMarkedAreaHint.css'
 
 export default class StoreTransitionMarkedAreaHint extends Component {
     componentWillReceiveProps(next) {
-        if(next.hints.length == 0 || next.hints == this.props.hints)
+        if(next.hints == this.props.hints)
         {
             this.setState({loading: true, selectedId: -1});
             return;
+        }
+
+        if(next.hints.length == 0) {
+           this.setState({loading: false, selectedId: -2});
         }
 
 
@@ -22,7 +26,11 @@ export default class StoreTransitionMarkedAreaHint extends Component {
             loading = false;
         }
 
-        let id = next.hints[0].areaId - 0;
+        let id;
+        if(next.hints.length > 0)
+            id = next.hints[0].areaId - 0;
+        else
+            id = -1;
 
         if(next.recommended != undefined && (next.hints.find(h => h.areaId == next.recommended) != null))
             id = next.recommended
@@ -118,7 +126,7 @@ export default class StoreTransitionMarkedAreaHint extends Component {
     render() {
         let i = 0;
         let label;
-        if(this.state.selectedId == this.props.recommended)
+        if((this.state.selectedId === this.props.recommended) && (this.state.selectedId >= 0))
             label = <Label className="slide current">recommended</Label>
         return (<Modal show={this.props.show} onHide={() => this.hide()} dialogClassName="mark-modal" className="text-center">
             <Modal.Header closeButton>
@@ -128,7 +136,9 @@ export default class StoreTransitionMarkedAreaHint extends Component {
                 <div>
                     <div className="mark-selected-selector">
                         <FormControl componentClass="select" onChange={(e) => this.changeArea(e)} value={this.state.selectedId} className={"mark-select " + this.getSelectedCssClass()}>
-                            {this.state.loading && <option selected disabled value={-1}>Loading...</option>}
+                            {this.state.loading === true
+                                ? <option selected disabled value={-1}>Loading...</option>
+                                : this.props.hints.length === 0 && <option selected disabled value={-2}>There are no areas</option>}
                             {this.props.hints.map(hint => this.generateSelectOption(hint))}
                         </FormControl>
                         {label}
@@ -138,7 +148,7 @@ export default class StoreTransitionMarkedAreaHint extends Component {
                         {this.getSelectedAreaMarkNotes().map(note => (<div key={i++}>{note}</div>))}
                     </div>
                     <hr/>
-                    <Button className={"mark-confirm-btn"} onClick={(e) => this.confirm(e)} disabled={this.isDanger()}>Store</Button>
+                    <Button className={"mark-confirm-btn"} onClick={(e) => this.confirm(e)} disabled={this.isDanger() || this.state.selectedId < 0}>Store</Button>
                 </div>
             </Modal.Body>
         </Modal>)

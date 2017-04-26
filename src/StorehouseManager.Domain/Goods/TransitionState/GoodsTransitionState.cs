@@ -41,6 +41,7 @@ namespace StorehouseManager.Domain.Goods.TransitionState
 
         public virtual void WaitForUnload()
         {
+            Item.AreaId = null;
             ChangeState(GoodsItemStatus.WaitingForUnloading);
         }
 
