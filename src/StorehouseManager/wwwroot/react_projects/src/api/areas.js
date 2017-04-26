@@ -84,5 +84,8 @@ export default class AreasApi {
         return fetch(address + '/api/areas/' + id,
             createPutFetchOptions(JSON.stringify({name: name, type: toServerType(type), temperature: temperature, humidity: humidity, volume: volume})))
             .then(parseAndHandleErrors)
+            .then((area) => {
+                return fromServerArea(area);
+            })
     }
 }

@@ -21,6 +21,8 @@ namespace StorehouseManager.Domain.Areas
         public Area(int userId, string name, AreaType type, Rectangle rectangle)
         {
             UserId = userId;
+            if(string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Empty name");
             Name = name;
             Type = type;
             Rectangle = rectangle;

@@ -20,10 +20,10 @@ namespace StorehouseManager.Domain.Authentication
 
         public User Register(User user, string password)
         {
-            if(string.IsNullOrEmpty(password))
+            if(string.IsNullOrWhiteSpace(password))
                 throw new ArgumentException("Password should not be empty", $"{nameof(password).ToLower()}");
 
-            if(string.IsNullOrEmpty(user.UserName))
+            if(string.IsNullOrWhiteSpace(user.UserName))
                 throw new ArgumentException("UserName should not be empty", $"{nameof(user.UserName).ToLower()}");
 
             if(GetUserByUserName(user.UserName) != null)

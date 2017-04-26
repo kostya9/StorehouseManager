@@ -181,7 +181,6 @@ export function removeGoodsItem(id) {
                 dispatch(loadGoodsItemsRegistered())
             })
             .catch((msgPromise) => {
-                console.log(msgPromise)
                 msgPromise.then((msg) =>
                     dispatch(notificationFailure(msg))
                 );

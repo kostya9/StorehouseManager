@@ -35,7 +35,9 @@ export function createPutFetchOptions(body)
 }
 
 export function parseAndHandleErrors(response) {
-    const json = response.json().catch((e) => Promise.resolve(""));
+    const json = response.json().catch((e) => {
+        Promise.resolve()
+    });
 
     if(!response.ok)
         return Promise.reject(json);
