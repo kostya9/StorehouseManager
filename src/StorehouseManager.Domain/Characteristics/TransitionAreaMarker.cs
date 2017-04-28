@@ -41,7 +41,7 @@ namespace StorehouseManager.Domain.Characteristics
             return _item.Characteristics.TemperatureLow - area.Characteristics.Temperature;
         }
 
-        private IEnumerable<AreaPropertyMark> UnacceptableMarks(Area area, double storedVolume)
+        private IEnumerable<AreaPropertyMark> CalculateNegativeMarks(Area area, double storedVolume)
         {
             if (_item.Characteristics.Volume + storedVolume > area.Characteristics.Volume)
                 yield return new AreaPropertyMark(MarkType.Danger, GetExceededVolume(area, storedVolume), 
@@ -66,7 +66,7 @@ namespace StorehouseManager.Domain.Characteristics
 
         public AreaMark Mark(Area area, double storedVolume)
         {
-            var marks = UnacceptableMarks(area, storedVolume).ToArray();
+            var marks = CalculateNegativeMarks(area, storedVolume).ToArray();
 
             if (!marks.Any())
                 return new AreaMark(area.Id, new[]

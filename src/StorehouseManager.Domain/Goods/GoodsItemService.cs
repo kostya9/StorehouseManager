@@ -6,6 +6,7 @@ using System.Threading;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Characteristics;
 using StorehouseManager.Domain.Goods.StateCommand;
+using StorehouseManager.Domain.Goods.StateCommand.CommandFactory;
 
 namespace StorehouseManager.Domain.Goods
 {

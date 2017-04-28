@@ -12,8 +12,6 @@ namespace StorehouseManager.Domain.Areas
         public int UserId { get; private set; }
         public string Name { get; set; }
         public AreaType Type { get; set; }
-
-
         public AreaCharacteristics Characteristics { get; set; }
         public Rectangle Rectangle { get; private set; }
         public ICollection<GoodsItem> Items { get; private set; }

@@ -29,7 +29,7 @@ namespace StorehouseManager.Domain.Authentication
             if(GetUserByUserName(user.UserName) != null)
                 throw new ArgumentException("User already exists", $"{nameof(user).ToLower()}");
 
-            user.HashedPassword = GetHashedPassword(password);
+            user.HashedPassword = HashPassword(password);
             _context.Add(user);
             _context.SaveChanges();
             return user;
@@ -39,7 +39,7 @@ namespace StorehouseManager.Domain.Authentication
         {
             if (!UserExists(userName))
                 return null;
-            var hashed = GetHashedPassword(password);
+            var hashed = HashPassword(password);
             var user = GetUserByUserName(userName);
             return user.HashedPassword == hashed ? user : null;
         }
@@ -65,7 +65,7 @@ namespace StorehouseManager.Domain.Authentication
             return _context.Users.SingleOrDefault(user => user.UserName == userName);
         }
 
-        private string GetHashedPassword(string password)
+        private string HashPassword(string password)
         {
             var md5 = MD5.Create();
             var bytesPassword = Encoding.UTF8.GetBytes(password);

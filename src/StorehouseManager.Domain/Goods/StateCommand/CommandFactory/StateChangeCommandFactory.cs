@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using StorehouseManager.Domain.Goods.StateCommand.ConcreteCommand;
 using StorehouseManager.Domain.Goods.TransitionLogs;
-using StorehouseManager.Domain.Goods.TransitionState;
 
-namespace StorehouseManager.Domain.Goods.StateCommand
+namespace StorehouseManager.Domain.Goods.StateCommand.CommandFactory
 {
     // PATTERN(duplicate): factory method
     public class StateChangeCommandFactory

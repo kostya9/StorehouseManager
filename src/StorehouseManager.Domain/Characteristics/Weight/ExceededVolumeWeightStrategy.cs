@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StorehouseManager.Domain.Characteristics.Weight
 {
-    public class ExceededVolumeWeightStrategy : WeightStrategy
+    class ExceededVolumeWeightStrategy : WeightStrategy
     {
         public override double GetWeighted(double value)
         {

@@ -23,12 +23,12 @@ namespace StorehouseManager.Domain.Goods
 
             GoodsItems = context.GoodsItems.Include(gi => gi.Characteristics)
                 .OrderByDescending(gi => gi.LastTransition).AsQueryable()
-                .Select(gi => InsertTransitionStrategy(gi));
+                .Select(gi => InsertTransitionState(gi));
 
             _user = user;
         }
 
-        private GoodsItem InsertTransitionStrategy(GoodsItem item)
+        private GoodsItem InsertTransitionState(GoodsItem item)
         {
             item.TransitionState = GoodsStateFactory.Instance.FromGoods(item);
             return item;

@@ -16,7 +16,7 @@ using StorehouseManager.Domain;
 using StorehouseManager.Domain.Areas;
 using StorehouseManager.Domain.Authentication;
 using StorehouseManager.Domain.Goods;
-using StorehouseManager.Domain.Goods.StateCommand;
+using StorehouseManager.Domain.Goods.StateCommand.CommandFactory;
 using StorehouseManager.Domain.Goods.TransitionLogs;
 
 namespace StorehouseManager
