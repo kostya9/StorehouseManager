@@ -8,18 +8,19 @@ namespace StorehouseManager.Domain.Goods.TransitionState
     public abstract class GoodsTransitionState
     {
         public GoodsItem Item { get; private set; }
+        private IGoodsStateFactory _factory;
 
-        protected GoodsTransitionState(GoodsItem item)
+        protected GoodsTransitionState(GoodsItem item, IGoodsStateFactory stateFactory)
         {
             Item = item;
+            _factory = stateFactory;
         }
 
         private void ChangeState(GoodsItemStatus state)
         {
             Item.Status = state;
             Item.LastTransition = DateTime.UtcNow;
-            GoodsStateFactory factory = new GoodsStateFactory();
-            Item.TransitionState = factory.FromGoods(Item);
+            Item.TransitionState = _factory.FromGoods(Item);
         }
 
 

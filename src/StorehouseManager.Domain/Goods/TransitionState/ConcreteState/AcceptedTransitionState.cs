@@ -1,11 +1,12 @@
 ﻿using System;
 using StorehouseManager.Domain.Goods.TransitionLogs;
+using StorehouseManager.Domain.Goods.TransitionState.StateFactory;
 
 namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 {
     class AcceptedTransitionState : GoodsTransitionState
     {
-        public AcceptedTransitionState(GoodsItem item) : base(item)
+        public AcceptedTransitionState(GoodsItem item, IGoodsStateFactory stateFactory) : base(item, stateFactory)
         {
         }
 

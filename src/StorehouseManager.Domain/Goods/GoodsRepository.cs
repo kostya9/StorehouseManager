@@ -20,7 +20,6 @@ namespace StorehouseManager.Domain.Goods
         public GoodsRepository(EfDbContext context, User user)
         {
             _context = context;
-            _stateFactory = new GoodsStateFactory();
 
             GoodsItems = context.GoodsItems.Include(gi => gi.Characteristics)
                 .OrderByDescending(gi => gi.LastTransition).AsQueryable()
@@ -29,11 +28,9 @@ namespace StorehouseManager.Domain.Goods
             _user = user;
         }
 
-        private readonly GoodsStateFactory _stateFactory;
-
         private GoodsItem InsertTransitionStrategy(GoodsItem item)
         {
-            item.TransitionState = _stateFactory.FromGoods(item);
+            item.TransitionState = GoodsStateFactory.Instance.FromGoods(item);
             return item;
         }
 

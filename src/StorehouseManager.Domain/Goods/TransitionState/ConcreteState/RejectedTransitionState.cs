@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using StorehouseManager.Domain.Goods.TransitionLogs;
+using StorehouseManager.Domain.Goods.TransitionState.StateFactory;
 
 namespace StorehouseManager.Domain.Goods.TransitionState.ConcreteState
 {
     class RejectedTransitionState : GoodsTransitionState
     {
-        public RejectedTransitionState(GoodsItem item) : base(item)
+        public RejectedTransitionState(GoodsItem item, IGoodsStateFactory stateFactory) : base(item, stateFactory)
         {
         }
 
